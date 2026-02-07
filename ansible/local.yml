@@ -10,26 +10,7 @@
       when: ansible_facts['distribution'] == "Archlinux"
       become: yes
 
-# run roles
-- hosts: all
-  tags: base
-  roles:
-    - base
-
 - hosts: all
   tags: desktop
   roles:
     - desktop
-#
-# - hosts: laptop
-#   tags: laptop
-#   become: true
-#   roles:
-#     - laptop
-#
-# - hosts: server
-#   tags: server
-#   become: true
-#   roles:
-#     - server
-

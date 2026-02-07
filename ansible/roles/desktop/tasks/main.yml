@@ -3,7 +3,12 @@
     name: base
 
 - block:
-  - import_tasks: kde/peripherals.yml
+  - name: KDE | Display | Configure displays
+    tags: kde,display
+    copy:
+        src: "files/kwinoutputconfig.json"
+        dest: "{{ dotconfig_path }}/kwinoutputconfig.json"
+
 
 # ## desktop environments
 #

@@ -1,0 +1,35 @@
+- name: KDE | Keyboard | Set keyboard settings
+  tags: kde,hid
+  community.general.kdeconfig:
+    path: "{{ dotconfig_path }}/kcminputrc"
+    values:
+        - group: Keyboard
+          key: NumLock
+          value: 0
+        - group: Keyboard
+          key: RepeatDelay
+          value: 800
+        - group: Keyboard
+          key: RepeatRate
+          value: 40
+
+- name: KDE | Mouse | Set mouse settings
+  tags: kde,hid
+  community.general.kdeconfig:
+    path: "{{ dotconfig_path }}/kcminputrc"
+    values:
+        - groups: [Libinput, 1133, 16511, Logitech G502]
+          key: NaturalScroll
+          value: true
+        - groups: [Libinput, 1133, 16511, Logitech G502]
+          key: PointerAcceleration
+          value: 0.0
+        - groups: [Libinput, 1133, 16511, Logitech G502]
+          key: PointerAccelerationProfile
+          value: 1
+        - groups: [Libinput, 1133, 16511, Logitech G502]
+          key: ScrollFactor
+          value: 1
+        - groups: [Libinput, 1133, 16511, Logitech G502]
+          key: ScrollMethod
+          value: 0

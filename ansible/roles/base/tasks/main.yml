@@ -1,2 +1,6 @@
 - include_vars: user.yml
 - include_vars: paths.yml
+
+- block:
+    - block:
+        - include_tasks: kde/hid.yml
