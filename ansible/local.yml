@@ -1,0 +1,36 @@
+# tasks to complete before running roles
+- hosts: all
+  tags: always
+  become: true
+  pre_tasks:
+    - name: pre-run | update pacman package cache
+      tags: always
+      pacman: update_cache=yes
+      changed_when: False
+      when: ansible_distribution == "Archlinux"
+
+# run roles
+- hosts: all
+  tags: base
+  become: true
+  roles:
+    - base
+
+- hosts: desktop
+  tags: desktop
+  become: true
+  roles:
+    - desktop
+
+- hosts: laptop
+  tags: laptop
+  become: true
+  roles:
+    - laptop
+
+- hosts: server
+  tags: server
+  become: true
+  roles:
+    - server
+
