@@ -1,0 +1,5 @@
+- name: KDE | Display | Configure displays
+  tags: kde,display
+  copy:
+    src: "files/kwinoutputconfig.json"
+    dest: "{{ dotconfig_path }}/kwintouputconfig_copy.json"
