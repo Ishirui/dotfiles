@@ -7,30 +7,29 @@
       tags: always
       pacman: update_cache=yes
       changed_when: False
-      when: ansible_distribution == "Archlinux"
+      when: ansible_facts['distribution'] == "Archlinux"
+      become: yes
 
 # run roles
 - hosts: all
   tags: base
-  become: true
   roles:
     - base
 
-- hosts: desktop
+- hosts: all
   tags: desktop
-  become: true
   roles:
     - desktop
-
-- hosts: laptop
-  tags: laptop
-  become: true
-  roles:
-    - laptop
-
-- hosts: server
-  tags: server
-  become: true
-  roles:
-    - server
+#
+# - hosts: laptop
+#   tags: laptop
+#   become: true
+#   roles:
+#     - laptop
+#
+# - hosts: server
+#   tags: server
+#   become: true
+#   roles:
+#     - server
 
