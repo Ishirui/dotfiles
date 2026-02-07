@@ -43,7 +43,7 @@
                 "edidHash": "2c7f56e306801d3f9bf6a2db6fbcf487",
                 "edidIdentifier": "DEL 41610 808670547 37 2025 0",
                 "edrPolicy": "always",
-                "highDynamicRange": false,
+                "highDynamicRange": true,
                 "iccProfilePath": "",
                 "maxBitsPerColor": 0,
                 "maxPeakBrightnessOverride": 280,
@@ -60,7 +60,7 @@
                 "transform": "Normal",
                 "uuid": "bdde9c82-68d2-43c2-adc9-0f45b7af7139",
                 "vrrPolicy": "Automatic",
-                "wideColorGamut": false
+                "wideColorGamut": true
             }
         ],
         "name": "outputs"
@@ -85,7 +85,7 @@
                         "outputIndex": 1,
                         "position": {
                             "x": 1440,
-                            "y": 560
+                            "y": 481
                         },
                         "priority": 0,
                         "replicationSource": ""
