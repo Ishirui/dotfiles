@@ -1,5 +1,6 @@
-- include_vars: user.yml
-- include_vars: paths.yml
+# Desktop role is an extension of the base role
+- include_role:
+    name: base
 
 - block:
   - import_tasks: kde/peripherals.yml
