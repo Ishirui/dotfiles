@@ -4,3 +4,19 @@
 - block:
     - block:
         - include_tasks: kde/hid.yml
+
+    - block:
+        - include_tasks: software/browser.yml
+        - include_tasks: software/messaging.yml
+        - include_tasks: software/tools.yml
+        - include_tasks: software/office.yml
+        - include_tasks: software/media.yml
+        - include_tasks: software/homelab.yml
+        - include_tasks: software/gaming.yml
+        - include_tasks: software/dev.yml
+
+
+
+
+
+

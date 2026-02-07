@@ -1,0 +1,12 @@
+- name: Software | Gaming | Install gaming apps
+  tags: software,gaming,steam,gui
+  pacman:
+    reason: explicit
+    reason_for: all
+    become: yes
+    name:
+        - steam # From Cachy repos
+        - proton-cachyos # Same
+        - prismlauncher
+        - mangohud
+        - lutris
