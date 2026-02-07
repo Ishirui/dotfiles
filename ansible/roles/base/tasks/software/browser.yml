@@ -1,10 +1,6 @@
-- name: "Software | Browsers | Install browsers"
+- name: Software | Browsers | Install browsers
   tags: software,browsers,zen,chromium
-  pacman:
-    executable: paru # Use AUR helper instead of pacman for zen
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - zen-browser-bin
         - chromium

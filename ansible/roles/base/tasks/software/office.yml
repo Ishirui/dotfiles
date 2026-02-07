@@ -1,10 +1,6 @@
 - name: Software | Office | Install office apps
   tags: software,office,gui
-  pacman:
-    executable: paru # Use AUR helper instead of pacman for onlyoffice
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - onlyoffice-bin
         - obsidian

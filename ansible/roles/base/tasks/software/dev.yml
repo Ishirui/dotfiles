@@ -1,10 +1,6 @@
 - name: Software | Dev | Install editors
   tags: software,dev,editors,cli,gui
-  pacman:
-    executable: paru # Use AUR helper instead of pacman
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - neovim
         - micro
@@ -13,11 +9,7 @@
 
 - name: Software | Dev | Install tools
   tags: software,dev,tools,cli,gui
-  pacman:
-    executable: paru # Use AUR helper instead of pacman
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - git
         - lazygit # GUI for git, might be useful
@@ -27,10 +19,7 @@
 
 - name: Software | Dev | Install languages
   tags: software,languages,cli
-  pacman:
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - python
         - nodejs

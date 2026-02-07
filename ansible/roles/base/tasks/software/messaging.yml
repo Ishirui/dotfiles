@@ -1,10 +1,6 @@
 - name: Software | Messaging | Install messaging apps
   tags: software,messaging,gui
-  pacman:
-    executable: paru # Use AUR helper instead of pacman for vesktop
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - vesktop-bin
         - telegram-desktop

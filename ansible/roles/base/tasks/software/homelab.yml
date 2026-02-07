@@ -1,10 +1,6 @@
 - name: Software | Homelab | Install tools
   tags: software,homelab,tools,cli,gui
-  pacman:
-    executable: paru # Use AUR helper instead of pacman for bitwarden
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - wireguard-tools
         - syncthing

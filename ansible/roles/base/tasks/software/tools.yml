@@ -1,12 +1,10 @@
 - name: Software | Tools | Install GUI system tools
   tags: software,tools,gui
-  pacman:
-    reason: explicit
-    reason_for: all
+  kewlfft.aur.aur:
     name:
         - partitionmanager # Should be installed already
         - filelight # Ditto
-        - cheese # Camera utility
+        # - cheese # Camera utility
         - helvum # Audio patch panel
         - yakuake
         - qbittorrent
@@ -15,10 +13,7 @@
 
 - name: Software | Tools | Install CLI tools
   tags: software,tools,cli
-  pacman:
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         # Some of these are CachyOS defaults
         - btop

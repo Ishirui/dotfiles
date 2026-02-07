@@ -1,10 +1,6 @@
 - name: Software | Media | Install Media players
   tags: software,media,gui
-  pacman:
-    executable: paru # Use AUR helper instead of pacman for feishin and fladder
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - vlc
         - mpv
@@ -14,10 +10,7 @@
 
 - name: Software | Media | Install media editors
   tags: software,media,gui
-  pacman:
-    reason: explicit
-    reason_for: all
-    become: yes
+  kewlfft.aur.aur:
     name:
         - audacity
         - kdenlive
