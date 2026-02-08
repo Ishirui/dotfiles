@@ -29,3 +29,50 @@
     - loop: "{{ custom_subvolumes }}"
       include_tasks: create_subvolumes.yml
 
+
+- become: yes
+  block:
+    - name: System | BTRFS | Backup | Create @snapshots subvolume
+      tags: system,btrfs,backup
+      community.general.btrfs_subvolume:
+        name: "@hsnapshots"
+        filesystem_uuid: "{{ get_uuid.stdout }}"
+        state: present
+
+    - name: System | BTRFS | Backup | Install btrbk and btrfs-assistant
+      tags: system,btrfs,backup,software
+      community.general.pacman:
+        name:
+        - btrbk
+        - btrfs-assistant
+        state: present
+
+    - name: System | BTRFS | Backup | Write btrbk config
+      tags: system,btrfs,backup
+      copy:
+        src: files/btrbk.conf
+        dest: /etc/btrbk/btrbk.conf
+
+    - name: System | BTRFS | Backup | Ensure btrbk.timer override directory exists
+      become: yes
+      file:
+        path: /etc/systemd/system/btrbk.timer.d
+        state: directory
+        mode: "0755"
+
+    - name: System | BTRFS | Backup | Configure btrbk.timer override for hourly snapshots
+      become: yes
+      copy:
+        dest: /etc/systemd/system/btrbk.timer.d/override.conf
+        mode: "0644"
+        content: |
+          [Timer]
+          OnCalendar=hourly
+          Persistent=true
+
+    - name: System | BTRFS | Backup | Enable and start btrbk timer
+      tags: system,btrfs,backup,service
+      systemd:
+        name: btrbk.timer
+        enabled: true
+        state: restarted
