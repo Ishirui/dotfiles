@@ -1,0 +1,31 @@
+- name: "System | BTRFS | Create @{{ item.name }} subvolume"
+  tags: system,btrfs
+  community.general.btrfs_subvolume:
+    name: "@{{ item.name }}"
+    state: present
+    filesystem_uuid: "{{ get_uuid.stdout }}"
+
+- name: "System | BTRFS | Create {{ item.mount }} mountpoint"
+  tags: system,btrfs
+  file:
+    path: "{{ item.mount }}"
+    state: directory
+    owner: "{{ username }}"
+    mode: "0755"
+
+- name: "System | BTRFS | Backup | Mount @{{ item.name }} to {{ item.mount }}"
+  tags: system,btrfs
+  ansible.posix.mount:
+    path: "{{ item.mount }}"
+    src: "UUID={{ get_uuid.stdout }}"
+    fstype: btrfs
+    opts: "subvol=@{{ item.name }},defaults,noatime,nofail,users,compress=zstd:1"
+    state: mounted
+
+- name: "System | BTRFS | Set {{ item.mount }} perms"
+  tags: system,btrfs
+  file:
+    path: "{{ item.mount }}"
+    state: directory
+    owner: "{{ username }}"
+    mode: "0755"

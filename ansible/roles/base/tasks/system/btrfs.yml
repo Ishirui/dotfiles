@@ -1,0 +1,31 @@
+# Setup required subvolumes
+- name: System | BTRFS | Figure out filesystem UUID
+  shell: "cat /etc/fstab | grep '/ ' | cut -d' ' -f1 | cut -d'=' -f2"
+  register: get_uuid
+
+- name: System | BTRFS | Print UUID
+  debug:
+    var: get_uuid.stdout
+
+- become: yes
+  block:
+    - name: System | BTRFS | Create temporary mountpoint for btrfs top-level
+      tags: system,btrfs
+      file:
+        path: /mnt/btrfs
+        state: directory
+        mode: "0755"
+
+    - name: System | BTRFS | Mount btrfs top-level subvolume
+      tags: system,btrfs
+      ansible.posix.mount:
+        path: /mnt/btrfs
+        src: "UUID={{ get_uuid.stdout }}"
+        fstype: btrfs
+        opts: subvolid=5,defaults,noatime
+        state: mounted
+      vars:
+
+    - loop: "{{ custom_subvolumes }}"
+      include_tasks: create_subvolumes.yml
+

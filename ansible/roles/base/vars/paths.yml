@@ -1,4 +1,0 @@
-dotconfig_path: "/home/{{ username }}/.config"
-dotlocalshare_path: "/home/{{ username }}/.local/share"
-dotcache_path: "/home/{{ username }}/.cache"
-
