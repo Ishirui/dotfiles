@@ -4,3 +4,25 @@
     name:
         - zen-browser-bin
         - chromium
+
+# We already have zen and chromium so who cares
+- name: Software | Browsers | Uninstall firefox
+  tags: software,browsers
+  become: yes # Removing packages requires actual root rather than aur_builder
+  become_user: root
+  pacman:
+    remove_nosave: true
+    state: removed
+    name:
+        - firefox
+
+- name: Software | Browsers | Cleanup firefox data
+  tags: software,browsers
+  become: yes
+  become_user: "{{ username }}" # Override become_user from software.yml
+  ansible.builtin.file:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - "{{ dotconfig_path }}/mozilla/firefox"
+    - "{{ dotcache_path }}/mozilla/firefox"
