@@ -2,5 +2,13 @@
 - include_vars: paths.yml
 
 - block:
+    # KDE tasks
     - include_tasks: kde/hid.yml
+    - include_tasks: kde/keybinds.yml
+
+    - name: Reload KWin
+      command: qdbus6 org.kde.KWin /KWin reconfigure
+
+
+    # Install all software
     - include_tasks: software.yml

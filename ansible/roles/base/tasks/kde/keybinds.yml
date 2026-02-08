@@ -1,0 +1,21 @@
+- name: KDE | Keybinds | KWin Toggle HDR
+  block:
+    - name: KDE | Keybinds | KWin Toggle HDR | Copy script file
+      become: yes
+      copy:
+        src: files/toggle_hdr.sh
+        dest: /usr/local/bin/toggle_hdr.sh
+        mode: u=rwx,g=rx,o=rx
+
+    - name: KDE | Keybinds | KWin Toggle HDR | Copy desktop file
+      copy:
+        src: files/net.local.toggle_hdr.sh.desktop
+        dest: "{{ dotlocalshare_path }}/applications/"
+
+    - name: KDE | Keybinds | KWin Toggle HDR | Setup Keybind
+      community.general.kdeconfig:
+        path: "{{ dotconfig_path }}/kglobalshortcutsrc"
+        values:
+            - groups: [services, net.local.toggle_hdr.sh.desktop]
+              key: _launch
+              value: Meta+Alt+H
