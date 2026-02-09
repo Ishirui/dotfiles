@@ -1,3 +1,8 @@
+- name: KDE | Keybinds | Load custom keybinds
+  copy:
+    src: files/kglobalshortcutsrc
+    dest: "{{ dotconfig_path }}/kglobalshortcutsrc"
+
 - name: KDE | Keybinds | KWin Toggle HDR
   block:
     - name: KDE | Keybinds | KWin Toggle HDR | Copy script file
@@ -16,6 +21,6 @@
       community.general.kdeconfig:
         path: "{{ dotconfig_path }}/kglobalshortcutsrc"
         values:
-            - groups: [services, net.local.toggle_hdr.sh.desktop]
-              key: _launch
-              value: Meta+Alt+H
+          - groups: [services, net.local.toggle_hdr.sh.desktop]
+            key: _launch
+            value: Meta+Alt+H

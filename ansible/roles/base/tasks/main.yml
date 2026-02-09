@@ -7,6 +7,6 @@
     # KDE tasks
     - include_tasks: kde/hid.yml
     - include_tasks: kde/keybinds.yml
-
-    # Install all software
-    - include_tasks: software.yml
+    - include_tasks: kde/krohnkite.yml
+# Install all software
+- include_tasks: software.yml

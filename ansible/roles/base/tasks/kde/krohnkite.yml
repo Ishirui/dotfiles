@@ -1,0 +1,22 @@
+- name: KDE | Software | Download krohnkite
+  get_url:
+    url: "https://codeberg.org/anametologin/Krohnkite/releases/download/latest/krohnkite.kwinscript"
+    dest: ./krohnkite.kwinscript
+
+- name: KDE | Software | Install krohnkite
+  command:
+    cmd: "kpackagetool6 -t KWin/Script -i krohnkite.kwinscript"
+    creates: "{{ dotlocalshare_path }}/kwin/scripts/krohnkite/metadata.json"
+
+- name: KDE | Software | Load krohnkite config
+  copy:
+    src: files/krohnkite.xml
+    dest: "{{ dotlocalshare_path }}/kwin/scripts/krohnkite/contents/config/main.xml"
+
+- name: KDE | Software | Enable krohnkite
+  community.general.kdeconfig:
+    path: "{{ dotconfig_path }}/kwinrc"
+    values:
+      - group: Plugins
+        key: krohnkiteEnabled
+        value: true

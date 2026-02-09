@@ -1,14 +1,13 @@
 # TODO
-- SSH and GPG keys - especially with Git
-- Code Editors
-- Krohnkite
-- Keybinds (omg please give parity with macos)
-- Shell profile (default is already pretty good, but I'd maybe want a couple more things, e.g aliases, link nano to micro and cat to bat)
+- Shell profile (default is already pretty good, but I'd maybe want a couple more things, e.g aliases, link nano to micro and cat to bat and zeditor to zed)
 - Setup syncthing
+- Code Editors
 - KDE Plasma panels
 - Appearance: color theme, icons, fonts etc.
 - Limine and plasma-login-manager things
 - Dolphin, Yakuake, Kate, Okular...
+- SSH and GPG keys - especially with Git
+
 - Create windows VM and setup winapps (maybe download a machine image from my server ?)
 
 # Hard to do
@@ -25,3 +24,34 @@
 - VPN
 - TLP
 - Different plasma panels
+
+## Keybinds
+### Principle
+Desktop related: Meta+arrows
+Screen related: Ctrl+Meta+arrows
+Changing stuff within a screen/desktop, i.e. within the krohnkite layout: Meta+IJKL
+"Move" modifier: Alt
+
+### Results
+#### Screens
+Switch screens: Ctrl + Meta + Arrows
+Move windows between screens: Ctrl + Meta + Alt + Arrows
+
+Grid view / overview : Ctrl + Meta + Up
+
+#### Dekstops
+Switch desktops: Meta + Arrows
+Move windows between desktops: Meta + Alt + Arrows
+
+#### Krohnkite
+Forward layout: Meta + \
+Backward layout: Meta + Shift + \ = Meta + |
+Change window focus: Meta + IKJL
+> Note: Meta+L usually locks the screen - we therefore change it to Meta+Shift+L
+Move window in layout = Meta + Alt + IKJL
+Float window: Meta + F
+Float all windows: Meta + Shift + F
+Increase layout: Meta + ]
+Decrease layout: Meta + Shift + ]
+Grow window up/down/left/right: Meta + Shift + IKJL
+Toggle docks: Meta + Return
