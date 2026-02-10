@@ -2,11 +2,5 @@
 - include_vars: fs.yml
 
 - include_tasks: system/btrfs.yml
-
-- block:
-    # KDE tasks
-    - include_tasks: kde/hid.yml
-    - include_tasks: kde/keybinds.yml
-    - include_tasks: kde/krohnkite.yml
-# Install all software
+- include_tasks: kde.yml
 - include_tasks: software.yml

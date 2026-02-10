@@ -1,0 +1,16 @@
+[2f7f4d73-9048-45b3-87fc-feec50e23eaa]
+Description=Window settings for Picture-in-Picture
+above=true
+aboverule=2
+title=Picture-in-Picture
+titlematch=1
+wmclassmatch=1
+
+[General]
+count=2
+rules=2f7f4d73-9048-45b3-87fc-feec50e23eaa,b2b2f29c-b977-4f5e-86c2-5453a057391c
+
+[b2b2f29c-b977-4f5e-86c2-5453a057391c]
+Description=Remove minimum geometry size
+minsizerule=2
+types=1

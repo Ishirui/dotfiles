@@ -8,15 +8,100 @@
     cmd: "kpackagetool6 -t KWin/Script -i krohnkite.kwinscript"
     creates: "{{ dotlocalshare_path }}/kwin/scripts/krohnkite/metadata.json"
 
-- name: KDE | Software | Load krohnkite config
-  copy:
-    src: files/krohnkite.xml
-    dest: "{{ dotlocalshare_path }}/kwin/scripts/krohnkite/contents/config/main.xml"
-
-- name: KDE | Software | Enable krohnkite
+- name: KDE | Software | Enable and set krohnkite configs
   community.general.kdeconfig:
     path: "{{ dotconfig_path }}/kwinrc"
     values:
+      # Enable krohnkite
       - group: Plugins
         key: krohnkiteEnabled
+        value: true
+      # Set krohnkite configs
+      - group: Script-krohnkite
+        key: binaryTreeLayoutOrder
+        value: 0
+      - group: Script-krohnkite
+        key: cascadeLayoutOrder
+        value: 0
+      - group: Script-krohnkite
+        key: columnsLayoutOrder
+        value: 3
+      - group: Script-krohnkite
+        key: dockHEdgeGap
+        value: 8
+      - group: Script-krohnkite
+        key: dockHGap
+        value: 8
+      - group: Script-krohnkite
+        key: dockVEdgeGap
+        value: 8
+      - group: Script-krohnkite
+        key: dockVGap
+        value: 8
+      - group: Script-krohnkite
+        key: floatingLayoutOrder
+        value: 6
+      - group: Script-krohnkite
+        key: ignoreTitle
+        value: "Picture-in-Picture"
+      - group: Script-krohnkite
+        key: keepTilingOnDrag
+        value: false
+      - group: Script-krohnkite
+        key: monocleLayoutOrder
+        value: 0
+      - group: Script-krohnkite
+        key: monocleMaximize
+        value: false
+      - group: Script-krohnkite
+        key: quarterLayoutOrder
+        value: 4
+      - group: Script-krohnkite
+        key: screenDefaultLayout
+        value: "DP-2:stacked;DP-3:spiral"
+      - group: Script-krohnkite
+        key: screenGapBetween
+        value: 6
+      - group: Script-krohnkite
+        key: screenGapBottom
+        value: 6
+      - group: Script-krohnkite
+        key: screenGapLeft
+        value: 6
+      - group: Script-krohnkite
+        key: screenGapRight
+        value: 6
+      - group: Script-krohnkite
+        key: screenGapTop
+        value: 6
+      - group: Script-krohnkite
+        key: soleWindowNoBorders
+        value: true
+      - group: Script-krohnkite
+        key: soleWindowNoGaps
+        value: true
+      - group: Script-krohnkite
+        key: spiralLayoutOrder
+        value: 1
+      - group: Script-krohnkite
+        key: spreadLayoutOrder
+        value: 0
+      - group: Script-krohnkite
+        key: stackedLayoutOrder
+        value: 5
+      - group: Script-krohnkite
+        key: stairLayoutOrder
+        value: 0
+      - group: Script-krohnkite
+        key: threeColumnLayoutOrder
+        value: 0
+      - group: Script-krohnkite
+        key: tileLayoutOrder
+        value: 2
+      # KWin tweaks for multiscreen (from repo instructions)
+      - group: Windows
+        key: ActiveMouseScreen
+        value: false
+      - group: Windows
+        key: SeparateScreenFocus
         value: true

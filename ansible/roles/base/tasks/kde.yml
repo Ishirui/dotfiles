@@ -1,0 +1,9 @@
+- block:
+    - include_tasks: kde/hid.yml
+    - include_tasks: kde/keybinds.yml
+    - include_tasks: kde/krohnkite.yml
+    - include_tasks: kde/desktops.yml
+    - name: KDE | Window Rules | Load custom window rules
+      copy:
+        src: files/kwinrulesrc
+        dest: "{{ dotconfig_path }}/kwinrulesrc"

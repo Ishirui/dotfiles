@@ -1,0 +1,16 @@
+- name: KDE | Desktops | Configure virtual desktops and desktop change OSD
+  community.general.kdeconfig:
+    path: "{{ dotconfig_path }}/kwinrc"
+    values:
+      - group: Desktops
+        key: Number
+        value: 9
+      - group: Desktops
+        key: Rows
+        value: 3
+      - group: Plugins
+        key: desktopchangeosdEnabled
+        value: true
+      - group: Script-desktopchangeosd
+        key: PopupHideDelay
+        value: 700
