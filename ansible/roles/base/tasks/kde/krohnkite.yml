@@ -46,7 +46,7 @@
         value: "Picture-in-Picture"
       - group: Script-krohnkite
         key: keepTilingOnDrag
-        value: false
+        value: true
       - group: Script-krohnkite
         key: monocleLayoutOrder
         value: 0
@@ -58,7 +58,7 @@
         value: 4
       - group: Script-krohnkite
         key: screenDefaultLayout
-        value: "DP-2:stacked;DP-3:spiral"
+        value: "DP-2:stacked,DP-3:spiral"
       - group: Script-krohnkite
         key: screenGapBetween
         value: 6
