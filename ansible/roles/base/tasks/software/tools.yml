@@ -2,37 +2,37 @@
   tags: software,tools,gui
   kewlfft.aur.aur:
     name:
-        - partitionmanager # Should be installed already
-        - filelight # Ditto
-        # - cheese # Camera utility
-        - helvum # Audio patch panel
-        - yakuake
-        - qbittorrent
-        - wireshark-qt
-        - virt-manager
+      - partitionmanager # Should be installed already
+      - filelight # Ditto
+      # - cheese # Camera utility
+      - helvum # Audio patch panel
+      - yakuake
+      - qbittorrent
+      - wireshark-qt
+      - virt-manager
 
 - name: Software | Tools | Install CLI tools
   tags: software,tools,cli
   kewlfft.aur.aur:
     name:
-        # Some of these are CachyOS defaults
-        - btop
-        - fastfetch
-        - eza
-        - bat
-        - fzf
-        - ripgrep
-        - zoxide
-        - tldr
-        - wget
-        - curl
-        - aria2
-        - fd
-        - tmux
-        - rsync
-        - nmap
-        - gnupg
-        - starship
-        - flatpak
-        - btrbk
-        - superfile
+      # Some of these are CachyOS defaults
+      - btop
+      - fastfetch
+      - eza
+      - bat
+      - fzf
+      - ripgrep
+      - zoxide
+      - tldr
+      - wget
+      - curl
+      - aria2
+      - fd
+      - tmux
+      - rsync
+      - nmap
+      - gnupg
+      - starship
+      - flatpak
+      - btrbk
+      - superfile
