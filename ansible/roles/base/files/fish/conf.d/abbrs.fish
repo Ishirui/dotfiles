@@ -1,11 +1,15 @@
-# Replace ls with eza
-abbr -a ls 'eza -al --color=always --group-directories-first --icons' # preferred listing
-abbr -a la 'eza -a --color=always --group-directories-first --icons'  # all files and dirs
-abbr -a ll 'eza -l --color=always --group-directories-first --icons'  # long format
-abbr -a lt 'eza -aT --color=always --group-directories-first --icons' # tree listing
-abbr -a l. "eza -a | grep -e '^\.'"                                    # show only dotfiles
+# Replace common commands with their modern alternatives
+abbr -a nano "micro"
+abbr -a cat "bat"
+abbr -a find "fd"
+abbr -a htop "btop"
+abbr -a cd "zoxide"
 
-# Common use
+# Custom convenience
+abbr -a fdg "fd --glob"
+abbr -a help "tldr" # Overwrites default fish help but eh
+
+# Common use - CachyOS defaults
 abbr -a grubup "sudo grub-mkconfig -o /boot/grub/grub.cfg"
 abbr -a fixpacman "sudo rm /var/lib/pacman/db.lck"
 abbr -a tarnow 'tar -acf '
@@ -27,15 +31,6 @@ abbr -a hw 'hwinfo --short'                                   # Hardware Info
 abbr -a big "expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB
 abbr -a gitpkg 'pacman -Q | grep -i "\-git" | wc -l'          # List amount of -git packages
 abbr -a update 'sudo pacman -Syu'
-
-# Get fastest mirrors
-abbr -a mirror "sudo cachyos-rate-mirrors"
-
-# Help people new to Arch
-abbr -a apt 'man pacman'
-abbr -a apt-get 'man pacman'
-abbr -a please 'sudo'
-abbr -a tb 'nc termbin.com 9999'
 
 # Cleanup orphaned packages
 abbr -a cleanup 'sudo pacman -Rns (pacman -Qtdq)'
