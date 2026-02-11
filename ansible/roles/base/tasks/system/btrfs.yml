@@ -29,9 +29,22 @@
     - loop: "{{ custom_subvolumes }}"
       include_tasks: create_subvolumes.yml
 
-
 - become: yes
   block:
+    - name: System | BTRFS | Backup | Activate timeline backups for root subvolume
+      tags: system,btrfs,backup
+      replace:
+        path: /etc/snapper/configs/root
+        regexp: '"TIMELINE_CREATE="no"'
+        replace: '"TIMELINE_CREATE="yes"'
+
+    - name: System | BTRFS | Backup | Keep two weeks of weekly timeline snapshots
+      tags: system,btrfs,backup
+      replace:
+        path: /etc/snapper/configs/root
+        regexp: 'TIMELINE_LIMIT_WEEKLY="0"'
+        replace: 'TIMELINE_LIMIT_WEEKLY="2"'
+
     - name: System | BTRFS | Backup | Create @snapshots subvolume
       tags: system,btrfs,backup
       community.general.btrfs_subvolume:
@@ -43,8 +56,8 @@
       tags: system,btrfs,backup,software
       community.general.pacman:
         name:
-        - btrbk
-        - btrfs-assistant
+          - btrbk
+          - btrfs-assistant
         state: present
 
     - name: System | BTRFS | Backup | Write btrbk config
