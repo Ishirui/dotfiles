@@ -40,10 +40,10 @@
   tags: terminal
   copy:
     src: "{{ playbook_dir }}/kde/konsole/yakuakerc"
-    dest: "{{ dotconfig_path }}/yakuakerc/"
+    dest: "{{ dotconfig_path }}/yakuakerc"
 
 - name: KDE | Terminal | Launch Yakuake at startup
   tags: terminal,kde
   copy:
-    src: "{{ playbook_dir }}/ansible/roles/base/files/autostart/org.kde.yakuake.desktop"
+    src: "files/autostart/org.kde.yakuake.desktop"
     dest: "{{ dotconfig_path }}/autostart/org.kde.yakuake.desktop"

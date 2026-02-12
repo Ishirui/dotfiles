@@ -1,0 +1,10 @@
+- become: yes
+  block:
+    - include_tasks: 1-browser.yml
+    - include_tasks: 2-messaging.yml
+    - include_tasks: 3-tools.yml
+    - include_tasks: 4-office.yml
+    - include_tasks: 5-media.yml
+    - include_tasks: 6-homelab.yml
+    - include_tasks: 7-dev.yml
+    - include_tasks: 8-gaming.yml

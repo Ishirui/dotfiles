@@ -14,7 +14,7 @@
 
     - name: KDE | Keybinds | KWin Toggle HDR | Copy desktop file
       copy:
-        src: "{{ playbook_dir }}/ansible/roles/base/files/net.local.toggle_hdr.sh.desktop"
+        src: "files/net.local.toggle_hdr.sh.desktop"
         dest: "{{ dotlocalshare_path }}/applications/"
 
     - name: KDE | Keybinds | KWin Toggle HDR | Setup Keybind

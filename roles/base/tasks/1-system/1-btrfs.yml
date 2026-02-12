@@ -27,7 +27,7 @@
       vars:
 
     - loop: "{{ custom_subvolumes }}"
-      include_tasks: create_subvolumes.yml
+      include_tasks: _create_subvolumes.yml
 
 - become: yes
   block:
