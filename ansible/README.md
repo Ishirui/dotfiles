@@ -1,11 +1,10 @@
 # TODO
-- Shell profile (default is already pretty good, but I'd maybe want a couple more things, e.g aliases, link nano to micro and cat to bat and zeditor to zed)
 - Setup syncthing
 - Code Editors
 - KDE Plasma panels
 - Appearance: color theme, icons, fonts etc.
 - Limine and plasma-login-manager things
-- Dolphin, Yakuake, Kate, Okular...
+- Dolphin, Kate, Okular...
 - SSH and GPG keys - especially with Git
 
 - Create windows VM and setup winapps (maybe download a machine image from my server ?)

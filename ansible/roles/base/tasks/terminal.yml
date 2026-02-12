@@ -1,11 +1,10 @@
 - name: Software | Tools | Install shell-related tools
-  tags: software,tools,shell
+  tags: software,tools,terminal
   kewlfft.aur.aur:
     name:
       # Some of these are CachyOS defaults
       - fish
-      - ttf-lilex-nerd # Nerd font of lilex, integrated prompt for zed
-      - ttf-hack-nerd # Nerd font of hack, integrated prompt for Konsole
+      - otf-monaspace-nerd # Monaspace font from GitHub, with Nerd Font icons
       - fastfetch # For style
       - btop # Modern htop
       - eza # Modern ls
@@ -19,9 +18,32 @@
       - zoxide
       - tldr
 
-- name: Shell | Load fish and starship config
-  tags: shell
+- name: Terminal | Load fish and starship config
+  tags: terminal
   copy:
     src: files/fish/
     dest: "{{ dotconfig_path }}/fish/"
-# TODO: Setup konsole profiles
+
+- name: Terminal | Load terminal profiles
+  tags: terminal
+  copy:
+    src: files/konsole/
+    dest: "{{ dotlocalshare_path }}/konsole/"
+
+- name: Terminal | Load Konsole config
+  tags: terminal
+  copy:
+  src: files/konsole/konsolerc
+  dest: "{{ dotconfig_path }}/konsolerc"
+
+- name: Terminal | Load Yakuake config
+  tags: terminal
+  copy:
+  src: files/konsole/yakuakerc
+  dest: "{{ dotconfig_path }}/yakuakerc/"
+
+- name: KDE | Terminal | Launch Yakuake at startup
+  tags: terminal,kde
+  copy:
+    src: files/autostart/yakuake.desktop
+    dest: "{{ dotconfig_path }}/autostart/org.kde.yakuake.desktop"

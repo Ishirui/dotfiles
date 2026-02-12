@@ -1,0 +1,11 @@
+[Desktop Entry]
+DefaultProfile=Konsole.profile
+
+[General]
+ConfigVersion=1
+
+[KonsoleWindow]
+ShowWindowTitleOnTitleBar=true
+
+[UiSettings]
+ColorScheme=
