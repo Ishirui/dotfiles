@@ -6,7 +6,7 @@
     - name: KDE | Display | Configure displays
       tags: kde,display
       copy:
-        src: "{{ dotfiles_root }}/ansible/roles/desktop/files/kwinoutputconfig.json"
+        src: "{{ playbook_dir }}/ansible/roles/desktop/files/kwinoutputconfig.json"
         dest: "{{ dotconfig_path }}/kwinoutputconfig.json"
 
   # ## desktop environments

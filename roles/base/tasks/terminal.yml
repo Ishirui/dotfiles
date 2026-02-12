@@ -21,29 +21,29 @@
 - name: Terminal | Load fish and starship config
   tags: terminal
   copy:
-    src: "{{ dotfiles_root }}/fish/"
+    src: "{{ playbook_dir }}/fish/"
     dest: "{{ dotconfig_path }}/fish/"
 
 - name: Terminal | Load terminal profiles
   tags: terminal
   copy:
-    src: "{{ dotfiles_root }}/kde/konsole/"
+    src: "{{ playbook_dir }}/kde/konsole/"
     dest: "{{ dotlocalshare_path }}/konsole/"
 
 - name: Terminal | Load Konsole config
   tags: terminal
   copy:
-    src: "{{ dotfiles_root }}/kde/konsole/konsolerc"
+    src: "{{ playbook_dir }}/kde/konsole/konsolerc"
     dest: "{{ dotconfig_path }}/konsolerc"
 
 - name: Terminal | Load Yakuake config
   tags: terminal
   copy:
-    src: "{{ dotfiles_root }}/kde/konsole/yakuakerc"
+    src: "{{ playbook_dir }}/kde/konsole/yakuakerc"
     dest: "{{ dotconfig_path }}/yakuakerc/"
 
 - name: KDE | Terminal | Launch Yakuake at startup
   tags: terminal,kde
   copy:
-    src: "{{ dotfiles_root }}/ansible/roles/base/files/autostart/org.kde.yakuake.desktop"
+    src: "{{ playbook_dir }}/ansible/roles/base/files/autostart/org.kde.yakuake.desktop"
     dest: "{{ dotconfig_path }}/autostart/org.kde.yakuake.desktop"

@@ -5,5 +5,5 @@
     - include_tasks: kde/desktops.yml
     - name: KDE | Window Rules | Load custom window rules
       copy:
-        src: "{{ dotfiles_root }}/kde/kwinrulesrc"
+        src: "{{ playbook_dir }}/kde/kwinrulesrc"
         dest: "{{ dotconfig_path }}/kwinrulesrc"

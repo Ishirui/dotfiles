@@ -1,6 +1,6 @@
 - name: KDE | Keybinds | Load custom keybinds
   copy:
-    src: "{{ dotfiles_root }}/kde/kglobalshortcutsrc"
+    src: "{{ playbook_dir }}/kde/kglobalshortcutsrc"
     dest: "{{ dotconfig_path }}/kglobalshortcutsrc"
 
 - name: KDE | Keybinds | KWin Toggle HDR
@@ -8,13 +8,13 @@
     - name: KDE | Keybinds | KWin Toggle HDR | Copy script file
       become: yes
       copy:
-        src: "{{ dotfiles_root }}/scripts/toggle_hdr.sh"
+        src: "{{ playbook_dir }}/scripts/toggle_hdr.sh"
         dest: /usr/local/bin/toggle_hdr.sh
         mode: u=rwx,g=rx,o=rx
 
     - name: KDE | Keybinds | KWin Toggle HDR | Copy desktop file
       copy:
-        src: "{{ dotfiles_root }}/ansible/roles/base/files/net.local.toggle_hdr.sh.desktop"
+        src: "{{ playbook_dir }}/ansible/roles/base/files/net.local.toggle_hdr.sh.desktop"
         dest: "{{ dotlocalshare_path }}/applications/"
 
     - name: KDE | Keybinds | KWin Toggle HDR | Setup Keybind
