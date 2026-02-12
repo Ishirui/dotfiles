@@ -8,6 +8,7 @@ abbr -a cd "zoxide"
 # Custom convenience
 abbr -a fdg "fd --glob"
 abbr -a help "tldr" # Overwrites default fish help but eh
+abbr -a zed "zeditor"
 
 # Shortcuts
 abbr -a c "clear"

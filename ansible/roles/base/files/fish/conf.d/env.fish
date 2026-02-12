@@ -1,0 +1,3 @@
+set -q PAGER; or set -Ux PAGER moor
+set -q VISUAL; or set -Ux VISUAL zeditor
+set -q EDITOR; or set -Ux EDITOR micro
