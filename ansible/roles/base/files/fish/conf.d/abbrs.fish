@@ -3,7 +3,6 @@ abbr -a nano "micro"
 abbr -a cat "bat"
 abbr -a find "fd"
 abbr -a htop "btop"
-abbr -a cd "zoxide"
 
 # Custom convenience
 abbr -a fdg "fd --glob"
