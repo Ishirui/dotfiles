@@ -1,6 +1,6 @@
 - name: Software | Tools | Install shell-related tools
   tags: software,tools,terminal
-  kewlfft.aur.aur:
+  pacman:
     name:
       # Some of these are CachyOS defaults
       - fish
