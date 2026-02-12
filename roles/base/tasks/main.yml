@@ -1,7 +1,8 @@
 - include_vars: user.yml
 - include_vars: fs.yml
 
-- include_tasks: 1-system/0-main.yml
-- include_tasks: 2-terminal.yml
-- include_tasks: 3-kde/0-main.yml
-- include_tasks: 99-software/0-main.yml
+# - include_tasks: 1-system/0-main.yml
+# - include_tasks: 2-terminal.yml
+# - include_tasks: 3-kde/0-main.yml
+- include_tasks: 4-syncthing.yml
+# - include_tasks: 99-software/0-main.yml

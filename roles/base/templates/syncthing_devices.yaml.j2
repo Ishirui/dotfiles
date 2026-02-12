@@ -1,0 +1,19 @@
+{% for device in syncthing_data.devices %}
+- >-
+  <device id="{{ device.id }}"
+  name="{{ device.name }}"
+  compression="{{ device.compression }}"
+  introducer="{{ device.introducer | lower }}"
+  skipIntroductionRemovals="false"
+  introducedBy="">
+  <address>{{ device.address }}</address>
+  <paused>{{ device.paused | lower }}</paused>
+  <autoAcceptFolders>{{ device.autoAcceptFolders | lower }}</autoAcceptFolders>
+  <maxSendKbps>0</maxSendKbps>
+  <maxRecvKbps>0</maxRecvKbps>
+  <maxRequestKiB>0</maxRequestKiB>
+  <untrusted>false</untrusted>
+  <remoteGUIPort>0</remoteGUIPort>
+  <numConnections>0</numConnections>
+  </device>
+{% endfor %}

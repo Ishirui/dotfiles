@@ -2,7 +2,8 @@
   tags: software,homelab,tools,cli,gui
   kewlfft.aur.aur:
     name:
-        - wireguard-tools
-        - syncthing
-        - bitwarden
-
+      - wireguard-tools
+      - syncthingtray-qt6
+      - syncthingctl-bin # Useful CLI controller
+      - syncthing-resolve-conflicts
+      - bitwarden

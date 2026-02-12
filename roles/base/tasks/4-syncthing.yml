@@ -1,0 +1,91 @@
+- name: Syncthing | Install syncthing apps
+  tags: software,homelab,tools,cli
+  become: yes
+  pacman:
+    name:
+      - syncthing
+
+- name: Syncthing | Load syncthing configuration data
+  tags: software,homelab,tools,gui
+  include_vars:
+    file: "{{ playbook_dir }}/system/syncthing_config.yaml"
+    name: syncthing_data
+
+- name: Syncthing | Check if config exists
+  tags: software,homelab,tools,gui
+  stat:
+    path: "{{ dotlocalshare_path }}/../state/syncthing/config.xml"
+  register: syncthing_config_stat
+
+- name: Syncthing | Start Syncthing to generate initial config
+  tags: software,homelab,tools,gui
+  systemd:
+    name: syncthing
+    state: started
+    scope: user
+  when: not syncthing_config_stat.stat.exists
+
+- name: Syncthing | Wait for config to be generated
+  tags: software,homelab,tools,gui
+  wait_for:
+    path: "{{ dotlocalshare_path }}/../state/syncthing/config.xml"
+    timeout: 30
+  when: not syncthing_config_stat.stat.exists
+
+- name: Syncthing | Stop Syncthing before modifying config
+  tags: software,homelab,tools,gui
+  systemd:
+    name: syncthing
+    state: stopped
+    scope: user
+  ignore_errors: true
+
+- name: Syncthing | Remove existing folders (to avoid duplicates)
+  tags: software,homelab,tools,gui
+  xml:
+    path: "{{ dotlocalshare_path }}/../state/syncthing/config.xml"
+    xpath: /configuration/folder
+    state: absent
+
+- name: Syncthing | Remove existing devices (to avoid duplicates)
+  tags: software,homelab,tools,gui
+  xml:
+    path: "{{ dotlocalshare_path }}/../state/syncthing/config.xml"
+    xpath: /configuration/device
+    state: absent
+
+- name: Syncthing | Add folders to configuration
+  tags: software,homelab,tools,gui
+  xml:
+    path: "{{ dotlocalshare_path }}/../state/syncthing/config.xml"
+    xpath: /configuration
+    input_type: xml
+    add_children: "{{ lookup('template', 'syncthing_folders.yaml.j2') | from_yaml }}"
+    pretty_print: true
+
+- name: Syncthing | Add devices to configuration
+  tags: software,homelab,tools,gui
+  xml:
+    path: "{{ dotlocalshare_path }}/../state/syncthing/config.xml"
+    xpath: /configuration
+    input_type: xml
+    add_children: "{{ lookup('template', 'syncthing_devices.yaml.j2') | from_yaml }}"
+    pretty_print: true
+
+- name: Syncthing | Update options
+  tags: software,homelab,tools,gui
+  xml:
+    path: "{{ dotlocalshare_path }}/../state/syncthing/config.xml"
+    xpath: "/configuration/options/{{ item.key }}"
+    value: "{{ item.value | string }}"
+    pretty_print: true
+  loop: "{{ syncthing_data.options | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Syncthing | Start Syncthing
+  tags: software,homelab,tools,gui
+  systemd:
+    name: syncthing
+    state: started
+    scope: user

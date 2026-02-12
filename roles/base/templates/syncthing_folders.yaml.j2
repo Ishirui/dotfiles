@@ -1,0 +1,54 @@
+{% for folder in syncthing_data.folders %}
+- >-
+  <folder id="{{ folder.id }}"
+  label="{{ folder.label }}"
+  path="{{ folder.path }}"
+  type="{{ folder.type }}"
+  rescanIntervalS="{{ folder.rescanIntervalS }}"
+  fsWatcherEnabled="{{ folder.fsWatcherEnabled | lower }}"
+  fsWatcherDelayS="{{ folder.fsWatcherDelayS }}"
+  fsWatcherTimeoutS="0"
+  ignorePerms="false"
+  autoNormalize="true">
+  <filesystemType>basic</filesystemType>
+  {% for device in syncthing_data.devices -%}
+  <device id="{{ device.id }}" introducedBy="">
+  <encryptionPassword></encryptionPassword>
+  </device>
+  {% endfor -%}
+  <minDiskFree unit="%">1</minDiskFree>
+  <versioning>
+  <cleanupIntervalS>3600</cleanupIntervalS>
+  <fsPath></fsPath>
+  <fsType>basic</fsType>
+  </versioning>
+  <copiers>0</copiers>
+  <pullerMaxPendingKiB>0</pullerMaxPendingKiB>
+  <hashers>0</hashers>
+  <order>{{ folder.order }}</order>
+  <ignoreDelete>{{ folder.ignoreDelete | lower }}</ignoreDelete>
+  <scanProgressIntervalS>0</scanProgressIntervalS>
+  <pullerPauseS>0</pullerPauseS>
+  <pullerDelayS>1</pullerDelayS>
+  <maxConflicts>{{ folder.maxConflicts }}</maxConflicts>
+  <disableSparseFiles>false</disableSparseFiles>
+  <paused>{{ folder.paused | lower }}</paused>
+  <markerName>.stfolder</markerName>
+  <copyOwnershipFromParent>false</copyOwnershipFromParent>
+  <modTimeWindowS>0</modTimeWindowS>
+  <maxConcurrentWrites>16</maxConcurrentWrites>
+  <disableFsync>false</disableFsync>
+  <blockPullOrder>standard</blockPullOrder>
+  <copyRangeMethod>standard</copyRangeMethod>
+  <caseSensitiveFS>false</caseSensitiveFS>
+  <junctionsAsDirs>false</junctionsAsDirs>
+  <syncOwnership>false</syncOwnership>
+  <sendOwnership>false</sendOwnership>
+  <syncXattrs>false</syncXattrs>
+  <sendXattrs>false</sendXattrs>
+  <xattrFilter>
+  <maxSingleEntrySize>1024</maxSingleEntrySize>
+  <maxTotalSize>4096</maxTotalSize>
+  </xattrFilter>
+  </folder>
+{% endfor %}
