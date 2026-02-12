@@ -15,26 +15,14 @@
   tags: software,tools,cli
   kewlfft.aur.aur:
     name:
-      # Some of these are CachyOS defaults
-      - btop
-      - fastfetch
-      - eza
-      - bat
-      - fzf
-      - ripgrep
-      - zoxide
-      - tldr
       - wget
       - curl
       - aria2
-      - fd
       - tmux
       - rsync
       - nmap
       - gnupg
-      - starship
       - flatpak
       - btrbk
       - superfile
       - tree
-      - moor # pager
