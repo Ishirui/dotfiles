@@ -63,7 +63,7 @@
     - name: System | BTRFS | Backup | Write btrbk config
       tags: system,btrfs,backup
       copy:
-        src: files/btrbk.conf
+        src: "{{ dotfiles_root }}/ansible/roles/base/files/btrbk.conf"
         dest: /etc/btrbk/btrbk.conf
 
     - name: System | BTRFS | Backup | Ensure btrbk.timer override directory exists

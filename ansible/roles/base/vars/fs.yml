@@ -1,13 +1,14 @@
+dotfiles_root: "{{ playbook_dir }}/.."
 dotconfig_path: "/home/{{ username }}/.config"
 dotlocalshare_path: "/home/{{ username }}/.local/share"
 dotcache_path: "/home/{{ username }}/.cache"
 
 custom_subvolumes:
-    - name: games
-      mount: /opt/games
-    - name: projects
-      mount: "/home/{{ username }}/Projects"
-    - name: media
-      mount: "/home/{{ username }}/Media"
-    - name: hcache
-      mount: "{{ dotcache_path }}"
+  - name: games
+    mount: /opt/games
+  - name: projects
+    mount: "/home/{{ username }}/Projects"
+  - name: media
+    mount: "/home/{{ username }}/Media"
+  - name: hcache
+    mount: "{{ dotcache_path }}"
