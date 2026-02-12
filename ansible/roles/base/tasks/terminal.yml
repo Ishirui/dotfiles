@@ -1,0 +1,27 @@
+- name: Software | Tools | Install shell-related tools
+  tags: software,tools,shell
+  kewlfft.aur.aur:
+    name:
+      # Some of these are CachyOS defaults
+      - fish
+      - ttf-lilex-nerd # Nerd font of lilex, integrated prompt for zed
+      - ttf-hack-nerd # Nerd font of hack, integrated prompt for Konsole
+      - fastfetch # For style
+      - btop # Modern htop
+      - eza # Modern ls
+      - bat # Modern cat
+      - micro # Modern nano
+      - moor # Modern less
+      - fd # Modern find
+      - starship # Prompt
+      - fzf
+      - ripgrep
+      - zoxide
+      - tldr
+
+- name: Shell | Load fish and starship config
+  tags: shell
+  copy:
+    src: files/fish/
+    dest: "{{ dotconfig_path }}/fish/"
+# TODO: Setup konsole profiles
