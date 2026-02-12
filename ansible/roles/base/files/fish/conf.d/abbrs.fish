@@ -36,7 +36,7 @@ abbr -a -- glo 'git log --oneline --decorate'
 abbr -a -- glog 'git log --oneline --decorate --graph'
 ## Push-pull-clone
 abbr -a -- gp 'git push'
-abbr -a -- gpsuo 'git push --set-Upstream origin (git rev-parse --abbrev-ref HEAD)'
+abbr -a -- gpsuo 'git push --set-upstream origin (git rev-parse --abbrev-ref HEAD)'
 abbr -a -- gl 'git pull'
 abbr -a -- gcl 'git clone'
 ## Cherry-pick
