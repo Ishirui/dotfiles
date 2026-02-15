@@ -1,5 +1,6 @@
 - name: Software | Tools | Install shell-related tools
   tags: software,tools,terminal
+  become: yes
   pacman:
     name:
       # Some of these are CachyOS defaults
