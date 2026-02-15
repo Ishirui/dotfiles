@@ -2,12 +2,21 @@ dotconfig_path: "/home/{{ username }}/.config"
 dotlocalshare_path: "/home/{{ username }}/.local/share"
 dotcache_path: "/home/{{ username }}/.cache"
 
+# name needs to not be prefixed with @
+# parent_subvol needs to include a trailing slash, even when referring to the root subvolume
 custom_subvolumes:
   - name: games
     mount: /opt/games
+    parent_subvol: /
+  - name: steam
+    mount: "{{ dotlocalshare_path }}/Steam"
+    parent_subvol: /@games/
   - name: projects
     mount: "/home/{{ username }}/Projects"
+    parent_subvol: /
   - name: media
     mount: "/home/{{ username }}/Media"
+    parent_subvol: /
   - name: hcache
     mount: "{{ dotcache_path }}"
+    parent_subvol: /

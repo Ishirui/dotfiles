@@ -1,7 +1,7 @@
 - name: "System | BTRFS | Create @{{ item.name }} subvolume"
   tags: system,btrfs
   community.general.btrfs_subvolume:
-    name: "@{{ item.name }}"
+    name: "{{ item.parent_subvol }}/@{{ item.name }}"
     state: present
     filesystem_uuid: "{{ get_uuid.stdout }}"
 
@@ -19,7 +19,7 @@
     path: "{{ item.mount }}"
     src: "UUID={{ get_uuid.stdout }}"
     fstype: btrfs
-    opts: "subvol=@{{ item.name }},defaults,noatime,nofail,users,compress=zstd:1"
+    opts: "subvol={{ item.parent_subvol }}@{{ item.name }},defaults,noatime,nofail,users,compress=zstd:1"
     state: mounted
 
 - name: "System | BTRFS | Set {{ item.mount }} perms"
