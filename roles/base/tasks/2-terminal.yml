@@ -17,7 +17,7 @@
       - fzf
       - ripgrep
       - zoxide
-      - tldr
+      - tealdeer # Rust-based tldr implementation
 
 - name: Terminal | Load fish and starship config
   tags: terminal
