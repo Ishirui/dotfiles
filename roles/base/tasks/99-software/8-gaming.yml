@@ -1,9 +1,0 @@
-- name: Software | Gaming | Install gaming apps
-  tags: software,gaming,steam,gui
-  kewlfft.aur.aur:
-    name:
-        - steam # From Cachy repos
-        - proton-cachyos # Same
-        - prismlauncher
-        - mangohud
-        - lutris

@@ -1,0 +1,16 @@
+system:
+  disable_runtime: true
+  env:
+    PROTON_VERB: waitforexitandrun
+    UMU_RUNTIME_UPDATE: "0"
+    PROTON_DLSS_UPGRADE: "1"
+    PROTON_DLSS_INDICATOR: "1"
+    PROTON_NO_WM_DECORATION: "1"
+
+  game_path: /opt/games
+  gamescope: true
+  gamescope_fps_limiter: "240"
+  gamescope_hdr: true
+  gamescope_window_mode: -b
+  mangohud: true
+  prefix_command: "dlss-swapper "

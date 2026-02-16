@@ -1,0 +1,28 @@
+- become: yes
+  become_user: aur_builder
+  block:
+    - name: Gaming | Software | Install gaming apps
+      tags: software,gaming,steam,gui
+      kewlfft.aur.aur:
+        name:
+          - cachyos-gaming-meta # Bunch of libs, proton, protontricks, wine-cachyos-opt (optimized for gaming), and more
+          - protonup-qt # GUI for managing proton versions, including custom ones like proton-ge-custom
+          - cachyos-gaming-applications # gamescope, lutris, heroic, steam, mangohud
+          - prismlauncher
+          # Copy some stuff from the metapackages to mark them as manually installed
+          - proton-cachyos-slr
+          - protontricks
+          - wine-cachyos-opt
+          - winetricks
+          - gamescope
+          - lutris
+          - steam
+          - gamescope
+          - goverlay
+          - r2modman-bin # Thunderstore mod manager
+
+- name: Gaming | Lutris | Load Lutris configs
+  tags: gaming,lutris
+  copy:
+    src: "{{ playbook_dir }}/lutris/"
+    dest: "{{ dotlocalshare_path }}/lutris/"
