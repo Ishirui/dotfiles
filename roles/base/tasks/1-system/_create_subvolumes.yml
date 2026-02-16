@@ -19,7 +19,7 @@
     path: "{{ item.mount }}"
     src: "UUID={{ get_uuid.stdout }}"
     fstype: btrfs
-    opts: "subvol={{ item.parent_subvol }}@{{ item.name }},defaults,noatime,nofail,users,compress=zstd:1"
+    opts: "subvol={{ item.parent_subvol }}@{{ item.name }},defaults,noatime,nofail,exec,compress=zstd:1"
     state: mounted
 
 - name: "System | BTRFS | Set {{ item.mount }} perms"
