@@ -11,6 +11,9 @@ custom_subvolumes:
   - name: steam
     mount: "{{ dotlocalshare_path }}/Steam"
     parent_subvol: /@games/
+  - name: wine
+    mount: "/home/{{ username }}/.wine"
+    parent_subvol: /
   - name: projects
     mount: "/home/{{ username }}/Projects"
     parent_subvol: /
