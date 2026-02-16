@@ -1,0 +1,28 @@
+- name: System | Filesystem | Remove extra directories in ~
+  file:
+    path: "/home/{{ ansible_user }}/{{ item }}"
+    state: absent
+  loop:
+    - "Music"
+    - "Pictures"
+    - "Public"
+    - "Templates"
+    - "Videos"
+
+- name: System | Filesystem | Create Media folder and subfolders
+  file:
+    path: "/home/{{ ansible_user }}/Media/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "Music"
+    - "Pictures"
+    - "Videos"
+    - "Anime"
+    - "TV"
+    - "Movies"
+
+- name: System | Filesystem | Update user-dirs.dirs
+  copy:
+    src: "{{ playbook_dir }}/system/user-dirs.dirs"
+    dest: "{{ dotconfig_path }}/user-dirs.dirs"
