@@ -17,7 +17,6 @@ Hopefully this inspires you in creating your own stuff !
 
 # TODO
 - Code Editors
-- Desktop files for various applications
 - KDE Plasma panels
 - Appearance: color theme, icons, fonts etc.
 - Limine and plasma-login-manager things
