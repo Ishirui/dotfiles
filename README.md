@@ -16,14 +16,28 @@ Hopefully this inspires you in creating your own stuff !
 > *NOTE:* Some config files (like `kwinrc` for example) are not actually stored in the repo but are generated from templates in the `ansible` directory, since they contain machine-specific information like screen layout, monitor names and might contain some lines I don´t want to include in the repo. The ansible playbook takes care of generating those files and putting them in the right place.
 
 # TODO
+- Fan control stuff (desktop) - setup alerts, custom sensors and fan curves
+- OpenRGB configuration (desktop)
 - Code Editors
-- KDE Plasma panels
+- KDE Plasma panels, maybe eww and/or waybar
 - Appearance: color theme, icons, fonts etc.
+  - Klassy, maybe darkly (modern rewrite of lightly)
+  - Find a nice theme, with a purple accent color
+  - Change font: something kinda "tech" seemed nice, but I haven´t found a good one yet. Maybe JetBrains Mono or something ?
 - Limine and plasma-login-manager things
 - Dolphin, Kate, Okular...
 - SSH and GPG keys - especially with Git
 
 - Create windows VM and setup winapps (maybe download a machine image from my server ?)
+
+### Extra packages
+- betterbird-bin (AUR)
+- zapzap (whatsapp client, AUR)
+- freetube-bin (AUR)
+- Look into LocalSend (`localsend-bin` AUR)
+- yt-dlp
+- walker (launcher) (see https://github.com/abenz1267/walker) or vicinae
+- webapp-manager (for Monkeytype)
 
 # Hard to do
 - Automate the add of second drive to btrfs array - seems dangerous, not hard to do manually. Also need to hide the shortcut from Dolphin which is a lot of annoying XML parsing.
@@ -39,6 +53,7 @@ Hopefully this inspires you in creating your own stuff !
 - VPN
 - TLP
 - Different plasma panels
+- Optimus-specific things
 
 ## Keybinds
 ### Principle

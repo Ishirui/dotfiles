@@ -2,6 +2,8 @@
 - include_role:
     name: base
 
+- include_tasks: fancontrol.yml
+
 - block:
     - name: KDE | Display | Configure displays
       tags: kde,display
