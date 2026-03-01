@@ -54,12 +54,12 @@ fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803 = "it8689"
 [device-settings.e58087daad95f0f3b56c8b50a213331a7d256dd37aff9c0d1d560a27b7fbaeb2]
 
 [device-settings.fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803]
-fan1 = { profile_uid = "0" }
-fan6 = { profile_uid = "0" }
-fan2 = { profile_uid = "0" }
-fan3 = { profile_uid = "0" }
-fan4 = { profile_uid = "0" }
-fan5 = { profile_uid = "0" }
+fan1 = { profile_uid = "fada3dda-229e-4d8b-861d-fa0672ffb893" }
+fan6 = { profile_uid = "dd143430-10da-43ed-941c-5e82499c8da6" }
+fan2 = { profile_uid = "c00c4da2-e82b-4d53-b318-980a7f72764e" }
+fan3 = { profile_uid = "f7715791-938f-49aa-a56f-47958c297311" }
+fan4 = { profile_uid = "dd143430-10da-43ed-941c-5e82499c8da6" }
+fan5 = { profile_uid = "c00c4da2-e82b-4d53-b318-980a7f72764e" }
 
 
 # A list of profiles to be used with each device's settings
@@ -72,10 +72,149 @@ function = "0"
 
 [[profiles]]
 uid = "0840dd7f-04cb-4c72-9303-4d78f0e92a55"
-name = "My Profile"
+name = "BIOS"
 p_type = "Default"
 speed_profile = []
 function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+
+[[profiles]]
+uid = "8f779c7b-d886-4b0b-9557-25960a182cac"
+name = "Front Rad - Hybrid"
+p_type = "Graph"
+speed_profile = [[50.0, 30], [80.0, 45], [90.0, 60], [95.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 50.0
+temp_max = 95.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "f7715791-938f-49aa-a56f-47958c297311"
+name = "Back Fan - Silent"
+p_type = "Graph"
+speed_profile = [[40.0, 30], [70.0, 30], [80.0, 40], [90.0, 60], [100.0, 100]]
+temp_source = { temp_name = "air_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 40.0
+temp_max = 100.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "ad46762d-da8a-4ce1-8dee-d94cdf67c2c3"
+name = "Front Rad - Gaming"
+p_type = "Graph"
+speed_profile = [[50.0, 40], [65.0, 40], [85.0, 60], [90.0, 80], [95.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 50.0
+temp_max = 95.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "ccff077d-b0e8-41b0-8af5-9370d80fced3"
+name = "Top Rad - Hybrid"
+p_type = "Graph"
+speed_profile = [[70.0, 30], [85.0, 40], [90.0, 50], [95.0, 70], [100.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 70.0
+temp_max = 100.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "2c9bcece-9cd3-4373-aa68-6c55b9336c0b"
+name = "Top Rad - Gaming"
+p_type = "Graph"
+speed_profile = [[65.0, 30], [85.0, 30], [93.0, 40], [95.0, 50], [100.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 65.0
+temp_max = 100.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "c00c4da2-e82b-4d53-b318-980a7f72764e"
+name = "Top Rad - Silent"
+p_type = "Fixed"
+speed_fixed = 0
+speed_profile = []
+function_uid = "0"
+offset_profile = []
+
+[[profiles]]
+uid = "65a9b2bf-9903-411e-b820-6b3a74556b08"
+name = "Back Fan - Hybrid"
+p_type = "Graph"
+speed_profile = [[50.0, 30], [69.9, 40], [80.0, 60], [90.0, 90], [100.0, 100]]
+temp_source = { temp_name = "air_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 50.0
+temp_max = 100.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "dd143430-10da-43ed-941c-5e82499c8da6"
+name = "Front Rad - Silent"
+p_type = "Graph"
+speed_profile = [[30.0, 20], [45.0, 30], [70.0, 30], [80.0, 40], [90.0, 60], [100.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 30.0
+temp_max = 100.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "32d70dd3-727d-440a-8c1d-18ddb671b16e"
+name = "Back Fan - Gaming"
+p_type = "Graph"
+speed_profile = [[50.0, 40], [65.0, 40], [85.0, 60], [90.0, 80], [95.0, 100]]
+temp_source = { temp_name = "air_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 50.0
+temp_max = 95.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "71094ff6-62fa-4990-9c68-b37dc99e4d54"
+name = "Pump Curve - Hybrid"
+p_type = "Graph"
+speed_profile = [[0.0, 10], [60.0, 30], [80.0, 50], [90.0, 80], [95.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 0.0
+temp_max = 95.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "fada3dda-229e-4d8b-861d-fa0672ffb893"
+name = "Pump Curve - Silent"
+p_type = "Graph"
+speed_profile = [[0.0, 20], [55.0, 20], [80.0, 30], [85.0, 40], [90.0, 50], [100.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 0.0
+temp_max = 100.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "7c8afeca-6879-4687-a735-a9b251ee94da"
+name = "Pump Curve - Gaming"
+p_type = "Graph"
+speed_profile = [[0.0, 30], [60.0, 30], [80.0, 50], [90.0, 80], [95.0, 100]]
+temp_source = { temp_name = "water_mix", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+temp_min = 0.0
+temp_max = 95.0
+function_uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
+offset_profile = []
+
+[[profiles]]
+uid = "c14983b0-5c75-44cb-8e41-ccc2b2626b38"
+name = "Full Blast !"
+p_type = "Fixed"
+speed_fixed = 100
+speed_profile = []
+function_uid = "0"
+offset_profile = []
 
 # A list of functions to be applied to the various profiles
 # -------------------------------
@@ -87,9 +226,15 @@ f_type = "Identity"
 [[functions]]
 uid = "02ba5ea0-89cc-4085-808f-c3b1cc97963b"
 name = "My Function"
-f_type = "Identity"
-duty_minimum = 2
+f_type = "Standard"
+duty_minimum = 5
 duty_maximum = 100
+step_size_min_decreasing = 0
+step_size_max_decreasing = 0
+response_delay = 1
+deviance = 5.0
+only_downward = false
+threshold_hopping = true
 
 
 # Cooler Control Settings
@@ -224,6 +369,165 @@ name = "P2 M.2 SSD (nvme1n1)"
 disable = false
 
 [settings.801ab9146d9c1c6b3fdac74bcb86500b3f3d6ddf40076aeeff00c9fb54ebbc86.channel_settings]
+
+# Water Mix
+[[custom_sensors]]
+id = "water_mix"
+cs_type = "Mix"
+mix_function = "WeightedAvg"
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp3", device_uid = "7febede677f5a27c6d57f4e861c5b2d0dfa83925bcb071314dc6132bf6fcfc16" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "GPU Temp", device_uid = "e58087daad95f0f3b56c8b50a213331a7d256dd37aff9c0d1d560a27b7fbaeb2" }
+weight = 2
+
+[[custom_sensors]]
+id = "mobo_temp1_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -39
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp1", device_uid = "fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803" }
+weight = 1
+
+[[custom_sensors]]
+id = "mobo_temp2_delta"
+cs_type = "Offset"
+mix_function = "Delta"
+offset = -46
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp2", device_uid = "fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803" }
+weight = 1
+
+[[custom_sensors]]
+id = "mobo_temp3_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -50
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp3", device_uid = "fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803" }
+weight = 1
+
+[[custom_sensors]]
+id = "mobo_temp4_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -44
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp4", device_uid = "fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803" }
+weight = 1
+
+[[custom_sensors]]
+id = "mobo_temp5_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -43
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp5", device_uid = "fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803" }
+weight = 1
+
+[[custom_sensors]]
+id = "mobo_temp6_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -60
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp6", device_uid = "fa49f4645cba12961942172e0455e53675b4adbc2ed077a740863e40266e9803" }
+weight = 1
+
+[[custom_sensors]]
+id = "mobo_wifi_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -50
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp1", device_uid = "a9eba7c8db2a523f83de913e848ab9a3392125af89c11307dee173e3b59bde57" }
+weight = 1
+
+[[custom_sensors]]
+id = "p5_SSD_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -53
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp1", device_uid = "87d1b88eb4eaa0ac654b0c686397e7ebbd08d4018c38e513d34ea03e15549709" }
+weight = 1
+
+[[custom_sensors]]
+id = "p2_SSD_delta"
+cs_type = "Offset"
+mix_function = "Max"
+offset = -46
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "temp1", device_uid = "801ab9146d9c1c6b3fdac74bcb86500b3f3d6ddf40076aeeff00c9fb54ebbc86" }
+weight = 1
+
+[[custom_sensors]]
+id = "mobo_hotspot"
+cs_type = "Mix"
+mix_function = "Max"
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_temp1_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_temp2_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_temp3_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_temp4_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_temp5_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_temp6_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_wifi_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "p5_SSD_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "p2_SSD_delta", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+[[custom_sensors]]
+id = "air_mix"
+cs_type = "Offset"
+mix_function = "Max"
+offset=45
+
+
+[[custom_sensors.sources]]
+temp_source = { temp_name = "mobo_hotspot", device_uid = "19e098e312e1b1b39163a343ea22b6ea17f18ec1a803ffe0ce44f5bacd6076ee" }
+weight = 1
+
+
+
 
 # CoolerControl Device settings Example:
 # [settings.4b9cd1bc5fb2921253e6b7dd5b1b011086ea529d915a86b3560c236084452807]

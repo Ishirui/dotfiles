@@ -16,7 +16,6 @@ Hopefully this inspires you in creating your own stuff !
 > *NOTE:* Some config files (like `kwinrc` for example) are not actually stored in the repo but are generated from templates in the `ansible` directory, since they contain machine-specific information like screen layout, monitor names and might contain some lines I don´t want to include in the repo. The ansible playbook takes care of generating those files and putting them in the right place.
 
 # TODO
-- Fan control stuff (desktop) - setup alerts, custom sensors and fan curves
 - OpenRGB configuration (desktop)
 - Code Editors
 - KDE Plasma panels, maybe eww and/or waybar
