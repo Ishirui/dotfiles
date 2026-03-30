@@ -1,0 +1,12 @@
+- name: Software | Customization | Install tweaks, KDE scripts
+  tags: software,gaming,steam,gui
+  kewlfft.aur.aur:
+    name:
+      - kwin-scripts-krohnkite
+      - klassy-bin
+      - kwin-effects-glass-git
+      - plasma6-applets-thermal-monitor
+      - plasma6-wallpapers-blurredwallpaper-git
+      - wallpaper-engine-kde-plugin-git
+      - plasma6-applets-eventcalendar
+      - plasma6-applets-arch-update-notifier

@@ -26,6 +26,7 @@ Hopefully this inspires you in creating your own stuff !
 - Limine and plasma-login-manager things
 - Dolphin, Kate, Okular...
 - SSH and GPG keys - especially with Git
+- Face unlock (package `Howdy` on Arch)
 
 - Create windows VM and setup winapps (maybe download a machine image from my server ?)
 

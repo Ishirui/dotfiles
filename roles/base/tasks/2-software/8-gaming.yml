@@ -1,0 +1,22 @@
+- name: Software | Gaming | Install gaming apps
+  tags: software,gaming,steam,gui
+  kewlfft.aur.aur:
+    name:
+      - cachyos-gaming-meta # Bunch of libs, proton, protontricks, wine-cachyos-opt (optimized for gaming), and more
+      - protonup-qt # GUI for managing proton versions
+      - cachyos-gaming-applications # gamescope, lutris, heroic, steam, mangohud
+      - prismlauncher
+      # Copy some stuff from the metapackages to mark them as manually installed
+      - wine-cachyos-opt
+      - winetricks
+      - proton-ge-custom-bin # ProtonGE
+      - gamescope
+      - lutris
+      - steam
+      - goverlay
+      - r2modman-bin # Thunderstore mod manager
+      - sunshine # Moonlight host
+      - modrinth-app # Modrinth mod manager
+      - vortex # Nexus mod manager
+      - ckan-bin # CKAN mod manager for Kerbal Space Program
+      - gx52 # Driver for Saitek X52 HOTAS, which is needed for customization mostly

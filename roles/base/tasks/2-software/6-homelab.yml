@@ -3,6 +3,7 @@
   kewlfft.aur.aur:
     name:
       - wireguard-tools
+      - syncthing
       - syncthingtray-qt6
       - syncthingctl-bin # Useful CLI controller
       - syncthing-resolve-conflicts
