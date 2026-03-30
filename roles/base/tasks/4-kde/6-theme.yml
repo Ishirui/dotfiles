@@ -64,3 +64,27 @@
       - group: Theme
         key: name
         value: "Lavender-solid-color"
+
+- name: KDE | Theme | Set fonts
+  tags: KDE,theme,fonts
+  community.general.kdeconfig:
+    path: "{{ dotconfig_path }}/kdeglobals"
+    values:
+      - group: General
+        key: font
+        value: "{{ font_main }},10,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
+      - group: General
+        key: menuFont
+        value: "{{ font_main }},10,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
+      - group: General
+        key: toolBarFont
+        value: "{{ font_main }},10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
+      - group: General
+        key: smallestReadableFont
+        value: "{{ font_main }},8,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
+      - group: General
+        key: fixed
+        value: "{{ font_mono }},10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
+      - group: WM
+        key: activeFont
+        value: "{{ font_title }},10,-1,5,700,0,0,0,0,0,0,0,0,0,0,1,Bold,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
