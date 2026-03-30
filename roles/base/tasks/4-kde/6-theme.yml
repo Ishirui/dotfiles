@@ -1,7 +1,9 @@
-# Note: `catppuccin_flavor` should be defined in the `roles/desktop` vars (e.g. roles/desktop/vars/main.yml)
-# Example value: macchiato-lavender
+---
+# Note: `kde_catppuccin_flavor` should be defined in `roles/desktop/vars/main.yml`
+# Example value: MacchiatoLavender
+
 - name: KDE | Theme | Set Catppuccin color scheme
-  tags: KDE,theme,cattpuccin
+  tags: KDE,theme,catppuccin
   community.general.kdeconfig:
     path: "{{ dotconfig_path }}/kdeglobals"
     values:
@@ -39,3 +41,26 @@
       - group: org.kde.kdecoration2
         key: theme
         value: Klassy
+
+- name: KDE | Theme | Install YAMIS icon theme from vendored submodule
+  tags: KDE,theme,icons
+  copy:
+    src: "{{ playbook_dir }}/vendor/kde/icons-yam/YAMIS/"
+    dest: "{{ dotlocalshare_path }}/icons/YAMIS/"
+    mode: preserve
+
+- name: KDE | Theme | Install Lavender Plasma theme from vendored submodule
+  tags: KDE,theme,plasma
+  copy:
+    src: "{{ playbook_dir }}/vendor/kde/plasma-lavender/Lavender-solid-color/"
+    dest: "{{ dotlocalshare_path }}/plasma/desktoptheme/Lavender-solid-color/"
+    mode: preserve
+
+- name: KDE | Theme | Set Plasma desktop theme
+  tags: KDE,theme,plasma
+  community.general.kdeconfig:
+    path: "{{ dotconfig_path }}/plasmarc"
+    values:
+      - group: Theme
+        key: name
+        value: "Lavender-solid-color"

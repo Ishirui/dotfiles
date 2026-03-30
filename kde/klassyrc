@@ -15,6 +15,10 @@ ButtonGradient=true
 MenuOpacity=85
 ScrollBarSeparator=true
 
+[SystemIconGeneration]
+KlassyDarkIconThemeInherits=YAMIS
+KlassyIconThemeInherits=YAMIS
+
 [TitleBarOpacity]
 ActiveTitleBarOpacity=0
 InactiveTitleBarOpacity=0

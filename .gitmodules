@@ -1,0 +1,6 @@
+[submodule "vendor/kde/plasma-lavender"]
+	path = vendor/kde/plasma-lavender
+	url = https://github.com/L4ki/Lavender-Plasma-Themes.git
+[submodule "vendor/kde/icons-yam"]
+	path = vendor/kde/icons-yam
+	url = https://bitbucket.org/dirn-typo/yet-another-monochrome-icon-set.git
