@@ -1,6 +1,8 @@
 - name: Software | Gaming | Install gaming apps
   tags: software,gaming,steam,gui
   kewlfft.aur.aur:
+    use: paru
+    extra_args: --noprovides # Vortex has multiple providers and no specific `bin` distribution
     name:
       - cachyos-gaming-meta # Bunch of libs, proton, protontricks, wine-cachyos-opt (optimized for gaming), and more
       - protonup-qt # GUI for managing proton versions
@@ -16,7 +18,8 @@
       - goverlay
       - r2modman-bin # Thunderstore mod manager
       - sunshine # Moonlight host
-      - modrinth-app # Modrinth mod manager
+      - modrinth-app-bin # Modrinth mod manager
       - vortex # Nexus mod manager
       - ckan-bin # CKAN mod manager for Kerbal Space Program
       - gx52 # Driver for Saitek X52 HOTAS, which is needed for customization mostly
+      - pdx-unlimiter # Paradox savegame editor
