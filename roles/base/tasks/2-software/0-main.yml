@@ -3,7 +3,7 @@
       become: yes
       ansible.builtin.user:
         name: aur_builder
-        create_home: yes
+        create_home: no
         group: wheel
 
     - name: Allow the `aur_builder` user to run `sudo pacman` without a password
@@ -25,3 +25,10 @@
     - include_tasks: 5-media.yml
     - include_tasks: 6-homelab.yml
     - include_tasks: 7-dev.yml
+
+- block:
+    - name: Delete the `aur_builder` user
+      become: yes
+      ansible.builtin.user:
+        name: aur_builder
+        state: absent

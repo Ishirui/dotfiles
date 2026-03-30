@@ -1,0 +1,135 @@
+{
+    "spec_version": "v1.6",
+    "identifier": "VisualQoL",
+    "name": "Visual and QoL mods",
+    "abstract": "My Visual and QoL mods for KSP - no gameplay changes",
+    "author": "ishirui",
+    "version": "2026.02.24.09.16.20",
+    "ksp_version_min": "1.8",
+    "ksp_version_max": "1.12",
+    "license": "unknown",
+    "depends": [
+        {
+            "name": "KSPBurst",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "ParallaxContinued",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "ParallaxContinued-Planet-Textures",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "ParallaxContinued-Scatter-Textures",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "ParallaxContinued-Terrain-Textures",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "RasterPropMonitor-Core",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "ClickThroughBlocker",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "EnvironmentalVisualEnhancements",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "RealPlume",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "RealPlume-StockConfigs",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Scatterer-config",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Scatterer-sunflare",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "BetterBurnTime",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Chatterer",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "DE-IVAExtension",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Deferred",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "EnvironmentalVisualEnhancements-HR",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "FreeIva",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "HotSpot",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "KerbalAlarmClock",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "KerbalEngineerRedux",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "KSPCommunityFixes",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "RasterPropMonitor",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "ReStock",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Scatterer",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Shaddy",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "TexturesUnlimited",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Toolbar",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "Trajectories",
+            "suppress_recommendations": true
+        },
+        {
+            "name": "TriggerAu-Flags",
+            "suppress_recommendations": true
+        }
+    ],
+    "release_date": "2026-02-24T21:16:20.034505Z",
+    "kind": "metapackage"
+}
