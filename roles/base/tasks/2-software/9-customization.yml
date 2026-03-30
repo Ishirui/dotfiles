@@ -1,5 +1,5 @@
 - name: Software | Customization | Install tweaks, KDE scripts
-  tags: software,gaming,steam,gui
+  tags: software,customization,KDE
   kewlfft.aur.aur:
     name:
       - kwin-scripts-krohnkite
@@ -10,3 +10,11 @@
       - wallpaper-engine-kde-plugin-git
       - plasma6-applets-eventcalendar
       - plasma6-applets-arch-update-notifier
+      - plasma6-applets-panel-colorizer
+
+- name: Software | Customization | Install cattpuccin themes
+  tags: software,customization,KDE,theme,cattpuccin
+  kewlfft.aur.aur:
+    name:
+      - catppuccin-plasma-colorscheme-macchiato
+      - catppuccin-plasma-colorscheme-mocha

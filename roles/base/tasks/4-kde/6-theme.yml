@@ -1,0 +1,10 @@
+# Note: `catppuccin_flavor` should be defined in the `roles/desktop` vars (e.g. roles/desktop/vars/main.yml)
+# Example value: macchiato-lavender
+- name: KDE | Theme | Set Catppuccin flavor and ColorScheme via kdeconfig
+  tags: KDE,theme,cattpuccin
+  community.general.kdeconfig:
+    path: "{{ dotconfig_path }}/kdeglobals"
+    values:
+      - group: General
+        key: ColorScheme
+        value: "Catppuccin-{{ kde_catppuccin_flavor }}"
