@@ -29,6 +29,14 @@
     - include_tasks: 9-customization.yml
 
 - block:
+    - name: Wait for all paru/pacman processes to finish
+      become: yes
+      ansible.builtin.wait_for:
+        path: /var/lib/pacman/db.lck
+        state: absent
+        delay: 5
+        timeout: 600
+
     - name: Delete the `aur_builder` user
       become: yes
       ansible.builtin.user:
