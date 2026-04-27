@@ -4,6 +4,21 @@
     src: "{{ playbook_dir }}/fish/"
     dest: "{{ dotconfig_path }}/fish/"
 
+- name: Terminal | Activate per-host starship config
+  tags: terminal
+  # Picks fish/starship_configs/starship.<hostname>.toml from the dotfiles
+  # repo (rendered by scripts/build-starship-configs.sh) and lands it at the
+  # path the fish init reads ($STARSHIP_CONFIG = ~/.config/fish/starship.toml).
+  # Falls back to starship.default.toml for any host not in the build script's
+  # map.
+  copy:
+    src: "{{ item }}"
+    dest: "{{ dotconfig_path }}/fish/starship.toml"
+  with_first_found:
+    - files:
+        - "{{ playbook_dir }}/fish/starship_configs/starship.{{ ansible_hostname }}.toml"
+        - "{{ playbook_dir }}/fish/starship_configs/starship.default.toml"
+
 - name: Terminal | Load terminal profiles
   tags: terminal
   copy:

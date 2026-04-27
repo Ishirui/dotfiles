@@ -1,0 +1,651 @@
+# =============================================================================
+# THIS IS A TEMPLATE — do not edit the per-host renders directly.
+#
+# Powerline color slots (host / dir / flair_1 / flair_2 / git / alert / ssh /
+# container) are aliased as c_* below; the build script in
+# scripts/build-starship-configs.sh swaps their hex values per host.
+#
+# To regenerate the per-host configs:    bash scripts/build-starship-configs.sh
+# =============================================================================
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# =============================================================================
+# starship prompt — unified config
+#
+# Layout:
+#   line 1:  [root?]  host  dir  [git?]  pad     <inline tail>
+#   line 2: ❯
+#
+# Powerline: rounded outer caps, angled internal transitions, all sections
+# adjacent. Sections from left to right:
+#   - root  (only when $USER = root) — red, lock glyph
+#   - host  — lavender, hostname rewritten to a per-host nerd-font glyph
+#   - dir   — peach, native `directory` with home-tilde + substitutions +
+#             fish-style parent abbreviation + read-only indicator
+#   - git   (only inside a work tree) — yellow, branch (with leading
+#             `<user>/` stripped) + status decorations
+#   - pad   — green, decorative final powerline section that closes the bar
+#             with a rounded right cap
+#
+# Colors are catppuccin-macchiato palette names. Swap any bg color in
+# isolation by editing the bg: tokens in the relevant section.
+#
+# Note on encoding: powerline cap glyphs (U+E0A0, U+E0B0, U+E0B4, U+E0B6) and
+# many nerd-font symbols sit in the 3-byte BMP Private-Use Area, which some
+# editors and IDE auto-formatters strip on save. To stay robust we use TOML
+# basic-string `\uXXXX` / `\UXXXXXXXX` escapes for those code points — the
+# file content is plain ASCII, TOML decodes them at load time.
+# =============================================================================
+
+palette = 'catppuccin_macchiato'
+add_newline = false
+command_timeout = 1500
+
+format = """\
+${custom.root_chip}\
+${custom.host_lead}\
+${custom.host}\
+${custom.host_trail_to_ssh}\
+${custom.host_trail_to_container}\
+${custom.host_trail_to_dir}\
+${custom.ssh_chip}\
+${custom.ssh_trail_to_container}\
+${custom.ssh_trail_to_dir}\
+${custom.container_chip}\
+$directory\
+${custom.dir_to_flair}\
+${custom.flair_intercap}\
+${custom.flair_to_git}\
+${custom.flair_to_bg}\
+${custom.git_branch}\
+$git_status\
+${custom.git_to_bg}\
+ \
+$git_state\
+$python\
+$conda\
+$pixi\
+$golang\
+$nodejs\
+$bun\
+$deno\
+$rust\
+$c\
+$cpp\
+$cmake\
+$zig\
+$java\
+$kotlin\
+$scala\
+$ruby\
+$lua\
+$haskell\
+$elixir\
+$dotnet\
+$direnv\
+$nix_shell\
+$docker_context\
+$aws\
+$jobs\
+$sudo\
+$battery\
+$line_break\
+$character"""
+
+right_format = """$status$cmd_duration$time"""
+
+# -----------------------------------------------------------------------------
+# palette: Catppuccin Macchiato
+# -----------------------------------------------------------------------------
+
+[palettes.catppuccin_macchiato]
+rosewater = '#f4dbd6'
+flamingo  = '#f0c6c6'
+pink      = '#f5bde6'
+mauve     = '#c6a0f6'
+red       = '#ed8796'
+maroon    = '#ee99a0'
+peach     = '#f5a97f'
+yellow    = '#eed49f'
+green     = '#a6da95'
+teal      = '#8bd5ca'
+sky       = '#91d7e3'
+sapphire  = '#7dc4e4'
+blue      = '#8aadf4'
+lavender  = '#b7bdf8'
+text      = '#cad3f5'
+subtext1  = '#b8c0e0'
+subtext0  = '#a5adcb'
+overlay2  = '#939ab7'
+overlay1  = '#8087a2'
+overlay0  = '#6e738d'
+surface2  = '#5b6078'
+surface1  = '#494d64'
+surface0  = '#363a4e'
+base      = '#24273a'
+mantle    = '#1e2030'
+crust     = '#181926'
+
+# Powerline semantic aliases — overridden per-host by the build script.
+# Only these 8 entries are swapped between themes; everything above stays
+# constant so inline-tail symbol colors don't drift.
+c_host      = '#c6a0f6'  # mauve
+c_dir       = '#b7bdf8'  # lavender
+c_f1        = '#8aadf4'  # blue
+c_f2        = '#8bd5ca'  # teal
+c_git       = '#91d7e3'  # sky
+c_alert     = '#ed8796'  # red
+c_ssh       = '#91d7e3'  # sky
+c_container = '#8bd5ca'  # teal
+
+# =============================================================================
+# root chip — leftmost powerline section, only when running as root.
+# Renders the rounded leading cap, the lock glyph, and an angled trailing
+# cap into the host's lavender bg.
+# =============================================================================
+
+[custom.root_chip]
+description = "red lock chip prepended to the powerline when $USER = root"
+when = 'test "$USER" = "root"'
+command = "printf '\U000F033E'"
+format = "[](fg:c_alert)[ $output ](bg:c_alert fg:crust)[](fg:c_alert bg:c_host)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+# =============================================================================
+# host section
+#
+# Two parts:
+#   - host_lead: leading rounded cap into the host bg, rendered ONLY when
+#     not root (when root, root_chip's trailing cap already opens the host).
+#   - host: the host content. Resolves the hostname to a single nerd-font
+#     glyph via a shell case statement (per-host) and a wildcard for VMs;
+#     unknown hosts fall back to the raw short hostname. Always renders.
+# =============================================================================
+
+[custom.host_lead]
+when = 'test "$USER" != "root"'
+command = "printf ''"
+format = "[](fg:c_host)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.host]
+description = "host glyph chip on lavender bg"
+when = 'true'
+command = """
+case "$(hostname -s)" in
+  Tesseract)        printf '\U000F048B' ;;
+  Cuboid)           printf '\U000F02F4' ;;
+  Vertex)           printf '\U000F0322' ;;
+  COMP-DL7Q42TMVM)  printf '\U000F0035' ;;
+  vm-*)             printf '' ;;
+  *)                hostname -s ;;
+esac
+"""
+format = "[ $output ](bg:c_host fg:crust)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+# =============================================================================
+# leftmost optional pills — ssh + container.
+# Self-contained pills (rounded both ends) prepended to the bar with a
+# trailing space. Stack as `[ssh] [container]` when both apply, then the
+# powerline core resumes from the next module (root_chip or host_lead).
+# =============================================================================
+
+
+
+
+
+
+
+# =============================================================================
+# host trail + ssh / container — powerline-integrated sections after host.
+#
+# When SSH'd in, an angled cap transitions mauve→sky and the ssh_chip renders
+# its glyph on sky bg, then either continues into the container chip (sky→teal)
+# or back to dir (sky→lavender). Container behaves analogously and always
+# trails to the dir's lavender. When neither applies, host_trail_to_dir
+# provides the simple mauve→lavender cap.
+# =============================================================================
+
+[custom.host_trail_to_ssh]
+when = '[ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]'
+command = "printf ''"
+format = "[](fg:c_host bg:c_ssh)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.host_trail_to_container]
+when = '[ -z "$SSH_TTY" ] && [ -z "$SSH_CONNECTION" ] && ([ -e /.dockerenv ] || [ -e /run/.containerenv ] || [ -n "$REMOTE_CONTAINERS" ])'
+command = "printf ''"
+format = "[](fg:c_host bg:c_container)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.host_trail_to_dir]
+when = '[ -z "$SSH_TTY" ] && [ -z "$SSH_CONNECTION" ] && [ ! -e /.dockerenv ] && [ ! -e /run/.containerenv ] && [ -z "$REMOTE_CONTAINERS" ]'
+command = "printf ''"
+format = "[](fg:c_host bg:c_dir)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.ssh_chip]
+when = '[ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]'
+command = "printf '\U000F08B9'"
+format = "[ $output ](bg:c_ssh fg:crust)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.ssh_trail_to_container]
+when = '([ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]) && ([ -e /.dockerenv ] || [ -e /run/.containerenv ] || [ -n "$REMOTE_CONTAINERS" ])'
+command = "printf ''"
+format = "[](fg:c_ssh bg:c_container)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.ssh_trail_to_dir]
+when = '([ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]) && [ ! -e /.dockerenv ] && [ ! -e /run/.containerenv ] && [ -z "$REMOTE_CONTAINERS" ]'
+command = "printf ''"
+format = "[](fg:c_ssh bg:c_dir)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.container_chip]
+when = '[ -e /.dockerenv ] || [ -e /run/.containerenv ] || [ -n "$REMOTE_CONTAINERS" ]'
+command = "printf '\U000F0868'"
+format = "[ $output ](bg:c_container fg:crust)[](fg:c_container bg:c_dir)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+# =============================================================================
+# directory chip — peach. Native `directory` module.
+# =============================================================================
+
+[directory]
+style = 'bg:c_dir fg:crust'
+format = "[ $path]($style)[$read_only](fg:c_alert bg:c_dir)[ ]($style)"
+truncation_length = 3
+truncation_symbol = '…/'
+fish_style_pwd_dir_length = 1
+read_only = " \U000F033E"
+read_only_style = 'bg:c_dir fg:c_alert'
+home_symbol = ' ~'
+
+[directory.substitutions]
+# Placeholder substitutions — user will refine.
+"Documents" = "\U000F0219 docs"
+"Downloads" = "\U000F01DA dl"
+"Music"     = "\U000F075A music"
+"Pictures"  = "\U000F021F pics"
+"Developer" = "\U000F0CB2 dev"
+"Projects"  = "\U000F0CB2 projects"
+"dotfiles"  = "\U000F0493 dotfiles"
+"Desktop"   = "\U000F01C4 desktop"
+
+# =============================================================================
+# dir → flair → git transitions
+#
+# After the dir chip, two narrow flair stubs (green, then sapphire) close the
+# transition into either the yellow git chip (in a repo) or the terminal bg
+# (rounded cap, no repo). This places the decorative flair *between* dir and
+# git, mirroring the original Catppuccin example layout.
+# =============================================================================
+
+[custom.dir_to_flair]
+when = 'true'
+command = "printf ''"
+format = "[](fg:c_dir bg:c_f1)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.flair_intercap]
+when = 'true'
+command = "printf ''"
+format = "[](fg:c_f1 bg:c_f2)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.flair_to_git]
+when = 'git rev-parse --is-inside-work-tree 2>/dev/null 1>/dev/null'
+command = "printf ''"
+format = "[](fg:c_f2 bg:c_git)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[custom.flair_to_bg]
+when = '! git rev-parse --is-inside-work-tree 2>/dev/null 1>/dev/null'
+command = "printf ''"
+format = "[](fg:c_f2)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+# =============================================================================
+# git chip — only renders inside a git work tree.
+#
+# custom.git_branch strips the leading `<prefix>/` from branch names
+# (pierrelouis.veyrenc/ACIX-1234-foo -> ACIX-1234-foo) and falls back to
+# the short commit hash on detached HEAD. The leading `` is the
+# git-branch glyph from the powerline-extra range.
+#
+# git_status carries the decorations: ahead/behind, staged, modified,
+# untracked, deleted, renamed, stashed, conflicted. Line-churn metrics are
+# off (git_metrics disabled below).
+# =============================================================================
+
+[custom.git_branch]
+when = 'git rev-parse --is-inside-work-tree 2>/dev/null 1>/dev/null'
+command = """
+br=$(git branch --show-current 2>/dev/null)
+if [ -z "$br" ]; then
+  br=$(git rev-parse --short HEAD 2>/dev/null)
+fi
+printf ' %s' "${br#*/}"
+"""
+format = '[ $output](bg:c_git fg:crust)'
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+[git_status]
+style = 'bg:c_git fg:crust'
+format = '([ $all_status$ahead_behind]($style))'
+conflicted  = '[=$count](bg:c_git fg:c_alert)'
+ahead       = ' ⇡$count'
+behind      = ' ⇣$count'
+diverged    = ' ⇕⇡$ahead_count⇣$behind_count'
+up_to_date  = ''
+untracked   = ' ?$count'
+stashed     = ' $$count'
+modified    = ' !$count'
+staged      = ' +$count'
+renamed     = ' »$count'
+deleted     = ' ✘$count'
+typechanged = ''
+
+[custom.git_to_bg]
+when = 'git rev-parse --is-inside-work-tree 2>/dev/null 1>/dev/null'
+command = "printf ''"
+format = "[](fg:c_git)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
+
+# =============================================================================
+# inline tail — progressive; each module hides when its context is inactive.
+# No backgrounds: colored foreground + glyph, separated by spaces.
+# =============================================================================
+
+[git_state]
+style = 'fg:red'
+format = '[ $state( $progress_current/$progress_total)]($style)'
+rebase       = "\U000F1184 REBASE"
+merge        = "\U000F0245 MERGE"
+revert       = "\U000F0152 REVERT"
+cherry_pick  = "\U000F03B7 CHERRY"
+bisect       = "\U000F03A2 BISECT"
+am           = "\U000F0296 AM"
+am_or_rebase = "\U000F0296 AM/REBASE"
+
+# -- languages (first-class) --------------------------------------------------
+
+[python]
+symbol = "\U000F0320"
+style = 'fg:rosewater'
+format = '[ $symbol $version(\($virtualenv\))]($style)'
+python_binary = ['python', 'python3']
+detect_extensions = ['py']
+detect_files = ['requirements.txt', 'pyproject.toml', 'setup.py', 'tox.ini', 'Pipfile', '.python-version']
+detect_folders = ['.venv', 'venv']
+
+[golang]
+symbol = ""
+style = 'fg:sky'
+format = '[ $symbol $version]($style)'
+detect_extensions = ['go']
+detect_files = ['go.mod', 'go.sum', 'go.work', 'glide.yaml', 'Gopkg.yml', 'Gopkg.lock']
+
+# -- languages (secondary) ----------------------------------------------------
+
+[nodejs]
+symbol = ""
+style = 'fg:pink'
+format = '[ $symbol $version]($style)'
+
+[bun]
+symbol = ""
+style = 'fg:lavender'
+format = '[ $symbol $version]($style)'
+
+[deno]
+symbol = "\U000F076C"
+style = 'fg:teal'
+format = '[ $symbol $version]($style)'
+
+[rust]
+symbol = ""
+style = 'fg:maroon'
+format = '[ $symbol $version]($style)'
+
+[c]
+symbol = ""
+style = 'fg:flamingo'
+format = '[ $symbol $version]($style)'
+
+[cpp]
+symbol = ""
+style = 'fg:flamingo'
+format = '[ $symbol $version]($style)'
+
+[cmake]
+symbol = "△"
+style = 'fg:overlay2'
+format = '[ $symbol $version]($style)'
+
+[zig]
+symbol = ""
+style = 'fg:rosewater'
+format = '[ $symbol $version]($style)'
+
+[java]
+symbol = ""
+style = 'fg:red'
+format = '[ $symbol $version]($style)'
+
+[kotlin]
+symbol = ""
+style = 'fg:mauve'
+format = '[ $symbol $version]($style)'
+
+[scala]
+symbol = ""
+style = 'fg:red'
+format = '[ $symbol $version]($style)'
+
+[ruby]
+symbol = ""
+style = 'fg:red'
+format = '[ $symbol $version]($style)'
+
+[lua]
+symbol = ""
+style = 'fg:pink'
+format = '[ $symbol $version]($style)'
+
+[haskell]
+symbol = ""
+style = 'fg:mauve'
+format = '[ $symbol $version]($style)'
+
+[elixir]
+symbol = ""
+style = 'fg:mauve'
+format = '[ $symbol $version]($style)'
+
+[dotnet]
+symbol = "\U000F0AB6"
+style = 'fg:mauve'
+format = '[ $symbol $version]($style)'
+
+# -- environment overlays -----------------------------------------------------
+
+[conda]
+symbol = ""
+style = 'fg:pink'
+format = '[ $symbol $environment]($style)'
+ignore_base = false
+
+[pixi]
+symbol = "\U000F0117"
+style = 'fg:teal'
+format = '[ $symbol( $version)( $environment)]($style)'
+
+[direnv]
+symbol = ""
+style = 'fg:pink'
+format = '[ $symbol direnv]($style)'
+allowed_msg = ''
+not_allowed_msg = " \U000F033E unlock"
+loaded_msg = ''
+unloaded_msg = ' unloaded'
+disabled = false
+
+[nix_shell]
+symbol = "\U000F1105"
+style = 'fg:sky'
+format = '[ $symbol $state(\($name\))]($style)'
+impure_msg = 'impure'
+pure_msg   = 'pure'
+unknown_msg = ''
+
+[docker_context]
+symbol = ""
+style = 'fg:pink'
+format = '[ $symbol $context]($style)'
+only_with_files = false
+
+[aws]
+symbol = "\U000F2E0F"
+style = 'fg:lavender'
+format = '[ $symbol $profile(\($region\))]($style)'
+
+# -- meta / system ------------------------------------------------------------
+
+[jobs]
+symbol = "\U000F051F"
+style = 'fg:mauve'
+format = '[ $symbol $number]($style)'
+threshold = 1
+symbol_threshold = 1
+number_threshold = 1
+
+[sudo]
+symbol = "\U000F033E"
+style = 'fg:red'
+format = '[ $symbol sudo]($style)'
+allow_windows = false
+disabled = false
+
+[battery]
+format = '[ $symbol$percentage]($style)'
+
+[[battery.display]]
+threshold = 30
+style = 'fg:rosewater'
+
+[[battery.display]]
+threshold = 15
+style = 'fg:red'
+discharging_symbol = "\U000F0083"
+
+# =============================================================================
+# right prompt — silenced ambient: clock always; exit + duration on demand.
+# =============================================================================
+
+[time]
+disabled = false
+time_format = '%R'
+style = 'fg:subtext0'
+format = '[ $time]($style)'
+utc_time_offset = 'local'
+
+[cmd_duration]
+min_time = 2_000
+style = 'fg:overlay1'
+format = '[ $duration  ]($style)'
+show_milliseconds = false
+show_notifications = true
+min_time_to_notify = 45_000
+
+[status]
+disabled = false
+style = 'fg:red'
+format = '[$symbol$common_meaning$signal_name$maybe_int  ]($style)'
+symbol = '✘ '
+not_found_symbol = ' '
+not_executable_symbol = ' '
+sigint_symbol = "\U000F0506 "
+signal_symbol = "\U000F0506 "
+success_symbol = ''
+recognize_signal_code = true
+map_symbol = true
+pipestatus = true
+pipestatus_format = '\[$pipestatus\] => $symbol$common_meaning$signal_name$maybe_int  '
+
+# =============================================================================
+# second line
+# =============================================================================
+
+[line_break]
+disabled = false
+
+[character]
+success_symbol = '[❯](mauve)'
+error_symbol   = '[❯](red)'
+vimcmd_symbol             = '[❮](green)'
+vimcmd_replace_symbol     = '[❮](lavender)'
+vimcmd_replace_one_symbol = '[❮](lavender)'
+vimcmd_visual_symbol      = '[❮](yellow)'
+
+# =============================================================================
+# explicitly disabled — replaced by custom modules or unused.
+# =============================================================================
+
+[git_branch]
+disabled = true
+
+[git_metrics]
+disabled = true
+
+[username]
+disabled = true
+
+[os]
+disabled = true
+
+[hostname]
+disabled = true
+
+[shlvl]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[azure]
+disabled = true
+
+[terraform]
+disabled = true
+
+[openstack]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[localip]
+disabled = true
