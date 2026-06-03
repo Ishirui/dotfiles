@@ -1,0 +1,25 @@
+# Obsidian config is versioned per-vault under <vault>/.obsidian. We commit all
+# settings (top-level *.json, the custom Catppunite Encore theme and all plugin
+# configs, filtering only session state) and let an installer script pull the
+# plugin code (main.js/styles.css) from Obsidian's official registry at deploy time.
+
+- name: Obsidian | Install registry-parsing dependency
+  tags: obsidian
+  become: yes
+  community.general.pacman:
+    name:
+      - jq
+    state: present
+
+- name: Obsidian | Deploy vault config (settings, theme, plugin settings)
+  tags: obsidian
+  copy:
+    src: "{{ playbook_dir }}/obsidian/.obsidian/"
+    dest: "{{ obsidian_vault_path }}/.obsidian/"
+
+- name: Obsidian | Download community plugin code from the registry
+  tags: obsidian
+  command:
+    cmd: "bash {{ playbook_dir }}/scripts/install-obsidian-plugins.sh '{{ obsidian_vault_path }}/.obsidian'"
+  register: obsidian_plugins
+  changed_when: "'installing' in obsidian_plugins.stdout"

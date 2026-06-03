@@ -11,6 +11,7 @@ Hopefully this inspires you in creating your own stuff !
 - `roles`: Ansible roles for setting up new machines. Also contains some support files that I don´t consider to be "configs" but are still part of the setup, like configurations referencing machine-specific things, desktop files etc.
 - `fish`: Shell completions, functions and my Starship config
 - `kde`: KDE Plasma configuration, including panels, desktop, window manager etc.
+- `obsidian`: Per-vault Obsidian config (`.obsidian/`): app settings, the custom `Catppunite Encore` theme and all plugin settings.
 - `scripts`: Various scripts that I use for util purposes.
 
 > *NOTE:* Some config files (like `kwinrc` for example) are not actually stored in the repo but are generated from templates in the `ansible` directory, since they contain machine-specific information like screen layout, monitor names and might contain some lines I don´t want to include in the repo. The ansible playbook takes care of generating those files and putting them in the right place.

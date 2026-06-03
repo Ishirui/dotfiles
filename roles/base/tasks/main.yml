@@ -6,4 +6,5 @@
 - include_tasks: 3-terminal.yml
 - include_tasks: 4-kde/0-main.yml
 - include_tasks: 5-syncthing.yml
+- include_tasks: 6-obsidian.yml
 - include_tasks: 98-gaming.yml

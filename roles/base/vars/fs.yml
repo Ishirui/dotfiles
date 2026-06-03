@@ -2,6 +2,10 @@ dotconfig_path: "/home/{{ username }}/.config"
 dotlocalshare_path: "/home/{{ username }}/.local/share"
 dotcache_path: "/home/{{ username }}/.cache"
 
+# Obsidian config is per-vault, living in <vault>/.obsidian. Override this if the
+# vault moves.
+obsidian_vault_path: "/home/{{ username }}/Documents/Notes"
+
 # name needs to not be prefixed with @
 # parent_subvol needs to include a trailing slash, even when referring to the root subvolume
 custom_subvolumes:
