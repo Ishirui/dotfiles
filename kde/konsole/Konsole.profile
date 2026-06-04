@@ -2,7 +2,7 @@
 BorderWhenActive=true
 ColorScheme=Fully Transparent
 FocusBorderColor=101,0,164
-Font=MonaspiceNe Nerd Font Mono,11,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light
+Font=MonaspiceAr Nerd Font Mono,11,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light
 WordMode=false
 
 [Cursor Options]

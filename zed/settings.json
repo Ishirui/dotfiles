@@ -1,21 +1,129 @@
 // Zed settings — managed in dotfiles, deployed to ~/.config/zed/settings.json
 //
 // This is a STUB. Sections marked TODO are intentionally minimal and will be
-// filled in as we work through fonts, appearance, keybindings, LSPs and
-// extensions. See zed/README.md for the decision log and checklist.
+// filled in as we work through appearance, keybindings, LSPs and extensions.
+// See zed/README.md for the decision log and checklist.
 {
   // --- Theme -----------------------------------------------------------------
   // Uses the custom theme committed under zed/themes/.
-  "theme": {
-    "mode": "system",
-    "light": "Ayu Light",
-    "dark": "Catppuccin Macchiato Custom"
+  "proxy": "",
+  "git": {
+    "inline_blame": {
+      "show_commit_summary": true
+    }
   },
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.7
+  },
+  "bottom_dock_layout": "right_aligned",
+  "tabs": {
+    "file_icons": false,
+    "git_status": true
+  },
+  "title_bar": {
+    "button_layout": "platform_default",
+    "show_menus": false,
+    "show_branch_status_icon": true
+  },
+  "diagnostics": {
+    "inline": {
+      "padding": 4,
+      "enabled": true
+    }
+  },
+  "completions": {
+    "lsp_insert_mode": "replace_suffix"
+  },
+  "document_symbols": "off",
+  "semantic_tokens": "combined",
+  "lsp_document_colors": "none",
+  "code_lens": "on",
+  "inlay_hints": {
+    "show_background": false
+  },
+  "indent_guides": {
+    "line_width": 1,
+    "active_line_width": 2,
+    "coloring": "indent_aware",
+    "background_coloring": "disabled"
+  },
+  "preferred_line_length": 100,
+  "soft_wrap": "none",
+  "minimap": {
+    "max_width_columns": 45,
+    "current_line_highlight": "all",
+    "thumb_border": "none",
+    "thumb": "always",
+    "display_in": "active_editor",
+    "show": "auto"
+  },
+  "gutter": {
+    "min_line_number_digits": 3
+  },
+  "relative_line_numbers": "enabled",
+  "sticky_scroll": {
+    "enabled": true
+  },
+  "autoscroll_on_clicks": true,
+  "scroll_beyond_last_line": "vertical_scroll_margin",
+  "diff_view_style": "split",
+  "current_line_highlight": "gutter",
+  "cursor_shape": "bar",
+  "redact_private_values": true,
+  "restore_on_startup": "launchpad",
+  "project_panel": {
+    "sort_mode": "directories_first",
+    "hide_root": true,
+    "git_status_indicator": true,
+    "dock": "left",
+  },
+  "git_panel": {
+    "folder_icons": false,
+    "file_icons": false,
+    "collapse_untracked_diff": false,
+    "sort_by_path": false,
+    "tree_view": true,
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "button": false,
+  },
+  "theme": "Catppuccin Macchiato Custom",
 
-  // --- Fonts (TODO: pick Monaspace variants / stylistic sets / sizes) --------
-  // See roles/base/vars/fonts.yml for the standardized family.
-  "buffer_font_family": "MonaspiceKr Nerd Font Mono",
+  // --- Fonts ------------------------------------------------------------------
+  // Monaspace, unified with Obsidian (Neon code / Argon UI) and Konsole (Neon).
+  // UI + terminal are a touch larger than the code surface.
+  "buffer_font_family": "MonaspiceNe Nerd Font Mono",
+  "buffer_font_size": 14,
+  "buffer_line_height": "comfortable",
+  "buffer_font_features": {
+    "calt": true,
+    "liga": true,
+    "ss01": true,
+    "ss02": true,
+    "ss03": true,
+  },
   "ui_font_family": "MonaspiceAr Nerd Font Propo",
+  "ui_font_size": 15,
+  "ui_font_features": {
+    "calt": true,
+    "liga": true,
+  },
+  "terminal": {
+    "toolbar": {
+      "breadcrumbs": false
+    },
+    "show_count_badge": false,
+    "font_family": "MonaspiceAr Nerd Font Mono",
+    "font_size": 15,
+    "font_features": {
+      "calt": true,
+      "liga": true,
+      "ss01": true,
+      "ss02": true,
+      "ss03": true,
+    },
+  },
 
   // --- Appearance & editor preferences (TODO) --------------------------------
   // minimap, wrap_guides, indent_guides, scrollbar, line numbers, whitespace,
@@ -33,41 +141,44 @@
   // --- Work-specific settings (shared across machines) -----------------------
   "agent_servers": {
     "opencode": {
-      "type": "registry"
-    }
+      "type": "registry",
+    },
   },
   "agent": {
+    "show_turn_stats": true,
+    "single_file_review": true,
+    "sidebar_side": "right",
     "use_modifier_to_send": true,
     "dock": "right",
     "favorite_models": [],
-    "model_parameters": []
+    "model_parameters": [],
   },
   "edit_predictions": {
     "mode": "subtle",
     "open_ai_compatible_api": {
       "model": "",
-      "api_url": ""
+      "api_url": "",
     },
     "allow_data_collection": "no",
     "provider": "ollama",
     "ollama": {
       "model": "qwen2.5-coder:7b",
       "max_output_tokens": 128,
-      "api_url": "https://ai-devx-ide.us1.prod.dog/internal/ide/ollama"
-    }
+      "api_url": "https://ai-devx-ide.us1.prod.dog/internal/ide/ollama",
+    },
   },
   "language_models": {
     "ollama": {
-      "api_url": "https://ai-devx-ide.us1.prod.dog/internal/ide/ollama"
-    }
+      "api_url": "https://ai-devx-ide.us1.prod.dog/internal/ide/ollama",
+    },
   },
 
   // --- Misc / privacy --------------------------------------------------------
   "session": {
-    "trust_all_worktrees": true
+    "trust_all_worktrees": true,
   },
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
-  }
+    "metrics": false,
+  },
 }
