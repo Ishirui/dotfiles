@@ -1,0 +1,11 @@
+# macOS role. A deliberately barebones counterpart to the Arch roles: it only
+# deploys dev tool configs. The tools themselves (fish, starship, zed, obsidian,
+# opencode, ...) are assumed to be installed manually (e.g. via Homebrew).
+#
+# All deployed config files come from the repo root (zed/, fish/, obsidian/,
+# agents/) — the same single source of truth the Arch roles use. No config files
+# are duplicated.
+
+- include_vars: main.yml
+
+- include_tasks: configs.yml

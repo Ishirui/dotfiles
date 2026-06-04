@@ -1,0 +1,14 @@
+# macOS user. Distinct from the Arch `username` (ishirui) since the work laptop
+# uses a different login. Defaults to the user Ansible connects as.
+username: "{{ ansible_user_id }}"
+
+# Filesystem paths (XDG-style under the macOS home directory). These mirror the
+# variable names used by the base role's tasks so shared config-deploy logic
+# lands in the right place.
+dotconfig_path: "/Users/{{ username }}/.config"
+dotlocalshare_path: "/Users/{{ username }}/.local/share"
+dotcache_path: "/Users/{{ username }}/.cache"
+
+# Obsidian config is per-vault, living in <vault>/.obsidian. Override if the
+# vault lives elsewhere on this machine.
+obsidian_vault_path: "/Users/{{ username }}/Documents/Notes"

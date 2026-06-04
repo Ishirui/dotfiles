@@ -3,3 +3,6 @@ Cuboid.veyrenc.com
 
 [laptop]
 Vertex
+
+[mac]
+localhost ansible_connection=local
