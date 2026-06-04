@@ -1,0 +1,4 @@
+{
+    "plugin": ["~/dd/opencode-datadog/"],
+    "theme": "catppuccin-macchiato"
+}

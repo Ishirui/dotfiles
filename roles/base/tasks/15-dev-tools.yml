@@ -6,10 +6,20 @@
   become_user: aur_builder
   kewlfft.aur.aur:
     name:
-        - lazygit # GUI for git, might be useful
-        - docker
-        - bruno-bin # Postman alternative
-        - meld
+      - lazygit # GUI for git, might be useful
+      - docker
+      - bruno-bin # Postman alternative
+      - meld
+      - opencode-bin # Terminal AI coding agent
+
+- name: Dev tools | Deploy OpenCode config (opencode.jsonc, tui.json)
+  tags: opencode,dev
+  copy:
+    src: "{{ item }}"
+    dest: "{{ dotconfig_path }}/opencode/{{ item | basename }}"
+  loop:
+    - "{{ playbook_dir }}/agents/opencode/opencode.jsonc"
+    - "{{ playbook_dir }}/agents/opencode/tui.json"
 
 # Language servers / tooling for Zed (and shared with OpenCode + CLI use).
 # STUB: fill in the list once we pick servers per language. Candidates:
