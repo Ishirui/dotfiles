@@ -1,7 +1,8 @@
 # tasks to complete before running roles
+# NOTE: become is set per-task (not play-wide) so macOS runs don't trigger a
+# sudo prompt during fact gathering / pre-tasks. The mac role needs no root.
 - hosts: all
   tags: always
-  become: true
   pre_tasks:
     - name: pre-run | update pacman package cache
       tags: always
@@ -10,7 +11,16 @@
       when: ansible_facts['distribution'] == "Archlinux"
       become: yes
 
+# Arch machines (desktop/laptop) get the full desktop role.
 - hosts: all
   tags: desktop
   roles:
-    - desktop
+    - role: desktop
+      when: ansible_facts['os_family'] != "Darwin"
+
+# macOS machines get the barebones mac role (dev tool configs + brew installs).
+- hosts: all
+  tags: mac
+  roles:
+    - role: mac
+      when: ansible_facts['os_family'] == "Darwin"

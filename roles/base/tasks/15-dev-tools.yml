@@ -21,6 +21,25 @@
     - "{{ playbook_dir }}/agents/opencode/opencode.jsonc"
     - "{{ playbook_dir }}/agents/opencode/tui.json"
 
+- name: Dev tools | Deploy shared agent instructions to OpenCode
+  tags: opencode,agents,dev
+  copy:
+    src: "{{ playbook_dir }}/agents/AGENTS.md"
+    dest: "{{ dotconfig_path }}/opencode/AGENTS.md"
+
+- name: Dev tools | Check whether Claude Code config dir exists
+  tags: claude,agents,dev
+  stat:
+    path: "/home/{{ username }}/.claude"
+  register: claude_dir
+
+- name: Dev tools | Deploy shared agent instructions to Claude Code (if installed)
+  tags: claude,agents,dev
+  copy:
+    src: "{{ playbook_dir }}/agents/AGENTS.md"
+    dest: "/home/{{ username }}/.claude/CLAUDE.md"
+  when: claude_dir.stat.exists
+
 # Language servers / tooling for Zed (and shared with OpenCode + CLI use).
 # STUB: fill in the list once we pick servers per language. Candidates:
 #   - gopls                    # Go
