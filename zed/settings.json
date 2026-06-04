@@ -1,0 +1,73 @@
+// Zed settings — managed in dotfiles, deployed to ~/.config/zed/settings.json
+//
+// This is a STUB. Sections marked TODO are intentionally minimal and will be
+// filled in as we work through fonts, appearance, keybindings, LSPs and
+// extensions. See zed/README.md for the decision log and checklist.
+{
+  // --- Theme -----------------------------------------------------------------
+  // Uses the custom theme committed under zed/themes/.
+  "theme": {
+    "mode": "system",
+    "light": "Ayu Light",
+    "dark": "Catppuccin Macchiato Custom"
+  },
+
+  // --- Fonts (TODO: pick Monaspace variants / stylistic sets / sizes) --------
+  // See roles/base/vars/fonts.yml for the standardized family.
+  "buffer_font_family": "MonaspiceKr Nerd Font Mono",
+  "ui_font_family": "MonaspiceAr Nerd Font Propo",
+
+  // --- Appearance & editor preferences (TODO) --------------------------------
+  // minimap, wrap_guides, indent_guides, scrollbar, line numbers, whitespace,
+  // inline git blame, soft_wrap, etc. to be decided together.
+  "base_keymap": "VSCode",
+
+  // --- Extensions (TODO: vet candidate list) ---------------------------------
+  // Declarative install on launch.
+  "auto_install_extensions": {},
+
+  // --- Languages / LSP (TODO: per-language settings once servers are chosen) -
+  "languages": {},
+  "lsp": {},
+
+  // --- Work-specific settings (shared across machines) -----------------------
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    }
+  },
+  "agent": {
+    "use_modifier_to_send": true,
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "edit_predictions": {
+    "mode": "subtle",
+    "open_ai_compatible_api": {
+      "model": "",
+      "api_url": ""
+    },
+    "allow_data_collection": "no",
+    "provider": "ollama",
+    "ollama": {
+      "model": "qwen2.5-coder:7b",
+      "max_output_tokens": 128,
+      "api_url": "https://ai-devx-ide.us1.prod.dog/internal/ide/ollama"
+    }
+  },
+  "language_models": {
+    "ollama": {
+      "api_url": "https://ai-devx-ide.us1.prod.dog/internal/ide/ollama"
+    }
+  },
+
+  // --- Misc / privacy --------------------------------------------------------
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  }
+}

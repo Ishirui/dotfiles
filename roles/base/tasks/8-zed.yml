@@ -1,0 +1,23 @@
+# Zed editor config is committed under zed/ and deployed verbatim. Settings,
+# the custom Catppuccin Macchiato theme and keybindings live in the repo;
+# extensions are declared via auto_install_extensions in settings.json and
+# installed by Zed on next launch.
+#
+# NOTE: this deploys via `copy`, matching the other roles. Editor-made changes
+# won't flow back to the repo (see zed/README.md follow-ups). LSP/language
+# tooling packages are installed in 2-software/7-dev.yml.
+
+- name: Zed | Deploy config (settings, keymap, custom theme)
+  tags: zed,editors
+  copy:
+    src: "{{ item }}"
+    dest: "{{ dotconfig_path }}/zed/{{ item | basename }}"
+  loop:
+    - "{{ playbook_dir }}/zed/settings.json"
+    - "{{ playbook_dir }}/zed/keymap.json"
+
+- name: Zed | Deploy custom themes
+  tags: zed,editors
+  copy:
+    src: "{{ playbook_dir }}/zed/themes/"
+    dest: "{{ dotconfig_path }}/zed/themes/"

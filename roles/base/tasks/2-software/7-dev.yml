@@ -29,3 +29,17 @@
         - deno
         - yarn
         - uv
+
+- name: Software | Dev | Install language servers (LSP)
+  tags: software,dev,lsp,cli
+  kewlfft.aur.aur:
+    name: []
+        # - gopls                    # Go
+        # - ruff                     # Python lint/format  
+        # - pyright                  # Python types
+        # - yaml-language-server     # YAML / GitLab CI
+        # - ansible-language-server  # Ansible
+        # - ansible-lint
+        # - dockerfile-language-server
+        # - taplo-cli                # TOML
+        # - bash-language-server

@@ -1,0 +1,13 @@
+// Zed keymap — managed in dotfiles, deployed to ~/.config/zed/keymap.json
+//
+// STUB. base_keymap "VSCode" is set in settings.json; custom bindings get
+// collected here incrementally. See zed/README.md (section D) for the process.
+//
+// Example shape:
+// {
+//   "context": "Editor",
+//   "bindings": {
+//     "ctrl-alt-f": "editor::Format"
+//   }
+// }
+[]
