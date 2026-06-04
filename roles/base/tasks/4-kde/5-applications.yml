@@ -1,4 +1,0 @@
-- name: KDE | Load .desktop files
-  copy:
-    src: "{{ playbook_dir }}/kde/applications/"
-    dest: "{{ dotlocalshare_path }}/applications/"

@@ -1,0 +1,12 @@
+# Editors without dedicated config here. Note: zed lives in 14-zed.yml (it
+# carries its own config), and micro is installed with the CLI tools in
+# 04-terminal.yml.
+
+- name: Editors | Install editors
+  tags: software,dev,editors,cli,gui
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+        - neovim
+        - cursor-bin

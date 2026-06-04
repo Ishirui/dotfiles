@@ -1,5 +1,7 @@
-- name: Software | Gaming | Install gaming apps
+- name: Gaming | Install gaming apps
   tags: software,gaming,steam,gui
+  become: true
+  become_user: aur_builder
   kewlfft.aur.aur:
     use: paru
     extra_args: --noprovides # Vortex has multiple providers and no specific `bin` distribution

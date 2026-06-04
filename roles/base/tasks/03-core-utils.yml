@@ -1,0 +1,14 @@
+# Common low-level utilities that other steps depend on. Installed early so the
+# rest of the run (and AUR builds) can rely on them being present.
+
+- name: Core utils | Install common utilities
+  tags: software,core,cli
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - base-devel
+      - git
+      - curl
+      - wget
+      - unzip

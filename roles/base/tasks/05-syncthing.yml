@@ -1,3 +1,21 @@
+# Syncthing: install the daemon + tray/CLI tooling and apply the declared
+# folders/devices/options to the generated config.
+
+# --- Install ----------------------------------------------------------------
+
+- name: Syncthing | Install syncthing stack
+  tags: software,homelab,tools,cli,gui
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - syncthing
+      - syncthingtray-qt6
+      - syncthingctl-bin # Useful CLI controller
+      - syncthing-resolve-conflicts
+
+# --- Configuration ----------------------------------------------------------
+
 - name: Syncthing | Load syncthing configuration data
   tags: software,homelab,tools,gui
   include_vars:

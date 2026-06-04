@@ -1,12 +1,16 @@
-- name: Software | Browsers | Install browsers
+# Browsers: install zen + chromium, and remove the preinstalled Firefox.
+
+- name: Browsers | Install browsers
   tags: software,browsers,zen,chromium
+  become: true
+  become_user: aur_builder
   kewlfft.aur.aur:
     name:
         - zen-browser-bin
         - chromium
 
 # We already have zen and chromium so who cares
-- name: Software | Browsers | Uninstall firefox
+- name: Browsers | Uninstall firefox
   tags: software,browsers
   become: yes # Removing packages requires actual root rather than aur_builder
   become_user: root
@@ -16,10 +20,10 @@
     name:
         - firefox
 
-- name: Software | Browsers | Cleanup firefox data
+- name: Browsers | Cleanup firefox data
   tags: software,browsers
   become: yes
-  become_user: "{{ username }}" # Override become_user from software.yml
+  become_user: "{{ username }}"
   ansible.builtin.file:
     state: absent
     path: "{{ item }}"

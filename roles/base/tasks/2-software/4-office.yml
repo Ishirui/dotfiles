@@ -1,6 +1,0 @@
-- name: Software | Office | Install office apps
-  tags: software,office,gui
-  kewlfft.aur.aur:
-    name:
-        - onlyoffice-bin
-        - obsidian

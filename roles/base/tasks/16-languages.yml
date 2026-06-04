@@ -1,0 +1,17 @@
+# Language runtimes / toolchains. Kept as a single bundle; split a language into
+# its own file once it grows real configuration.
+
+- name: Languages | Install languages
+  tags: software,languages,cli
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+        - python
+        - nodejs
+        - go
+        - rustup
+        - jdk-openjdk
+        - deno
+        - yarn
+        - uv

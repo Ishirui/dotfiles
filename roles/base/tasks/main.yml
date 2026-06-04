@@ -1,11 +1,38 @@
 - include_vars: user.yml
 - include_vars: fs.yml
 
-- include_tasks: 1-system/0-main.yml
-- include_tasks: 2-software/0-main.yml
-- include_tasks: 3-terminal.yml
-- include_tasks: 4-kde/0-main.yml
-- include_tasks: 5-syncthing.yml
-- include_tasks: 6-obsidian.yml
-- include_tasks: 8-zed.yml
-- include_tasks: 98-gaming.yml
+# aur_builder is created once here and deleted once at the very end.
+- include_tasks: 00-aur-builder.yml
+
+# system (no installs)
+- include_tasks: 01-btrfs.yml
+- include_tasks: 02-fs.yml
+
+# early common deps
+- include_tasks: 03-core-utils.yml
+
+# apps + bundles, ordered most -> least critical
+- include_tasks: 04-terminal.yml
+- include_tasks: 05-syncthing.yml
+- include_tasks: 06-browsers.yml
+- include_tasks: 07-messaging.yml
+- include_tasks: 08-obsidian.yml
+- include_tasks: 09-media.yml
+- include_tasks: 10-homelab.yml
+- include_tasks: 11-office.yml
+- include_tasks: 12-gaming.yml
+
+# dev stuff
+- include_tasks: 13-editors.yml
+- include_tasks: 14-zed.yml
+- include_tasks: 15-dev-tools.yml
+- include_tasks: 16-languages.yml
+
+# kde
+- include_tasks: 17-kde.yml
+
+# other tools
+- include_tasks: 18-gui-tools.yml
+
+# tear down aur_builder once everything is installed
+- include_tasks: 99-aur-builder.yml

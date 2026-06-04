@@ -1,0 +1,33 @@
+# Developer tooling. Note: git is installed early in 03-core-utils.yml.
+
+- name: Dev tools | Install tools
+  tags: software,dev,tools,cli,gui
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+        - lazygit # GUI for git, might be useful
+        - docker
+        - bruno-bin # Postman alternative
+        - meld
+
+# Language servers / tooling for Zed (and shared with OpenCode + CLI use).
+# STUB: fill in the list once we pick servers per language. Candidates:
+#   - gopls                    # Go
+#   - ruff                     # Python lint/format
+#   - pyright                  # Python types
+#   - yaml-language-server     # YAML / GitLab CI
+#   - ansible-language-server  # Ansible
+#   - ansible-lint
+#   - dockerfile-language-server
+#   - taplo-cli                # TOML
+#   - bash-language-server
+- name: Dev tools | Install language servers (LSP)
+  tags: software,dev,lsp,cli
+  become: true
+  become_user: aur_builder
+  vars:
+    lsp_packages: []
+  when: lsp_packages | length > 0
+  kewlfft.aur.aur:
+    name: "{{ lsp_packages }}"

@@ -1,7 +1,20 @@
-# Obsidian config is versioned per-vault under <vault>/.obsidian. We commit all
-# settings (top-level *.json, the custom Catppunite Encore theme and all plugin
-# configs, filtering only session state) and let an installer script pull the
-# plugin code (main.js/styles.css) from Obsidian's official registry at deploy time.
+# Obsidian: install the app and deploy its versioned per-vault config. We commit
+# all settings (top-level *.json, the custom Catppunite Encore theme and all
+# plugin configs, filtering only session state) and let an installer script pull
+# the plugin code (main.js/styles.css) from Obsidian's official registry at
+# deploy time.
+
+# --- Install ----------------------------------------------------------------
+
+- name: Obsidian | Install Obsidian
+  tags: software,office,gui
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - obsidian
+
+# --- Configuration ----------------------------------------------------------
 
 - name: Obsidian | Install registry-parsing dependency
   tags: obsidian

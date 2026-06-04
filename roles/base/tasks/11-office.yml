@@ -1,0 +1,10 @@
+# Office apps. Note: Obsidian lives in 08-obsidian.yml since it carries its own
+# configuration.
+
+- name: Office | Install office apps
+  tags: software,office,gui
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+        - onlyoffice-bin

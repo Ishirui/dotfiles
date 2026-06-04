@@ -1,5 +1,7 @@
-- name: Software | Messaging | Install messaging apps
+- name: Messaging | Install messaging apps
   tags: software,messaging,gui
+  become: true
+  become_user: aur_builder
   kewlfft.aur.aur:
     name:
         - vesktop-bin

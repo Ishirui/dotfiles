@@ -1,0 +1,15 @@
+# Tear down the `aur_builder` user once all installs are done (very end of run).
+
+- name: AUR builder | Wait for all paru/pacman processes to finish
+  become: yes
+  ansible.builtin.wait_for:
+    path: /var/lib/pacman/db.lck
+    state: absent
+    delay: 5
+    timeout: 600
+
+- name: AUR builder | Delete the `aur_builder` user
+  become: yes
+  ansible.builtin.user:
+    name: aur_builder
+    state: absent
