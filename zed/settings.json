@@ -6,6 +6,11 @@
 {
   // --- Theme -----------------------------------------------------------------
   // Uses the custom theme committed under zed/themes/.
+  "enable_language_server": true,
+  "use_on_type_format": false,
+  "tasks": {
+    "prefer_lsp": true,
+  },
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
@@ -32,15 +37,19 @@
     "show_branch_status_icon": true,
   },
   "diagnostics": {
+    "lsp_pull_diagnostics": {
+      "enabled": true,
+    },
     "inline": {
       "padding": 4,
       "enabled": true,
     },
   },
   "completions": {
+    "lsp": true,
     "lsp_insert_mode": "replace_suffix",
   },
-  "document_symbols": "off",
+  "document_symbols": "on",
   "semantic_tokens": "combined",
   "lsp_document_colors": "none",
   "code_lens": "on",
