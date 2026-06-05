@@ -231,7 +231,7 @@
           },
           "variable.builtin": {
             "color": "#ed8796",
-            "font_style": null,
+            "font_style": "italic",
             "font_weight": null
           },
           "variable.parameter": {

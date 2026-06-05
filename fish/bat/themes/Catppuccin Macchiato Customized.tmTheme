@@ -3,13 +3,13 @@
 <plist version="1.0">
   <dict>
     <key>name</key>
-    <string>Catppuccin Macchiato</string>
+    <string>Catppuccin Macchiato Customized</string>
     <key>semanticClass</key>
     <string>theme.dark.catppuccin-macchiato</string>
     <key>uuid</key>
     <string>02b2bdf3-9eb7-4396-bf04-f17f1468f99f</string>
     <key>author</key>
-    <string>Catppuccin Org</string>
+    <string>Pierre-Louis Veyrenc</string>
     <key>colorSpaceName</key>
     <string>sRGB</string>
     <key>settings</key>
@@ -127,16 +127,29 @@
       </dict>
       <dict>
         <key>name</key>
-        <string>Punctuation</string>
+        <string>Operators (symbolic)</string>
         <key>scope</key>
-        <string>keyword.operator, punctuation.accessor, punctuation.definition.generic, meta.function.closure punctuation.section.parameters, punctuation.definition.tag, punctuation.separator.key-value</string>
+        <string>keyword.operator</string>
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#8bd5ca</string>
+          <string>#91d7e3</string>
         </dict>
       </dict>
       <dict>
+        <key>name</key>
+        <string>Punctuation accessors &amp; separators</string>
+        <key>scope</key>
+        <string>punctuation.accessor, punctuation.definition.generic, meta.function.closure punctuation.section.parameters, punctuation.definition.tag, punctuation.separator.key-value</string>
+        <key>settings</key>
+        <dict>
+          <key>foreground</key>
+          <string>#939ab7</string>
+        </dict>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>Functions</string>
         <key>scope</key>
         <string>entity.name.function, meta.function-call.method, support.function, support.function.misc, variable.function</string>
         <key>settings</key>
@@ -144,7 +157,7 @@
           <key>foreground</key>
           <string>#8aadf4</string>
           <key>fontStyle</key>
-          <string>italic</string>
+          <string/>
         </dict>
       </dict>
       <dict>
@@ -192,7 +205,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#8bd5ca</string>
+          <string>#8aadf4</string>
         </dict>
       </dict>
       <dict>
@@ -220,6 +233,8 @@
         </dict>
       </dict>
       <dict>
+        <key>name</key>
+        <string>Parameters</string>
         <key>scope</key>
         <string>variable.parameter, meta.function.parameters</string>
         <key>settings</key>
@@ -227,7 +242,7 @@
           <key>foreground</key>
           <string>#ee99a0</string>
           <key>fontStyle</key>
-          <string>italic</string>
+          <string/>
         </dict>
       </dict>
       <dict>
@@ -281,6 +296,8 @@
         <dict>
           <key>foreground</key>
           <string>#eed49f</string>
+          <key>fontStyle</key>
+          <string>italic</string>
         </dict>
       </dict>
       <dict>
@@ -669,7 +686,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#8aadf4</string>
+          <string>#f5a97f</string>
         </dict>
       </dict>
       <dict>
@@ -1375,7 +1392,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#91d7e3</string>
+          <string>#8aadf4</string>
         </dict>
       </dict>
       <dict>
@@ -1408,7 +1425,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#91d7e3</string>
+          <string>#f5a97f</string>
           <key>fontStyle</key>
           <string>italic</string>
         </dict>
@@ -1456,7 +1473,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#91d7e3</string>
+          <string>#f5a97f</string>
         </dict>
       </dict>
       <dict>
@@ -1537,7 +1554,7 @@
           <key>foreground</key>
           <string>#ee99a0</string>
           <key>fontStyle</key>
-          <string>italic</string>
+          <string/>
         </dict>
       </dict>
       <dict>
@@ -1813,7 +1830,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#8aadf4</string>
+          <string>#8bd5ca</string>
           <key>fontStyle</key>
           <string>italic</string>
         </dict>
