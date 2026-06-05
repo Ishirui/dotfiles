@@ -47,6 +47,13 @@ abbr -a -- gcpx 'git cherry-pick -x'
 abbr -a -- grb 'git rebase'
 abbr -a -- grbi 'git rebase --interactive'
 abbr -a -- grbim 'git rebase --interactive main'
+## Reset
+abbr -a -- grs 'git reset'
+abbr -a -- grso 'git reset origin/$(git branch --show-current)'
+abbr -a -- grs^ 'git reset HEAD^'
+abbr -a -- grsh 'git reset --hard'
+abbr -a -- grsho 'git reset --hard origin/$(git branch --show-current)'
+abbr -a -- grsh^ 'git reset --hard HEAD^'
 ## Misc
 abbr -a -- gpristine 'git reset --hard && git clean -fdx'
 
