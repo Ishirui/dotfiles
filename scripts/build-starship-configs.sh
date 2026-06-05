@@ -55,7 +55,7 @@ declare -A hosts=(
   [Tesseract]="iris"               # NAS — cool blues into pink
   [Cuboid]="twilight-bloom"        # gaming rig — cool gradient ending in teal/sky
   [Vertex]="rosé"                  # personal laptop — pinks
-  [COMP-DL7Q42TMVM]="garden"       # work mac — earthy
+  [COMP-DL7Q42TMVM]="twilight"       # work mac — spacey
   [default]="rosé"                 # fallback (used for vm-* and any unknown host)
 )
 
