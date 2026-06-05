@@ -6,46 +6,52 @@
 {
   // --- Theme -----------------------------------------------------------------
   // Uses the custom theme committed under zed/themes/.
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Catppuccin Macchiato",
+  },
+  "cli_default_open_behavior": "existing_window",
   "proxy": "",
   "git": {
     "inline_blame": {
-      "show_commit_summary": true
-    }
+      "show_commit_summary": true,
+    },
   },
   "active_pane_modifiers": {
-    "inactive_opacity": 0.7
+    "inactive_opacity": 0.7,
   },
   "bottom_dock_layout": "right_aligned",
   "tabs": {
     "file_icons": false,
-    "git_status": true
+    "git_status": true,
   },
   "title_bar": {
     "button_layout": "platform_default",
     "show_menus": false,
-    "show_branch_status_icon": true
+    "show_branch_status_icon": true,
   },
   "diagnostics": {
     "inline": {
       "padding": 4,
-      "enabled": true
-    }
+      "enabled": true,
+    },
   },
   "completions": {
-    "lsp_insert_mode": "replace_suffix"
+    "lsp_insert_mode": "replace_suffix",
   },
   "document_symbols": "off",
   "semantic_tokens": "combined",
   "lsp_document_colors": "none",
   "code_lens": "on",
   "inlay_hints": {
-    "show_background": false
+    "show_background": false,
   },
   "indent_guides": {
     "line_width": 1,
     "active_line_width": 2,
     "coloring": "indent_aware",
-    "background_coloring": "disabled"
+    "background_coloring": "disabled",
   },
   "preferred_line_length": 100,
   "soft_wrap": "none",
@@ -55,14 +61,14 @@
     "thumb_border": "none",
     "thumb": "always",
     "display_in": "active_editor",
-    "show": "auto"
+    "show": "auto",
   },
   "gutter": {
-    "min_line_number_digits": 3
+    "min_line_number_digits": 3,
   },
   "relative_line_numbers": "enabled",
   "sticky_scroll": {
-    "enabled": true
+    "enabled": true,
   },
   "autoscroll_on_clicks": true,
   "scroll_beyond_last_line": "vertical_scroll_margin",
@@ -88,7 +94,11 @@
   "collaboration_panel": {
     "button": false,
   },
-  "theme": "Catppuccin Macchiato Custom",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Catppuccin Macchiato Customized (lavender)",
+  },
 
   // --- Fonts ------------------------------------------------------------------
   // Monaspace, unified with Obsidian (Neon code / Argon UI) and Konsole (Neon).
@@ -111,7 +121,7 @@
   },
   "terminal": {
     "toolbar": {
-      "breadcrumbs": false
+      "breadcrumbs": false,
     },
     "show_count_badge": false,
     "font_family": "MonaspiceAr Nerd Font Mono",
@@ -140,6 +150,9 @@
 
   // --- Work-specific settings (shared across machines) -----------------------
   "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+    },
     "opencode": {
       "type": "registry",
     },

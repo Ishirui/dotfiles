@@ -2,33 +2,12 @@
   "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
   "name": "Catppuccin Macchiato Custom",
   "author": "Pierre-Louis Veyrenc",
-  "_comment": [
-    "VSCode-style Catppuccin Macchiato Custom. Uses Catppuccin palette with",
-    "VSCode-inspired semantic color distribution:",
-    " - Variables: sky (light blue), Properties: lavender, Params: peach",
-    " - Functions: yellow, Types: teal, Keywords: mauve",
-    " - Numbers: sapphire, Strings: green, Comments: muted grey",
-    " - Constants: blue, Built-ins: red",
-    "UI: depth-swap (editor=Crust dark, chrome=Base), lavender accents.",
-    "Catppuccin palette: rosewater #f4dbd6 flamingo #f0c6c6 pink #f5bde6",
-    "mauve #c6a0f6 red #ed8796 maroon #ee99a0 peach #f5a97f yellow #eed49f",
-    "green #a6da95 teal #8bd5ca sky #91d7e3 sapphire #7dc4e4 blue #8aadf4",
-    "lavender #b7bdf8 text #cad3f5 ... overlay2 #939ab7 ... crust #181926"
-  ],
   "themes": [
     {
-      "name": "Catppuccin Macchiato Custom",
+      "name": "Catppuccin Macchiato Customized (lavender)",
       "appearance": "dark",
       "style": {
-        "accents": [
-          "#c6a0f6",
-          "#b7bdf8",
-          "#7dc4e4",
-          "#a6da95",
-          "#eed49f",
-          "#f5a97f",
-          "#ed8796"
-        ],
+        "accents": ["#c6a0f6", "#b7bdf8", "#7dc4e4", "#a6da95", "#eed49f", "#f5a97f", "#ed8796"],
         "vim.mode.text": "#181926",
         "vim.normal.foreground": "#181926",
         "vim.helix_normal.foreground": "#181926",
@@ -48,24 +27,24 @@
         "vim.replace.background": "#ee99a0",
         "background.appearance": "opaque",
         "border": "#363a4f",
-        "border.variant": "#494d64",
+        "border.variant": "#9da3d6",
         "border.focused": "#b7bdf8",
-        "border.selected": "#c6a0f6",
+        "border.selected": "#b7bdf8",
         "border.transparent": "#a6da95",
         "border.disabled": "#6e738d",
         "elevated_surface.background": "#1e2030",
         "surface.background": "#1e2030",
         "background": "#24273a",
         "element.background": "#181926",
-        "element.hover": "#b7bdf81f",
-        "element.active": "#c6a0f64d",
-        "element.selected": "#b7bdf833",
+        "element.hover": "#363a4f",
+        "element.active": "#5b60784d",
+        "element.selected": "#363a4f4d",
         "element.disabled": "#6e738d",
-        "drop_target.background": "#b7bdf833",
+        "drop_target.background": "#363a4f66",
         "ghost_element.background": "#00000000",
-        "ghost_element.hover": "#b7bdf81f",
-        "ghost_element.active": "#c6a0f64d",
-        "ghost_element.selected": "#b7bdf833",
+        "ghost_element.hover": "#494d644d",
+        "ghost_element.active": "#5b607899",
+        "ghost_element.selected": "#73799566",
         "ghost_element.disabled": "#6e738d",
         "text": "#cad3f5",
         "text.muted": "#b8c0e0",
@@ -87,15 +66,15 @@
         "search.match_background": "#8bd5ca4d",
         "search.active_match_background": "#ed87964d",
         "panel.background": "#24273a",
-        "panel.focused_border": "#b7bdf8",
+        "panel.focused_border": "#cad3f5",
         "panel.indent_guide": "#363a4f99",
-        "panel.indent_guide_active": "#b7bdf8",
-        "panel.indent_guide_hover": "#c6a0f6",
-        "panel.overlay_background": "#24273a",
-        "pane.focused_border": "#b7bdf8",
+        "panel.indent_guide_active": "#5b6078",
+        "panel.indent_guide_hover": "#b7bdf8",
+        "panel.overlay_background": "#1e2030",
+        "pane.focused_border": "#cad3f5",
         "pane_group.border": "#363a4f",
         "scrollbar.thumb.background": "#5b607880",
-        "scrollbar.thumb.hover_background": "#b7bdf880",
+        "scrollbar.thumb.hover_background": "#6e738d",
         "scrollbar.thumb.active_background": null,
         "scrollbar.thumb.border": null,
         "scrollbar.track.background": "#181926",
@@ -115,7 +94,7 @@
         "editor.invisible": "#939ab766",
         "editor.wrap_guide": "#5b6078",
         "editor.active_wrap_guide": "#5b6078",
-        "editor.document_highlight.bracket_background": "#c6a0f617",
+        "editor.document_highlight.bracket_background": "#b7bdf817",
         "editor.document_highlight.read_background": "#a5adcb29",
         "editor.document_highlight.write_background": "#a5adcb29",
         "editor.indent_guide": "#363a4f99",
@@ -246,7 +225,7 @@
         "editor.debugger_active_line.background": "#f5a97f12",
         "syntax": {
           "variable": {
-            "color": "#91d7e3",
+            "color": "#cad3f5",
             "font_style": null,
             "font_weight": null
           },
@@ -256,12 +235,12 @@
             "font_weight": null
           },
           "variable.parameter": {
-            "color": "#f5a97f",
+            "color": "#ee99a0",
             "font_style": null,
             "font_weight": null
           },
           "variable.member": {
-            "color": "#b7bdf8",
+            "color": "#8aadf4",
             "font_style": null,
             "font_weight": null
           },
@@ -271,12 +250,12 @@
             "font_weight": null
           },
           "constant": {
-            "color": "#8aadf4",
+            "color": "#f5a97f",
             "font_style": null,
             "font_weight": null
           },
           "constant.builtin": {
-            "color": "#8aadf4",
+            "color": "#f5a97f",
             "font_style": null,
             "font_weight": null
           },
@@ -286,7 +265,7 @@
             "font_weight": null
           },
           "module": {
-            "color": "#a5adcb",
+            "color": "#eed49f",
             "font_style": "italic",
             "font_weight": null
           },
@@ -301,7 +280,7 @@
             "font_weight": null
           },
           "string.documentation": {
-            "color": "#a5adcb",
+            "color": "#8bd5ca",
             "font_style": null,
             "font_weight": null
           },
@@ -346,17 +325,17 @@
             "font_weight": null
           },
           "boolean": {
-            "color": "#7dc4e4",
+            "color": "#f5a97f",
             "font_style": null,
             "font_weight": null
           },
           "number": {
-            "color": "#7dc4e4",
+            "color": "#f5a97f",
             "font_style": null,
             "font_weight": null
           },
           "number.float": {
-            "color": "#7dc4e4",
+            "color": "#f5a97f",
             "font_style": null,
             "font_weight": null
           },
@@ -366,7 +345,7 @@
             "font_weight": null
           },
           "tag.attribute": {
-            "color": "#b7bdf8",
+            "color": "#eed49f",
             "font_style": "italic",
             "font_weight": null
           },
@@ -381,7 +360,7 @@
             "font_weight": null
           },
           "type.builtin": {
-            "color": "#eed49f",
+            "color": "#c6a0f6",
             "font_style": "italic",
             "font_weight": null
           },
@@ -401,17 +380,17 @@
             "font_weight": null
           },
           "attribute": {
-            "color": "#b7bdf8",
+            "color": "#f5a97f",
             "font_style": null,
             "font_weight": null
           },
           "property": {
-            "color": "#b7bdf8",
+            "color": "#8aadf4",
             "font_style": null,
             "font_weight": null
           },
           "function": {
-            "color": "#eed49f",
+            "color": "#8aadf4",
             "font_style": null,
             "font_weight": null
           },
@@ -421,7 +400,7 @@
             "font_weight": null
           },
           "function.call": {
-            "color": "#eed49f",
+            "color": "#8aadf4",
             "font_style": null,
             "font_weight": null
           },
@@ -431,17 +410,17 @@
             "font_weight": null
           },
           "function.method": {
-            "color": "#eed49f",
+            "color": "#8aadf4",
             "font_style": null,
             "font_weight": null
           },
           "function.method.call": {
-            "color": "#eed49f",
+            "color": "#8aadf4",
             "font_style": null,
             "font_weight": null
           },
           "constructor": {
-            "color": "#eed49f",
+            "color": "#f0c6c6",
             "font_style": null,
             "font_weight": null
           },
@@ -536,12 +515,12 @@
             "font_weight": null
           },
           "punctuation.delimiter": {
-            "color": "#b8c0e0",
+            "color": "#939ab7",
             "font_style": null,
             "font_weight": null
           },
           "punctuation.bracket": {
-            "color": "#cad3f5",
+            "color": "#939ab7",
             "font_style": null,
             "font_weight": null
           },
@@ -566,12 +545,12 @@
             "font_weight": null
           },
           "comment.doc": {
-            "color": "#a5adcb",
+            "color": "#939ab7",
             "font_style": "italic",
             "font_weight": null
           },
           "comment.documentation": {
-            "color": "#a5adcb",
+            "color": "#939ab7",
             "font_style": "italic",
             "font_weight": null
           },
@@ -621,7 +600,7 @@
             "font_weight": null
           },
           "parameter": {
-            "color": "#f5a97f",
+            "color": "#ee99a0",
             "font_style": null,
             "font_weight": null
           },
@@ -631,12 +610,12 @@
             "font_weight": null
           },
           "namespace": {
-            "color": "#a5adcb",
+            "color": "#eed49f",
             "font_style": "italic",
             "font_weight": null
           },
           "float": {
-            "color": "#7dc4e4",
+            "color": "#f5a97f",
             "font_style": null,
             "font_weight": null
           },
@@ -681,7 +660,7 @@
             "font_weight": null
           },
           "enum": {
-            "color": "#eed49f",
+            "color": "#8bd5ca",
             "font_style": null,
             "font_weight": 700
           },
@@ -736,7 +715,7 @@
             "font_weight": null
           },
           "string.doc": {
-            "color": "#a5adcb",
+            "color": "#8bd5ca",
             "font_style": "italic",
             "font_weight": null
           },
