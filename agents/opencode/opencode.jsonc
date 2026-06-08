@@ -1,5 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "enabled_providers": ["anthropic", "openai", "google", "github-copilot"],
+  "share": "disabled",
+  "permission": {
+    "edit": "ask",
+    "bash": {
+      "*": "ask",
+    },
+    "webfetch": "ask",
+    "doom_loop": "ask",
+    "external_directory": "ask",
+  },
   "plugin": [
     "~/dd/opencode-datadog/",
     "@plannotator/opencode",
