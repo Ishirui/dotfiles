@@ -14,6 +14,8 @@ abbr -a c "clear"
 abbr -a h "history"
 
 # Git
+## cd to root of git repo
+abbr -a -- cdr 'cd $(git rev-parse --show-toplevel)'
 ## Add
 abbr -a -- ga 'git add'
 ## Info on current HEAD
