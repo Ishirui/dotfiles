@@ -22,80 +22,19 @@ DOTFILES=$(cd -- "$SCRIPT_DIR/.." >/dev/null 2>&1 && pwd)
 TEMPLATE="$DOTFILES/fish/starship.toml.template"
 OUT_DIR="$DOTFILES/fish/starship_configs"
 
+source "$SCRIPT_DIR/starship-theme-data.sh"
+
 if [ ! -f "$TEMPLATE" ]; then
   echo "template not found: $TEMPLATE" >&2
   exit 1
 fi
 mkdir -p "$OUT_DIR"
 
-# -----------------------------------------------------------------------------
-# Theme catalog: theme_name → "host dir flair_1 flair_2 git alert ssh container"
-# (last 3 default to red/sky/teal; override per theme if you want.)
-# -----------------------------------------------------------------------------
-declare -A themes=(
-  [rosé]="mauve lavender pink flamingo rosewater"
-  [bloom]="peach pink mauve lavender sky"
-  [iris]="sapphire sky lavender mauve pink"
-  [twilight]="mauve lavender blue peach flamingo"
-  [twilight-bloom]="mauve lavender blue teal sky"
-  [halcyon]="flamingo mauve sapphire sky lavender"
-  [spring]="peach green teal sapphire lavender"
-  [garden]="peach yellow green teal sapphire"
-  [moonrise]="mauve lavender sapphire sky teal"
-  [petal]="flamingo pink mauve lavender sapphire"
-  [orchid]="green teal mauve lavender sky"
-)
-
-# -----------------------------------------------------------------------------
-# Host map: hostname (output of `hostname -s`) → theme name from the catalog.
-# Hosts not listed here fall back to the `default` entry, which is rendered
-# as fish/starship.default.toml so Ansible can `with_first_found` to it.
-# -----------------------------------------------------------------------------
-declare -A hosts=(
-  [Tesseract]="iris"               # NAS — cool blues into pink
-  [Cuboid]="twilight-bloom"        # gaming rig — cool gradient ending in teal/sky
-  [Vertex]="rosé"                  # personal laptop — pinks
-  [COMP-DL7Q42TMVM]="twilight"       # work mac — spacey
-  [default]="rosé"                 # fallback (used for vm-* and any unknown host)
-)
-
-# -----------------------------------------------------------------------------
-# Catppuccin Macchiato hex values — the source of truth for color name → hex.
-# -----------------------------------------------------------------------------
-declare -A hex=(
-  [rosewater]='#f4dbd6'
-  [flamingo]='#f0c6c6'
-  [pink]='#f5bde6'
-  [mauve]='#c6a0f6'
-  [red]='#ed8796'
-  [maroon]='#ee99a0'
-  [peach]='#f5a97f'
-  [yellow]='#eed49f'
-  [green]='#a6da95'
-  [teal]='#8bd5ca'
-  [sky]='#91d7e3'
-  [sapphire]='#7dc4e4'
-  [blue]='#8aadf4'
-  [lavender]='#b7bdf8'
-)
-
-# Validate a color name has a hex value.
-ensure_hex() {
-  local name=$1
-  if [ -z "${hex[$name]:-}" ]; then
-    echo "unknown color: $name (not in catppuccin_macchiato)" >&2
-    exit 1
-  fi
-}
-
 # render <output_basename> <theme_name>
 render() {
   local basename=$1 theme=$2
-  local theme_def="${themes[$theme]:-}"
-  if [ -z "$theme_def" ]; then
-    echo "unknown theme: $theme" >&2
-    exit 1
-  fi
+  local theme_def
+  theme_def=$(starship_theme_def "$theme")
 
   # Theme tokens: host dir f1 f2 git [alert ssh container]
   read -r h d f1 f2 g alert ssh container <<<"$theme_def"
@@ -103,23 +42,29 @@ render() {
   ssh=${ssh:-sky}
   container=${container:-teal}
 
-  for c in "$h" "$d" "$f1" "$f2" "$g" "$alert" "$ssh" "$container"; do
-    ensure_hex "$c"
-  done
+  local hex_h hex_d hex_f1 hex_f2 hex_g hex_alert hex_ssh hex_container
+  hex_h=$(starship_color_hex "$h")
+  hex_d=$(starship_color_hex "$d")
+  hex_f1=$(starship_color_hex "$f1")
+  hex_f2=$(starship_color_hex "$f2")
+  hex_g=$(starship_color_hex "$g")
+  hex_alert=$(starship_color_hex "$alert")
+  hex_ssh=$(starship_color_hex "$ssh")
+  hex_container=$(starship_color_hex "$container")
 
   local out="$OUT_DIR/starship.${basename}.toml"
 
   # Replace each c_* palette entry's hex value. The template stores the original
   # color name in a trailing `# comment` for readability; we rewrite both.
   sed \
-    -e "s|^c_host      = '[^']*'.*|c_host      = '${hex[$h]}'  # $h|" \
-    -e "s|^c_dir       = '[^']*'.*|c_dir       = '${hex[$d]}'  # $d|" \
-    -e "s|^c_f1        = '[^']*'.*|c_f1        = '${hex[$f1]}'  # $f1|" \
-    -e "s|^c_f2        = '[^']*'.*|c_f2        = '${hex[$f2]}'  # $f2|" \
-    -e "s|^c_git       = '[^']*'.*|c_git       = '${hex[$g]}'  # $g|" \
-    -e "s|^c_alert     = '[^']*'.*|c_alert     = '${hex[$alert]}'  # $alert|" \
-    -e "s|^c_ssh       = '[^']*'.*|c_ssh       = '${hex[$ssh]}'  # $ssh|" \
-    -e "s|^c_container = '[^']*'.*|c_container = '${hex[$container]}'  # $container|" \
+    -e "s|^c_host      = '[^']*'.*|c_host      = '$hex_h'  # $h|" \
+    -e "s|^c_dir       = '[^']*'.*|c_dir       = '$hex_d'  # $d|" \
+    -e "s|^c_f1        = '[^']*'.*|c_f1        = '$hex_f1'  # $f1|" \
+    -e "s|^c_f2        = '[^']*'.*|c_f2        = '$hex_f2'  # $f2|" \
+    -e "s|^c_git       = '[^']*'.*|c_git       = '$hex_g'  # $g|" \
+    -e "s|^c_alert     = '[^']*'.*|c_alert     = '$hex_alert'  # $alert|" \
+    -e "s|^c_ssh       = '[^']*'.*|c_ssh       = '$hex_ssh'  # $ssh|" \
+    -e "s|^c_container = '[^']*'.*|c_container = '$hex_container'  # $container|" \
     "$TEMPLATE" \
   > "$out"
 
@@ -130,9 +75,9 @@ render() {
 ONLY=${1:-}
 
 echo "Rendering starship configs from $TEMPLATE"
-for host in "${!hosts[@]}"; do
+for host in "${STARSHIP_HOST_ORDER[@]}"; do
   if [ -n "$ONLY" ] && [ "$ONLY" != "$host" ]; then continue; fi
-  render "$host" "${hosts[$host]}"
+  render "$host" "${STARSHIP_HOST_THEMES[$host]}"
 done
 
 if [ -z "$ONLY" ]; then
