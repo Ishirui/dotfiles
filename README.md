@@ -17,6 +17,12 @@ Hopefully this inspires you in creating your own stuff !
 > *NOTE:* Some config files (like `kwinrc` for example) are not actually stored in the repo but are generated from templates in the `ansible` directory, since they contain machine-specific information like screen layout, monitor names and might contain some lines I don´t want to include in the repo. The ansible playbook takes care of generating those files and putting them in the right place.
 
 # TODO
+
+fix: obsidian theme not applying properly inside blockquotes while in preview edits mode. Works fine in Reading mode
+fix: obsidian theme not applying heading color when bold or italic text inside heading (the italics take priority, which is not what I want)
+
+
+
 - OpenRGB configuration (desktop)
 - Code Editors
 - KDE Plasma panels, maybe eww and/or waybar

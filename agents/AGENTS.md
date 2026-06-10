@@ -57,6 +57,10 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+# Conversational style
+- During discussions, NEVER start implementing or modifying files without requesting permission from the user or waiting to be told so.
+- Surround big autonomous work blocs (implementation, research etc.) with first, a summary of what you'll do, and at then end a summary of all edits/actions that have been taken
+
 # Important behaviors to follow
 ## Be mindful of your commits, use git features
 When implementing a new feature, always think about how this will get split into individual, easily-reviewable and _atomic_, *ordered* commits.
