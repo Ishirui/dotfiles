@@ -36,6 +36,7 @@ fix: obsidian theme not applying heading color when bold or italic text inside h
 - Face unlock (package `Howdy` on Arch)
 
 - Create windows VM and setup winapps (maybe download a machine image from my server ?)
+- Some kind of sandbox or VM for cracked games (esp. lenny)
 
 ### Extra packages
 - betterbird-bin (AUR)
