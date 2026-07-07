@@ -71,6 +71,8 @@ This makes it easier for the user to review the produced code, and guides the im
 - Implementation should start with foundational, infrastructure work, then build up into the main functionality, and finish with touch-ups, UX or code style improvements.
 - Never mix bug fixes or refactors with features: a commit does at most _one_ of those three things 
 - Don't be afraid to commit on your own, but follow semantic commit messages: `feat/fix/refactor/chore/docs/ci(scope): short description`
+- When writing comments or commit messages, NEVER refer to private plan-related things that won't be committed to the repo. Don't refer to untracked plan files, previous discussions with the user, decisions made only inside the chat session etc.
+
 
 In general, use git features to simplify management of changes: stashes, interactive rebase, amending, worktrees etc.
 
@@ -109,6 +111,9 @@ It should contain, when relevant:
 - A more detailed look at some critical modules if relevant, down to the detail of specific function signatures or variable names if necessary.
 - An implementation plan, broken down into commits following the guidelines [here](## Be mindful of your commits, use git features)
 - The testing strategy: what scenarios to test, what automated tests to write and their breakdown into unit, integration and e2e, any manual QA necessary.
+
+The plan should cover both high-level and low-level decisions.
+Focus first on general patterns, interfaces, structure and architecture of the feature, then narrow down to specific files, modules, classes, functions, algorithms, then narrow further down to individual naming schemes, code style etc.
 
 # Preferred code and implementation styles
 TBD
