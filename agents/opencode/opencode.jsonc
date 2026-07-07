@@ -27,6 +27,7 @@
   "plugin": [
     "~/dd/opencode-datadog/",
     "@plannotator/opencode",
+    "@datadog/opencode-plugin",
     "@gotgenes/opencode-agent-identity",
     [
       "@knikolov/opencode-plugin-simple-memory",
