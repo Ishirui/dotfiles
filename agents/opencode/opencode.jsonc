@@ -22,7 +22,12 @@
     },
     "webfetch": "allow",
     "doom_loop": "ask",
-    "external_directory": "allow",
+    "external_directory": {
+      "~/dd/": "allow",
+      "~/go/src/github.com/DataDog": "allow",
+      "~/.config/": "allow",
+      "~/Projects/": "allow",
+    },
   },
   "plugin": [
     "~/dd/opencode-datadog/",
