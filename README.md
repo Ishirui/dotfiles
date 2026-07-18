@@ -26,14 +26,11 @@ fix: obsidian theme not applying heading color when bold or italic text inside h
 - OpenRGB configuration (desktop)
 - Code Editors
 - KDE Plasma panels, maybe eww and/or waybar
-- Appearance: color theme, icons, fonts etc.
-  - Klassy, maybe darkly (modern rewrite of lightly)
-  - Find a nice theme, with a purple accent color
-  - Change font: something kinda "tech" seemed nice, but I haven´t found a good one yet. Maybe JetBrains Mono or something ?
 - Limine and plasma-login-manager things
 - Dolphin, Kate, Okular...
 - SSH and GPG keys - especially with Git
 - Face unlock (package `Howdy` on Arch)
+- Sync appearance on other apps: discord, zen, obsidian
 
 - Create windows VM and setup winapps (maybe download a machine image from my server ?)
 - Some kind of sandbox or VM for cracked games (esp. lenny)
