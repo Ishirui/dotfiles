@@ -1,0 +1,152 @@
+{
+    "Animations": {
+        "Profile": {
+            "curve": "0.33,1.00,0.68,1.00",
+            "duration": 170,
+            "minDistance": 0,
+            "sequenceMode": 1,
+            "staggerInterval": 50
+        }
+    },
+    "Decorations": {
+        "DecorationProfileTree": {
+            "baseline": {
+            },
+            "overrides": [
+                {
+                    "path": "window.tiled",
+                    "profile": {
+                        "chain": [
+                            "shadow",
+                            "border",
+                            "border-sweep"
+                        ],
+                        "disabledPacks": [
+                            "border"
+                        ],
+                        "parameters": {
+                            "border-sweep": {
+                                "colorA": "#ffb7bdf8",
+                                "colorB": "#ffc6a0f6"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "General": {
+        "AssignmentViewMode": 1
+    },
+    "Ordering": {
+        "TilingAlgorithmOrder": "dwindle-memory,centered-master,columns,master-stack,wide,deck,theater,rows,aligned-grid,bsp,cascade,cluster,corner-master,focus-sidebar,dwindle,floating-center,grid,horizontal-deck,monocle,paper,quadrant-priority,spiral,spread,stair,tatami,three-column,zen"
+    },
+    "PerScreen": {
+        "Autotile": {
+            "Dell Inc.:AW3425DW:808670547": {
+                "AutotileAlgorithm": "centered-master",
+                "AutotileSplitRatio": 0.6000000000000001
+            }
+        }
+    },
+    "Scrolling": {
+        "Enabled": false
+    },
+    "Shortcuts": {
+        "Tiling": {
+            "DecMasterCount": "Meta+Shift+[",
+            "IncMasterCount": "Meta+Shift+]",
+            "Retile": "Meta+Shift+R"
+        }
+    },
+    "Snapping": {
+        "Behavior": {
+            "FocusFollowsMouse": true,
+            "FocusNewWindows": true,
+            "Triggers": [
+                {
+                    "modifier": 8,
+                    "mouseButton": 0
+                },
+                {
+                    "modifier": 3,
+                    "mouseButton": 0
+                }
+            ],
+            "WindowHandling": {
+                "DefaultLayoutId": "{1c85ee9a-25f6-4109-a074-b0bc7072418c}",
+                "KeepFloatingAbove": true
+            }
+        },
+        "Effects": {
+            "NavigationOsd": false
+        },
+        "Enabled": false
+    },
+    "Tiling": {
+        "Algorithm": {
+            "Default": "wide",
+            "PerAlgorithmSettings": {
+                "bsp": {
+                    "masterCount": 1,
+                    "maxWindows": 6,
+                    "splitRatio": 0.5
+                },
+                "cascade": {
+                    "masterCount": 1,
+                    "maxWindows": 7,
+                    "splitRatio": 0.15
+                },
+                "centered-master": {
+                    "masterCount": 1,
+                    "maxWindows": 6,
+                    "splitRatio": 0.5
+                },
+                "cluster": {
+                    "masterCount": 1,
+                    "maxWindows": 6,
+                    "splitRatio": 0.5
+                },
+                "deck": {
+                    "masterCount": 1,
+                    "maxWindows": 4,
+                    "splitRatio": 0.8
+                },
+                "dwindle-memory": {
+                    "masterCount": 1,
+                    "maxWindows": 6,
+                    "splitRatio": 0.5
+                },
+                "master-stack": {
+                    "masterCount": 1,
+                    "maxWindows": 4,
+                    "splitRatio": 0.7000000000000001
+                },
+                "wide": {
+                    "masterCount": 1,
+                    "maxWindows": 4,
+                    "splitRatio": 0.6000000000000001
+                }
+            }
+        },
+        "Behavior": {
+            "DragBehavior": 1,
+            "InsertPosition": 1,
+            "KeepFloatingAbove": true,
+            "Triggers": [
+                {
+                    "modifier": 8,
+                    "mouseButton": 0
+                },
+                {
+                    "modifier": 3,
+                    "mouseButton": 0
+                }
+            ]
+        }
+    },
+    "Windows": {
+        "TintStrength": 0.83
+    },
+    "_version": 6
+}
