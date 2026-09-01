@@ -116,4 +116,13 @@ The plan should cover both high-level and low-level decisions.
 Focus first on general patterns, interfaces, structure and architecture of the feature, then narrow down to specific files, modules, classes, functions, algorithms, then narrow further down to individual naming schemes, code style etc.
 
 # Preferred code and implementation styles
-TBD
+
+## Docstrings and comments
+
+**A docstring says what the thing does and how to call it — never why it was
+designed that way.** Rationale, rejected alternatives, and how the code came to
+look like this belong in the commit message; the reader has the commit log.
+
+**Never reference the plan, phase/commit numbers, our conversation, or code that
+doesn't exist yet.** If a docstring would need editing when an unrelated commit
+lands, it's describing the wrong thing.
