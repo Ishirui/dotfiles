@@ -7,14 +7,14 @@ This repo is also a valid Ansible configuration for easily setting up my new mac
 
 There are two layers to the setup:
 - **Ansible** (roles + `local.yml`) installs packages and does system-level setup (partitions, btrfs, etc.). It also installs chezmoi and applies the user configs once.
-- **chezmoi** (source state in `home/`) owns the day-to-day user configs: fish + starship, zed and obsidian.
+- **chezmoi** (source state in `home/`) owns the day-to-day user configs: fish + starship, zed, obsidian, opencode, Konsole/Yakuake and the XDG user dirs.
 
 Hopefully this inspires you in creating your own stuff !
 
 ## Directories
 - `roles`: Ansible roles for setting up new machines. Also contains some support files that I don´t consider to be "configs" but are still part of the setup, like configurations referencing machine-specific things, desktop files etc.
-- `home`: chezmoi source state — the user configs it manages: fish (shell completions, functions, starship), zed, obsidian (per-vault `.obsidian/`: app settings, the custom `Catppunite Encore` theme and all plugin settings). Host-specific values (starship themes per machine) come from `home/.chezmoidata.toml`.
-- `kde`: KDE Plasma configuration, including panels, desktop, window manager etc. (still deployed by Ansible; not in chezmoi yet)
+- `home`: chezmoi source state — the user configs it manages: fish (shell completions, functions, starship), zed, obsidian (per-vault `.obsidian/`: app settings, the custom `Catppunite Encore` theme and all plugin settings), opencode (config + shared `AGENTS.md`), Konsole/Yakuake and the XDG user dirs. Host-specific values (starship themes per machine) come from `home/.chezmoidata.toml`, and `home/.chezmoiignore` keeps the Linux-only entries off macOS.
+- `kde`: the rest of the KDE Plasma configuration — keybinds, window rules, Klassy theming, `.desktop` files (still deployed by Ansible; not in chezmoi yet)
 - `scripts`: Various scripts that I use for util purposes.
 
 > *NOTE:* Some config files are not stored in the repo as whole files. KDE files like `kwinrc`, `kdeglobals` and `kcminputrc` mix my settings with state that Plasma rewrites on its own, so the playbook only sets the individual keys it cares about (`community.general.kdeconfig` in `roles/base/tasks/17-kde.yml`) and leaves the rest of the file alone. The one genuinely machine-specific file is the display layout, `roles/desktop/files/kwinoutputconfig.json`, which is why it lives in the desktop role rather than in `home/`.
