@@ -44,28 +44,6 @@
       - yakuake
 
 # --- Configuration ----------------------------------------------------------
-# fish/starship config: deployed by chezmoi from home/ — see 03b-chezmoi.yml.
-
-- name: Terminal | Load terminal profiles
-  tags: terminal
-  copy:
-    src: "{{ playbook_dir }}/kde/konsole/"
-    dest: "{{ dotlocalshare_path }}/konsole/"
-
-- name: Terminal | Load Konsole config
-  tags: terminal
-  copy:
-    src: "{{ playbook_dir }}/kde/konsole/konsolerc"
-    dest: "{{ dotconfig_path }}/konsolerc"
-
-- name: Terminal | Load Yakuake config
-  tags: terminal
-  copy:
-    src: "{{ playbook_dir }}/kde/konsole/yakuakerc"
-    dest: "{{ dotconfig_path }}/yakuakerc"
-
-- name: KDE | Terminal | Launch Yakuake at startup
-  tags: terminal,kde
-  copy:
-    src: "files/autostart/org.kde.yakuake.desktop"
-    dest: "{{ dotconfig_path }}/autostart/org.kde.yakuake.desktop"
+# All of it is deployed by chezmoi from home/ — see 03b-chezmoi.yml: fish and
+# starship, the Konsole profile and colour scheme, konsolerc, yakuakerc, and
+# the Yakuake autostart entry.
