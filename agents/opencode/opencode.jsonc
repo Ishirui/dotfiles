@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "enabled_providers": ["anthropic", "openai", "google", "github-copilot"],
+  "enabled_providers": ["datadog", "anthropic", "openai", "google", "github-copilot", "opencode-go"],
   "share": "disabled",
   "permission": {
     "edit": "ask",
