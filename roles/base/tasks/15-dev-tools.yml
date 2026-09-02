@@ -12,20 +12,8 @@
       - meld
       - opencode-bin # Terminal AI coding agent
 
-- name: Dev tools | Deploy OpenCode config (opencode.jsonc, tui.json)
-  tags: opencode,dev
-  copy:
-    src: "{{ item }}"
-    dest: "{{ dotconfig_path }}/opencode/{{ item | basename }}"
-  loop:
-    - "{{ playbook_dir }}/agents/opencode/opencode.jsonc"
-    - "{{ playbook_dir }}/agents/opencode/tui.json"
-
-- name: Dev tools | Deploy shared agent instructions to OpenCode
-  tags: opencode,agents,dev
-  copy:
-    src: "{{ playbook_dir }}/agents/AGENTS.md"
-    dest: "{{ dotconfig_path }}/opencode/AGENTS.md"
+# OpenCode config (opencode.jsonc, tui.json, AGENTS.md): deployed by chezmoi
+# from home/ — see 03b-chezmoi.yml.
 
 # Language servers / tooling for Zed (and shared with OpenCode + CLI use).
 # STUB: fill in the list once we pick servers per language. Candidates:

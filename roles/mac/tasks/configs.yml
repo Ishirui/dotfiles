@@ -1,6 +1,7 @@
-# Deploy dev tool configs via chezmoi, from the repo's home/ source directory
-# (fish + starship, zed, obsidian). This mirrors the Arch roles' 03b-chezmoi
-# task: Ansible only installs chezmoi, points it at home/, and applies.
+# Deploy the user configs via chezmoi, from the repo's home/ source directory
+# (fish + starship, zed, obsidian, opencode). This mirrors the Arch roles'
+# 03b-chezmoi task: Ansible only installs chezmoi, points it at home/, and
+# applies.
 
 - name: Install chezmoi via Homebrew
   community.general.homebrew:
@@ -16,20 +17,7 @@
     dest: "{{ dotconfig_path }}/chezmoi/chezmoi.toml"
     mode: "0644"
 
-- name: Apply user configs (fish, starship, zed, obsidian)
+- name: Apply user configs (fish, starship, zed, obsidian, opencode)
   ansible.builtin.command: chezmoi apply --force --verbose
   register: chezmoi_apply
   changed_when: (chezmoi_apply.stdout | length) > 0
-
-- name: Deploy opencode config
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ dotconfig_path }}/opencode/{{ item | basename }}"
-  loop:
-    - "{{ playbook_dir }}/agents/opencode/opencode.jsonc"
-    - "{{ playbook_dir }}/agents/opencode/tui.json"
-
-- name: Deploy shared agent instructions to opencode
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/agents/AGENTS.md"
-    dest: "{{ dotconfig_path }}/opencode/AGENTS.md"
