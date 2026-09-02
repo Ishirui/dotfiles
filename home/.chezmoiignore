@@ -1,0 +1,4 @@
+{{- /* Linux-only targets: the mac role applies this same source tree. */ -}}
+{{ if ne .chezmoi.os "linux" }}
+.config/user-dirs.dirs
+{{ end -}}

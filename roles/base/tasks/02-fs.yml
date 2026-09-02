@@ -22,7 +22,6 @@
     - "TV"
     - "Movies"
 
-- name: System | Filesystem | Update user-dirs.dirs
-  copy:
-    src: "{{ playbook_dir }}/system/user-dirs.dirs"
-    dest: "{{ dotconfig_path }}/user-dirs.dirs"
+# user-dirs.dirs itself is deployed by chezmoi from home/ — see 03b-chezmoi.yml.
+# The directories it points at are created above, since some are btrfs
+# subvolume mountpoints.
