@@ -33,14 +33,3 @@
   ansible.builtin.copy:
     src: "{{ playbook_dir }}/agents/AGENTS.md"
     dest: "{{ dotconfig_path }}/opencode/AGENTS.md"
-
-- name: Check whether Claude Code config dir exists
-  ansible.builtin.stat:
-    path: "/Users/{{ username }}/.claude"
-  register: claude_dir
-
-- name: Deploy shared agent instructions to Claude Code (if installed)
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/agents/AGENTS.md"
-    dest: "/Users/{{ username }}/.claude/CLAUDE.md"
-  when: claude_dir.stat.exists
