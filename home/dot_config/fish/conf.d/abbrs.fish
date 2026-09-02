@@ -13,6 +13,12 @@ abbr -a zed "zeditor"
 abbr -a c "clear"
 abbr -a h "history"
 
+# chezmoi (deploy / sync the home/ source state of the dotfiles repo)
+abbr -a cza 'chezmoi apply'
+abbr -a czd 'chezmoi diff'
+abbr -a czs 'chezmoi status'
+abbr -a czr 'chezmoi re-add'
+
 # Git
 ## cd to root of git repo
 abbr -a -- cdr 'cd $(git rev-parse --show-toplevel)'
