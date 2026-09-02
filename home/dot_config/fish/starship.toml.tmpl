@@ -1,11 +1,14 @@
 # =============================================================================
-# THIS IS A TEMPLATE — do not edit the per-host renders directly.
+# THIS IS A CHEZMOI TEMPLATE — rendered to ~/.config/fish/starship.toml at
+# `chezmoi apply` time with this host's theme.
 #
 # Powerline color slots (host / dir / flair_1 / flair_2 / git / alert / ssh /
-# container) are aliased as c_* below; the build script in
-# scripts/build-starship-configs.sh swaps their hex values per host.
+# container) are aliased as c_* below; their hex values are resolved per host
+# from .chezmoidata/starship.toml (host -> theme -> catppuccin macchiato
+# colors).
 #
-# To regenerate the per-host configs:    bash scripts/build-starship-configs.sh
+# Preview this host's render:    chezmoi cat ~/.config/fish/starship.toml
+# Browse arbitrary palettes:     bash scripts/starship-palettes.sh
 # =============================================================================
 
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -127,17 +130,25 @@ base      = '#24273a'
 mantle    = '#1e2030'
 crust     = '#181926'
 
-# Powerline semantic aliases — overridden per-host by the build script.
-# Only these 8 entries are swapped between themes; everything above stays
-# constant so inline-tail symbol colors don't drift.
-c_host      = '#c6a0f6'  # mauve
-c_dir       = '#b7bdf8'  # lavender
-c_f1        = '#f5bde6'  # pink
-c_f2        = '#f0c6c6'  # flamingo
-c_git       = '#f4dbd6'  # rosewater
-c_alert     = '#ed8796'  # red
-c_ssh       = '#91d7e3'  # sky
-c_container = '#8bd5ca'  # teal
+{{- /* Resolve this host's theme: hosts.<short-hostname> -> themes, fallback to "default". */ -}}
+{{- $host := .chezmoi.hostname | splitList "." | first -}}
+{{- $themeName := index .starship.hosts $host | default .starship.hosts.default -}}
+{{- $t := index .starship.themes $themeName -}}
+{{- /* alert / ssh / container default to red / sky / teal when the theme omits them. */ -}}
+{{- $c := dict "host" $t.host "dir" $t.dir "f1" $t.f1 "f2" $t.f2 "git" $t.git "alert" (index $t "alert" | default "red") "ssh" (index $t "ssh" | default "sky") "container" (index $t "container" | default "teal") }}
+
+# Powerline semantic aliases — theme "{{ $themeName }}" for host "{{ $host }}"
+# (resolved by chezmoi at apply time). Only these 8 entries are swapped
+# between themes; everything above stays constant so inline-tail symbol
+# colors don't drift.
+c_host      = '{{ index .starship.colors $c.host }}'  # {{ $c.host }}
+c_dir       = '{{ index .starship.colors $c.dir }}'  # {{ $c.dir }}
+c_f1        = '{{ index .starship.colors $c.f1 }}'  # {{ $c.f1 }}
+c_f2        = '{{ index .starship.colors $c.f2 }}'  # {{ $c.f2 }}
+c_git       = '{{ index .starship.colors $c.git }}'  # {{ $c.git }}
+c_alert     = '{{ index .starship.colors $c.alert }}'  # {{ $c.alert }}
+c_ssh       = '{{ index .starship.colors $c.ssh }}'  # {{ $c.ssh }}
+c_container = '{{ index .starship.colors $c.container }}'  # {{ $c.container }}
 
 # =============================================================================
 # root chip — leftmost powerline section, only when running as root.

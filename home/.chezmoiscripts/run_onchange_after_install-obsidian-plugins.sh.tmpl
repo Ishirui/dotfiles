@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Installs the *code* (main.js, manifest.json, styles.css) for every community
+# plugin enabled in the Notes vault. chezmoi re-runs this script automatically
+# whenever the vault's community-plugins.json changes (hash pinned below);
+# per-plugin settings (data.json) are deployed as regular chezmoi files.
+#
+# hash: {{ include "Documents/Notes/dot_obsidian/community-plugins.json" | sha256sum }}
+
+set -euo pipefail
+
+OBSIDIAN_DIR="$HOME/Documents/Notes/.obsidian"
+INSTALLER="{{ .chezmoi.sourceDir }}/../../scripts/install-obsidian-plugins.sh"
+
+if [ ! -f "$INSTALLER" ]; then
+  echo "installer not found: $INSTALLER" >&2
+  exit 1
+fi
+
+bash "$INSTALLER" "$OBSIDIAN_DIR"

@@ -37,7 +37,7 @@ WANT_STATE=${3:-default}
 # Resolve repo root from this script's location, regardless of cwd.
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
 DOTFILES_ROOT=$(cd -- "$SCRIPT_DIR/.." >/dev/null 2>&1 && pwd)
-SRC=${STARSHIP_SOURCE:-$DOTFILES_ROOT/fish/starship.toml.template}
+SRC=${STARSHIP_SOURCE:-$DOTFILES_ROOT/home/dot_config/fish/starship.toml.tmpl}
 
 if [ ! -f "$SRC" ]; then
   echo "starship source not found: $SRC" >&2
@@ -59,11 +59,14 @@ fi
 # Build a `hostname`-mockable copy of the source: replace the literal
 # `hostname -s` shell call inside [custom.host] with `echo $HOSTNAME_OVERRIDE`,
 # so we can spoof the hostname per render without touching the original.
+# The source is a chezmoi template: drop its `{{ … }}` action lines (chezmoi
+# would render them away) — the c_* alias lines they compute are rewritten
+# with concrete hex values by the seds in render_one below.
 MOCK="$WORK/mocked.toml"
 # shellcheck disable=SC2016
 # $HOSTNAME_OVERRIDE is intentionally literal — interpreted later by the
 # bash subshell that runs the [custom.host] command snippet.
-sed 's/hostname -s/echo $HOSTNAME_OVERRIDE/g' "$SRC" > "$MOCK"
+sed -e '/^{{/d' -e 's/hostname -s/echo $HOSTNAME_OVERRIDE/g' "$SRC" > "$MOCK"
 
 ALL_STATES=(default root ssh container nogit ro fail longcmd)
 
@@ -85,13 +88,17 @@ render_one() {
   # The template uses semantic palette aliases (c_host, c_dir, c_f1, c_f2,
   # c_git) so we just rewrite their hex values in the [palettes] block. No
   # per-module color substitution required — inline-tail symbol colors stay
-  # exactly as they are in the template.
+  # exactly as they are in the template. c_alert / c_ssh / c_container keep
+  # their global defaults (red / sky / teal), matching .chezmoidata.
   sed \
     -e "s|^c_host      = '[^']*'.*|c_host      = '${HEX[$hc]}'  # $hc|"  \
     -e "s|^c_dir       = '[^']*'.*|c_dir       = '${HEX[$dc]}'  # $dc|"  \
     -e "s|^c_f1        = '[^']*'.*|c_f1        = '${HEX[$fc1]}'  # $fc1|" \
     -e "s|^c_f2        = '[^']*'.*|c_f2        = '${HEX[$fc2]}'  # $fc2|" \
-    -e "s|^c_git       = '[^']*'.*|c_git       = '${HEX[$gc]}'  # $gc|"  \
+    -e "s|^c_git       = '[^']*'.*|c_git       = '${HEX[$gc]}'  # $gc|"   \
+    -e "s|^c_alert     = '[^']*'.*|c_alert     = '${HEX[red]}'  # red|"   \
+    -e "s|^c_ssh       = '[^']*'.*|c_ssh       = '${HEX[sky]}'  # sky|"   \
+    -e "s|^c_container = '[^']*'.*|c_container = '${HEX[teal]}'  # teal|" \
     "$MOCK" > "$cfg"
 
   # Per-state variables.
@@ -183,20 +190,25 @@ render_palette() {
   done
 }
 
-# Render the actual per-host configs as built by the build script. Useful as
-# a "what does each machine look like in real life" view.
+# Render the actual per-host configs, chezmoi-rendered with each host's
+# assigned theme. Useful as a "what does each machine look like in real life"
+# view. Requires chezmoi (its config must point at this repo's home/ source —
+# Ansible sets that up).
 render_live_hosts() {
-  local cfg_dir="$DOTFILES_ROOT/fish/starship_configs"
-  if [ ! -d "$cfg_dir" ]; then return; fi
+  command -v chezmoi >/dev/null 2>&1 || return
+  local tmpl="$DOTFILES_ROOT/home/dot_config/fish/starship.toml.tmpl"
+  if [ ! -f "$tmpl" ]; then return; fi
   printf '\n\033[1;38;5;245m▆▆ live host configs\033[0m  '
-  printf '(actual themes from fish/starship_configs/)\n'
-  for host_cfg in "$cfg_dir"/starship.*.toml; do
-    [ -e "$host_cfg" ] || continue
-    local hn mocked
-    hn=$(basename "$host_cfg" .toml | sed 's/^starship\.//')
+  printf '(themes rendered by chezmoi from home/)\n'
+  local hn mocked
+  for hn in Tesseract Cuboid Vertex COMP-DL7Q42TMVM default; do
     mocked="$WORK/showcase-$hn.toml"
+    # chezmoi has no hostname override, so render the template with the
+    # hostname lookup replaced by a literal.
     # shellcheck disable=SC2016
-    sed 's/hostname -s/echo $HOSTNAME_OVERRIDE/g' "$host_cfg" > "$mocked"
+    sed "s/\.chezmoi\.hostname/\"$hn\"/" "$tmpl" \
+      | chezmoi execute-template \
+      | sed 's/hostname -s/echo $HOSTNAME_OVERRIDE/g' > "$mocked" || continue
     printf '  \033[38;5;245m%-22s\033[0m  ' "$hn"
     env -i HOME="$HOME" PATH="$PATH" TERM="${TERM:-xterm-256color}" \
       USER=plv HOSTNAME_OVERRIDE="$hn" SSH_TTY="" REMOTE_CONTAINERS="" \
@@ -214,7 +226,7 @@ echo "(source: $SRC)"
 echo "(state: $WANT_STATE)"
 
 # ============================================================================
-# themes used by the build script (one per host in fish/starship_configs/)
+# themes assigned to real hosts (one per host, from home/.chezmoidata/starship.toml)
 # ============================================================================
 render_palette "rosé"               mauve    lavender pink     flamingo rosewater
 render_palette "garden"             peach    yellow   green    teal     sapphire

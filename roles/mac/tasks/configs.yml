@@ -1,46 +1,25 @@
-# Deploy all dev tool configs from the repo root to their macOS locations.
+# Deploy dev tool configs via chezmoi, from the repo's home/ source directory
+# (fish + starship, zed, obsidian). This mirrors the Arch roles' 03b-chezmoi
+# task: Ansible only installs chezmoi, points it at home/, and applies.
 
-- name: Deploy fish config
+- name: Install chezmoi via Homebrew
+  community.general.homebrew:
+    name: chezmoi
+
+- name: Point chezmoi at this repo's home/ source directory
   ansible.builtin.copy:
-    src: "{{ playbook_dir }}/fish/"
-    dest: "{{ dotconfig_path }}/fish/"
+    content: |
+      # Managed by Ansible — edit in dotfiles/roles/mac/tasks/configs.yml.
+      # Source state lives inside the dotfiles repo, so git operations happen
+      # there directly (no `chezmoi init`/`chezmoi update`).
+      sourceDir = "{{ playbook_dir }}/home"
+    dest: "{{ dotconfig_path }}/chezmoi/chezmoi.toml"
+    mode: "0644"
 
-- name: Activate per-host starship config
-  # Picks fish/starship_configs/starship.<hostname>.toml from the repo (rendered
-  # by scripts/build-starship-configs.sh) and lands it where fish reads it
-  # ($STARSHIP_CONFIG = ~/.config/fish/starship.toml). Falls back to the default.
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ dotconfig_path }}/fish/starship.toml"
-  with_first_found:
-    - files:
-        - "{{ playbook_dir }}/fish/starship_configs/starship.{{ ansible_hostname }}.toml"
-        - "{{ playbook_dir }}/fish/starship_configs/starship.default.toml"
-
-- name: Deploy zed config (settings, keymap)
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ dotconfig_path }}/zed/{{ item | basename }}"
-  loop:
-    - "{{ playbook_dir }}/zed/settings.json"
-    - "{{ playbook_dir }}/zed/keymap.json"
-
-- name: Deploy zed custom themes
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/zed/themes/"
-    dest: "{{ dotconfig_path }}/zed/themes/"
-
-- name: Deploy obsidian vault config (settings, theme, plugin settings)
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/obsidian/.obsidian/"
-    dest: "{{ obsidian_vault_path }}/.obsidian/"
-
-- name: Deploy obsidian community plugin code from the registry
-  # Needs jq + curl available on PATH (installed manually).
-  ansible.builtin.command:
-    cmd: "bash {{ playbook_dir }}/scripts/install-obsidian-plugins.sh '{{ obsidian_vault_path }}/.obsidian'"
-  register: obsidian_plugins
-  changed_when: "'installing' in obsidian_plugins.stdout"
+- name: Apply user configs (fish, starship, zed, obsidian)
+  ansible.builtin.command: chezmoi apply --force --verbose
+  register: chezmoi_apply
+  changed_when: (chezmoi_apply.stdout | length) > 0
 
 - name: Deploy opencode config
   ansible.builtin.copy:

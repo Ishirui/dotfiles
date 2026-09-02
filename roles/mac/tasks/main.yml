@@ -1,10 +1,11 @@
 # macOS role. A deliberately barebones counterpart to the Arch roles: it only
 # deploys dev tool configs. The tools themselves (fish, starship, zed, obsidian,
-# opencode, ...) are assumed to be installed manually (e.g. via Homebrew).
+# opencode, ...) are assumed to be installed manually (e.g. via Homebrew) —
+# chezmoi itself is the one exception, since it does the deploying.
 #
-# All deployed config files come from the repo root (zed/, fish/, obsidian/,
-# agents/) — the same single source of truth the Arch roles use. No config files
-# are duplicated.
+# fish + starship, zed and obsidian configs come from the chezmoi source state
+# in home/ — the same single source of truth the Arch roles use. Only the
+# agent configs (agents/) are still deployed by plain copy tasks.
 
 - include_vars: main.yml
 

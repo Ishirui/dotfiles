@@ -1,0 +1,47 @@
+# Starship theme catalog + per-host assignments.
+#
+# Consumed by dot_config/fish/starship.toml.tmpl at `chezmoi apply` time:
+# the host's short hostname is looked up in [hosts], the resulting theme's
+# slot names are resolved to hex values from [colors], and the c_* palette
+# aliases in the template are filled in. Unknown hosts fall back to the
+# "default" theme.
+#
+# Theme slots: host, dir, f1, f2, git — plus optional alert, ssh, container
+# (defaulting to red / sky / teal when omitted).
+
+[starship.colors]
+# Catppuccin Macchiato hex values.
+rosewater = '#f4dbd6'
+flamingo = '#f0c6c6'
+pink = '#f5bde6'
+mauve = '#c6a0f6'
+red = '#ed8796'
+maroon = '#ee99a0'
+peach = '#f5a97f'
+yellow = '#eed49f'
+green = '#a6da95'
+teal = '#8bd5ca'
+sky = '#91d7e3'
+sapphire = '#7dc4e4'
+blue = '#8aadf4'
+lavender = '#b7bdf8'
+
+[starship.themes]
+"rosé"          = { host = 'mauve',    dir = 'lavender', f1 = 'pink',      f2 = 'flamingo', git = 'rosewater' }
+"bloom"         = { host = 'peach',    dir = 'pink',     f1 = 'mauve',     f2 = 'lavender', git = 'sky' }
+"iris"          = { host = 'sapphire', dir = 'sky',      f1 = 'lavender',  f2 = 'mauve',    git = 'pink' }
+"twilight"      = { host = 'mauve',    dir = 'lavender', f1 = 'blue',      f2 = 'peach',    git = 'flamingo' }
+"twilight-bloom" = { host = 'mauve',   dir = 'lavender', f1 = 'blue',      f2 = 'teal',     git = 'sky' }
+"halcyon"       = { host = 'flamingo', dir = 'mauve',    f1 = 'sapphire',  f2 = 'sky',      git = 'lavender' }
+"spring"        = { host = 'peach',    dir = 'green',    f1 = 'teal',      f2 = 'sapphire', git = 'lavender' }
+"garden"        = { host = 'peach',    dir = 'yellow',   f1 = 'green',     f2 = 'teal',     git = 'sapphire' }
+"moonrise"      = { host = 'mauve',    dir = 'lavender', f1 = 'sapphire',  f2 = 'sky',      git = 'teal' }
+"petal"         = { host = 'flamingo', dir = 'pink',     f1 = 'mauve',     f2 = 'lavender', git = 'sapphire' }
+"orchid"        = { host = 'green',    dir = 'teal',     f1 = 'mauve',     f2 = 'lavender', git = 'sky' }
+
+[starship.hosts]
+"Tesseract"       = 'iris'          # NAS - cool blues into pink
+"Cuboid"          = 'twilight-bloom' # gaming rig - cool gradient ending in teal/sky
+"Vertex"          = 'rosé'          # personal laptop - pinks
+"COMP-DL7Q42TMVM" = 'twilight'      # work mac - spacey
+"default"         = 'rosé'          # fallback for vm-* and unknown hosts

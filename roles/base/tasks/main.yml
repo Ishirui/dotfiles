@@ -11,6 +11,9 @@
 # early common deps
 - include_tasks: 03-core-utils.yml
 
+# user configs (fish/starship/zed/obsidian) via chezmoi, from home/
+- include_tasks: 03b-chezmoi.yml
+
 # apps + bundles, ordered most -> least critical
 - include_tasks: 04-terminal.yml
 - include_tasks: 05-syncthing.yml
