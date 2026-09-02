@@ -17,7 +17,7 @@ Hopefully this inspires you in creating your own stuff !
 - `kde`: KDE Plasma configuration, including panels, desktop, window manager etc. (still deployed by Ansible; not in chezmoi yet)
 - `scripts`: Various scripts that I use for util purposes.
 
-> *NOTE:* Some config files (like `kwinrc` for example) are not actually stored in the repo but are generated from templates in the `ansible` directory, since they contain machine-specific information like screen layout, monitor names and might contain some lines I don´t want to include in the repo. The ansible playbook takes care of generating those files and putting them in the right place.
+> *NOTE:* Some config files are not stored in the repo as whole files. KDE files like `kwinrc`, `kdeglobals` and `kcminputrc` mix my settings with state that Plasma rewrites on its own, so the playbook only sets the individual keys it cares about (`community.general.kdeconfig` in `roles/base/tasks/17-kde.yml`) and leaves the rest of the file alone. The one genuinely machine-specific file is the display layout, `roles/desktop/files/kwinoutputconfig.json`, which is why it lives in the desktop role rather than in `home/`.
 
 ## Day-to-day config workflow (chezmoi)
 
