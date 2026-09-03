@@ -8,6 +8,7 @@
 .config/kglobalshortcutsrc
 .config/kwinrulesrc
 .config/klassy
+.local/bin
 .local/share/applications
 .local/share/konsole
 {{ end -}}

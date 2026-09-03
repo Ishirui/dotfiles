@@ -74,19 +74,8 @@
 # Keybinds (kglobalshortcutsrc): deployed by chezmoi from home/ — see
 # 03b-chezmoi.yml.
 
-- name: KDE | Keybinds | KWin Toggle HDR
-  block:
-    - name: KDE | Keybinds | KWin Toggle HDR | Copy script file
-      become: yes
-      copy:
-        src: "{{ playbook_dir }}/scripts/toggle_hdr.sh"
-        dest: /usr/local/bin/toggle_hdr.sh
-        mode: u=rwx,g=rx,o=rx
-
-    - name: KDE | Keybinds | KWin Toggle HDR | Copy desktop file
-      copy:
-        src: "files/net.local.toggle_hdr.sh.desktop"
-        dest: "{{ dotlocalshare_path }}/applications/"
+# KWin Toggle HDR: the script (~/.local/bin/toggle_hdr.sh), its launcher and
+# the Meta+Alt+H binding in kglobalshortcutsrc all come from chezmoi now.
 
 # --- Desktops ---------------------------------------------------------------
 
