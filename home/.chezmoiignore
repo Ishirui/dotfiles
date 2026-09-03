@@ -5,5 +5,8 @@
 .config/konsolerc
 .config/yakuakerc
 .config/autostart
+.config/kglobalshortcutsrc
+.config/kwinrulesrc
+.config/klassy
 .local/share/konsole
 {{ end -}}

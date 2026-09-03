@@ -71,10 +71,8 @@
 
 # --- Keybinds ---------------------------------------------------------------
 
-- name: KDE | Keybinds | Load custom keybinds
-  copy:
-    src: "{{ playbook_dir }}/kde/kglobalshortcutsrc"
-    dest: "{{ dotconfig_path }}/kglobalshortcutsrc"
+# Keybinds (kglobalshortcutsrc): deployed by chezmoi from home/ — see
+# 03b-chezmoi.yml.
 
 - name: KDE | Keybinds | KWin Toggle HDR
   block:
@@ -118,10 +116,7 @@
 
 # --- Window rules -----------------------------------------------------------
 
-- name: KDE | Window Rules | Load custom window rules
-  copy:
-    src: "{{ playbook_dir }}/kde/kwinrulesrc"
-    dest: "{{ dotconfig_path }}/kwinrulesrc"
+# Window rules (kwinrulesrc): deployed by chezmoi from home/.
 
 # --- Applications -----------------------------------------------------------
 
@@ -141,12 +136,7 @@
         key: ColorScheme
         value: "Catppuccin-{{ kde_catppuccin_flavor }}"
 
-- name: KDE | Theme | Install Klassy config
-  tags: KDE,theme,klassy
-  copy:
-    src: "{{ playbook_dir }}/kde/klassyrc"
-    dest: "{{ dotconfig_path }}/klassy/klassyrc"
-    mode: "0644"
+# Klassy config (klassy/klassyrc): deployed by chezmoi from home/.
 
 - name: KDE | Theme | Set application style and icon theme to Klassy
   tags: KDE,theme,klassy
