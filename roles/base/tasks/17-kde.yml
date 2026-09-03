@@ -148,19 +148,8 @@
         key: theme
         value: Klassy
 
-- name: KDE | Theme | Install YAMIS icon theme from vendored submodule
-  tags: KDE,theme,icons
-  copy:
-    src: "{{ playbook_dir }}/vendor/kde/icons-yam/YAMIS/"
-    dest: "{{ dotlocalshare_path }}/icons/YAMIS/"
-    mode: preserve
-
-- name: KDE | Theme | Install Lavender Plasma theme from vendored submodule
-  tags: KDE,theme,plasma
-  copy:
-    src: "{{ playbook_dir }}/vendor/kde/plasma-lavender/Lavender-solid-color/"
-    dest: "{{ dotlocalshare_path }}/plasma/desktoptheme/Lavender-solid-color/"
-    mode: preserve
+# YAMIS icons and the Lavender Plasma theme are fetched from upstream by
+# chezmoi — see home/.chezmoiexternal.toml.tmpl.
 
 - name: KDE | Theme | Set Plasma desktop theme
   tags: KDE,theme,plasma
@@ -169,7 +158,7 @@
     values:
       - group: Theme
         key: name
-        value: "Lavender-solid-color"
+        value: "Lavender-Solid-Plasma"
 
 - name: KDE | Theme | Set fonts
   tags: KDE,theme,fonts

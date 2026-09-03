@@ -1,0 +1,23 @@
+{{- /*
+Theme assets fetched straight from upstream instead of being vendored as git
+submodules. Both URLs are pinned to the commits the submodules referenced, so
+an update is a deliberate edit here rather than a silent submodule bump.
+
+Templated rather than listed in .chezmoiignore: ignore rules do not stop
+chezmoi from fetching an external, so gating has to happen here or macOS runs
+would download both archives.
+*/ -}}
+{{ if eq .chezmoi.os "linux" -}}
+[".local/share/plasma/desktoptheme/Lavender-Solid-Plasma"]
+    type = "archive"
+    url = "https://github.com/L4ki/Lavender-Plasma-Themes/archive/e11a41af3f28c4ad1252b35db7973370484a13cb.tar.gz"
+    include = ["*/Lavender-Plasma-Themes/Lavender-Solid-Plasma/**"]
+    stripComponents = 3
+    refreshPeriod = "168h"
+
+[".local/share/icons/YAMIS"]
+    type = "archive"
+    url = "https://bitbucket.org/dirn-typo/yet-another-monochrome-icon-set/get/97cd6e306fbf135349fa66d23e6f55384a435399.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
+{{- end }}
