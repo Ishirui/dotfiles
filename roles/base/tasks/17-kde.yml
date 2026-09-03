@@ -90,14 +90,6 @@
         src: "files/net.local.toggle_hdr.sh.desktop"
         dest: "{{ dotlocalshare_path }}/applications/"
 
-    - name: KDE | Keybinds | KWin Toggle HDR | Setup Keybind
-      community.general.kdeconfig:
-        path: "{{ dotconfig_path }}/kglobalshortcutsrc"
-        values:
-          - groups: [services, net.local.toggle_hdr.sh.desktop]
-            key: _launch
-            value: Meta+Alt+H
-
 # --- Desktops ---------------------------------------------------------------
 
 - name: KDE | Desktops | Configure virtual desktops and desktop change OSD
