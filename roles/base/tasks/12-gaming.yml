@@ -25,3 +25,4 @@
       - ckan-bin # CKAN mod manager for Kerbal Space Program
       - gx52 # Driver for Saitek X52 HOTAS, which is needed for customization mostly
       - pdx-unlimiter # Paradox savegame editor
+      - ludusavi-bin # Game save backup tool

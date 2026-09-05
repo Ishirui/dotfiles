@@ -11,6 +11,8 @@
       - bruno-bin # Postman alternative
       - meld
       - opencode-bin # Terminal AI coding agent
+      - lazydocker # GUI for docker
+      - devtoys-bin # Offline developer utilities toolbox
 
 # OpenCode config (opencode.jsonc, tui.json, AGENTS.md): deployed by chezmoi
 # from home/ — see 19-chezmoi.yml.
