@@ -28,7 +28,7 @@
   tags: chezmoi
   ansible.builtin.copy:
     content: |
-      # Managed by Ansible — edit in dotfiles/roles/base/tasks/03b-chezmoi.yml.
+      # Managed by Ansible — edit in dotfiles/roles/base/tasks/19-chezmoi.yml.
       # Source state lives inside the dotfiles repo, so git operations happen
       # there directly (no `chezmoi init`/`chezmoi update`).
       sourceDir = "{{ playbook_dir }}/home"

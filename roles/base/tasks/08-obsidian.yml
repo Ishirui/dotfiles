@@ -1,6 +1,6 @@
 # Obsidian: install the app. The versioned per-vault config (settings, the
 # custom Catppunite Encore theme, plugin settings) and the community plugin
-# code download are handled by chezmoi from home/ (03b-chezmoi.yml): the
+# code download are handled by chezmoi from home/ (19-chezmoi.yml): the
 # config files deploy as regular files and a run_onchange script pulls plugin
 # code (main.js/styles.css) from Obsidian's official registry whenever the
 # enabled-plugin list changes.

@@ -1,6 +1,6 @@
 # Terminal stack: CLI tools, the Monaspace font, and the Yakuake/Konsole
 # terminals. fish + starship configuration is deployed by chezmoi from home/
-# (03b-chezmoi.yml); konsole/yakuake stay here for now (KDE scope).
+# (19-chezmoi.yml); konsole/yakuake stay here for now (KDE scope).
 
 # --- Install ----------------------------------------------------------------
 
@@ -44,6 +44,6 @@
       - yakuake
 
 # --- Configuration ----------------------------------------------------------
-# All of it is deployed by chezmoi from home/ — see 03b-chezmoi.yml: fish and
+# All of it is deployed by chezmoi from home/ — see 19-chezmoi.yml: fish and
 # starship, the Konsole profile and colour scheme, konsolerc, yakuakerc, and
 # the Yakuake autostart entry.

@@ -4,6 +4,17 @@
 
 - include_tasks: fancontrol.yml
 
+# User configs (fish/starship/zed/obsidian/opencode/KDE) via chezmoi, then the
+# services that depend on them, then the aur_builder teardown — all after the
+# package phases above.
+- include_role:
+    name: base
+    tasks_from: 19-chezmoi.yml
+
+- include_role:
+    name: base
+    tasks_from: 99-aur-builder.yml
+
 - block:
     - name: KDE | Display | Configure displays
       tags: kde,display

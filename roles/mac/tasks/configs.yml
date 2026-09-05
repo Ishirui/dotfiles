@@ -1,6 +1,6 @@
 # Deploy the user configs via chezmoi, from the repo's home/ source directory
 # (fish + starship, zed, obsidian, opencode). This mirrors the Arch roles'
-# 03b-chezmoi task: Ansible only installs chezmoi, points it at home/, and
+# 19-chezmoi task: Ansible only installs chezmoi, points it at home/, and
 # applies.
 
 - name: Install chezmoi via Homebrew

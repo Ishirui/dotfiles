@@ -37,7 +37,7 @@
 # --- Keybinds ---------------------------------------------------------------
 
 # Keybinds (kglobalshortcutsrc): deployed by chezmoi from home/ — see
-# 03b-chezmoi.yml.
+# 19-chezmoi.yml.
 
 # KWin Toggle HDR: the script (~/.local/bin/toggle_hdr.sh), its launcher and
 # the Meta+Alt+H binding in kglobalshortcutsrc all come from chezmoi now.

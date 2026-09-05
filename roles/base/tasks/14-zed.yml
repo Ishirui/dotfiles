@@ -1,5 +1,5 @@
 # Zed editor: install the app. Settings, keymap and the custom Catppuccin
-# Macchiato theme are deployed by chezmoi from home/zed (03b-chezmoi.yml);
+# Macchiato theme are deployed by chezmoi from home/zed (19-chezmoi.yml);
 # extensions are declared via auto_install_extensions in settings.json and
 # installed by Zed on next launch.
 #

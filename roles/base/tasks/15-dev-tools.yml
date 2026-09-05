@@ -13,7 +13,7 @@
       - opencode-bin # Terminal AI coding agent
 
 # OpenCode config (opencode.jsonc, tui.json, AGENTS.md): deployed by chezmoi
-# from home/ — see 03b-chezmoi.yml.
+# from home/ — see 19-chezmoi.yml.
 
 # Language servers / tooling for Zed (and shared with OpenCode + CLI use).
 # STUB: fill in the list once we pick servers per language. Candidates:
