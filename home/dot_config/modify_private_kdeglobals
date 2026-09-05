@@ -1,0 +1,10 @@
+#!/usr/bin/env chezmoi_modify_manager
+source auto
+
+# Derived from the active colour scheme — rewritten on every theme switch,
+# so the hash is Plasma's, not ours.
+ignore "General" "ColorSchemeHash"
+
+# Dialog geometry and file-dialog view state.
+ignore section "KFileDialog Settings"
+ignore section "KShortcutsDialog Settings"

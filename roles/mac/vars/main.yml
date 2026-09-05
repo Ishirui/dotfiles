@@ -8,7 +8,3 @@ username: "{{ ansible_user_id }}"
 dotconfig_path: "/Users/{{ username }}/.config"
 dotlocalshare_path: "/Users/{{ username }}/.local/share"
 dotcache_path: "/Users/{{ username }}/.cache"
-
-# Obsidian config is per-vault, living in <vault>/.obsidian. Override if the
-# vault lives elsewhere on this machine.
-obsidian_vault_path: "/Users/{{ username }}/Documents/Notes"

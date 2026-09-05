@@ -5,16 +5,29 @@ This includes standard things like shell configs, editor configs etc. but also m
 
 This repo is also a valid Ansible configuration for easily setting up my new machines as I like them :)
 
+There are two layers to the setup:
+- **Ansible** (roles + `local.yml`) installs packages and does system-level setup (partitions, btrfs, etc.). It also installs chezmoi and applies the user configs once.
+- **chezmoi** (source state in `home/`) owns the day-to-day user configs: fish + starship, zed, obsidian, opencode, Konsole/Yakuake, the XDG user dirs and all of the KDE configs.
+
 Hopefully this inspires you in creating your own stuff !
 
 ## Directories
 - `roles`: Ansible roles for setting up new machines. Also contains some support files that I don´t consider to be "configs" but are still part of the setup, like configurations referencing machine-specific things, desktop files etc.
-- `fish`: Shell completions, functions and my Starship config
-- `kde`: KDE Plasma configuration, including panels, desktop, window manager etc.
-- `obsidian`: Per-vault Obsidian config (`.obsidian/`): app settings, the custom `Catppunite Encore` theme and all plugin settings.
+- `home`: chezmoi source state — the user configs it manages: fish (shell completions, functions, starship), zed, obsidian (per-vault `.obsidian/`: app settings, the custom `Catppunite Encore` theme and all plugin settings), opencode (config + shared `AGENTS.md`), Konsole/Yakuake, the XDG user dirs, and the KDE configs (keybinds, window rules, Klassy theming, launchers, plus `kwinrc`/`kdeglobals`/`kcminputrc`/`plasmarc` via `chezmoi_modify_manager`). The YAMIS icons and the Lavender Plasma theme are fetched from upstream as externals (`home/.chezmoiexternal.toml.tmpl`), host-specific values (starship themes per machine) come from `home/.chezmoidata.toml`, and `home/.chezmoiignore` keeps the Linux-only entries off macOS.
 - `scripts`: Various scripts that I use for util purposes.
 
-> *NOTE:* Some config files (like `kwinrc` for example) are not actually stored in the repo but are generated from templates in the `ansible` directory, since they contain machine-specific information like screen layout, monitor names and might contain some lines I don´t want to include in the repo. The ansible playbook takes care of generating those files and putting them in the right place.
+> *NOTE:* `kwinrc`, `kdeglobals`, `kcminputrc` and `plasmarc` mix my settings with state that Plasma rewrites on its own, so they are not stored whole: a `modify_` script (`chezmoi_modify_manager`) merges the declared settings into the live file and passes the volatile parts through — see the `home/dot_config/modify_*` scripts. The one genuinely machine-specific file is the display layout, `roles/desktop/files/kwinoutputconfig.json`, which is why it lives in the desktop role rather than in `home/`.
+
+## Day-to-day config workflow (chezmoi)
+
+Ansible writes a chezmoi config pointing at this repo's `home/` directory, so all chezmoi commands work from anywhere:
+
+- Redeploy configs after a change, without re-running the playbook: `chezmoi apply`
+- Preview what would change: `chezmoi diff`
+- See which deployed files have drifted from the repo: `chezmoi status`
+- After an app edits its own config (zed settings, obsidian...), sync the change back to the repo: `chezmoi re-add <file>` (or `chezmoi add <file>` for new files), then commit and push.
+- KDE INI files (`kwinrc`, `kdeglobals`, ...) are merged, not whole-managed: `chezmoi status` only flags the declared settings, and changes made in Plasma's settings apps are captured back with `chezmoi_modify_manager --add <file>`.
+- Render the starship config for this host: `chezmoi cat ~/.config/fish/starship.toml`
 
 # TODO
 
@@ -53,6 +66,7 @@ fix: obsidian theme not applying heading color when bold or italic text inside h
 > In the meantime, just setup a syncthing folder to get sync working, maybe
 - Same for all apps that are not really configurable via config file: vesktop, telegram, 
 - For steam, there might be a couple things configurable in ~/.local/share/Steam/config - libraryfolders.vdf in particular, but then again you also have to drop files in the created library so eh.
+- Syncthing is configured by XML surgery: `roles/base/tasks/05-syncthing.yml` stops the daemon, deletes and re-adds the `<folder>`/`<device>` nodes with the `xml` module, then restarts it - every playbook run, whether anything changed or not. `syncthingctl` (already installed) and the REST API can declare folders and devices directly, which would be more robust and wouldn't need the daemon stopped. Would work the same whether ansible or something else drives it.
 
 # Laptop stuff to do
 - VPN

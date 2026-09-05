@@ -1,0 +1,9 @@
+#!/usr/bin/env chezmoi_modify_manager
+source auto
+
+# Pass-through style: everything else Plasma stores in plasmarc is kept
+# as-is; only the desktop theme name is enforced. (A blanket ignore also
+# disables the .src.ini, so the declared value is set here.)
+ignore regex ".*" ".*"
+
+set "Theme" "name" "Lavender-Solid-Plasma" separator="="

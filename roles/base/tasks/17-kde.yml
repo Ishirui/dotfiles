@@ -1,8 +1,6 @@
-# KDE: customization package installs (tweaks, scripts, Catppuccin themes) plus
-# all KDE configuration, flattened from the former 4-kde/ directory.
-#
-# Note: `kde_catppuccin_flavor` should be defined in `roles/desktop/vars/main.yml`
-# (example value: MacchiatoLavender).
+# KDE: package installs only (tweaks, scripts, Catppuccin themes). Every KDE
+# config file is deployed or merged by chezmoi from home/ — the pointers are
+# in the sections below.
 
 # --- Install ----------------------------------------------------------------
 
@@ -33,196 +31,44 @@
 
 # --- HID --------------------------------------------------------------------
 
-- name: KDE | Keyboard | Set keyboard settings
-  tags: kde,hid
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/kcminputrc"
-    values:
-        - group: Keyboard
-          key: NumLock
-          value: 0
-        - group: Keyboard
-          key: RepeatDelay
-          value: 800
-        - group: Keyboard
-          key: RepeatRate
-          value: 40
-
-- name: KDE | Mouse | Set mouse settings
-  tags: kde,hid
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/kcminputrc"
-    values:
-        - groups: [Libinput, 1133, 16511, Logitech G502]
-          key: NaturalScroll
-          value: true
-        - groups: [Libinput, 1133, 16511, Logitech G502]
-          key: PointerAcceleration
-          value: 0.0
-        - groups: [Libinput, 1133, 16511, Logitech G502]
-          key: PointerAccelerationProfile
-          value: 1
-        - groups: [Libinput, 1133, 16511, Logitech G502]
-          key: ScrollFactor
-          value: 1
-        - groups: [Libinput, 1133, 16511, Logitech G502]
-          key: ScrollMethod
-          value: 0
+# Keyboard and mouse settings (kcminputrc): declared and enforced by chezmoi +
+# chezmoi_modify_manager — see home/dot_config/modify_private_kcminputrc.
 
 # --- Keybinds ---------------------------------------------------------------
 
-- name: KDE | Keybinds | Load custom keybinds
-  copy:
-    src: "{{ playbook_dir }}/kde/kglobalshortcutsrc"
-    dest: "{{ dotconfig_path }}/kglobalshortcutsrc"
+# Keybinds (kglobalshortcutsrc): deployed by chezmoi from home/ — see
+# 03b-chezmoi.yml.
 
-- name: KDE | Keybinds | KWin Toggle HDR
-  block:
-    - name: KDE | Keybinds | KWin Toggle HDR | Copy script file
-      become: yes
-      copy:
-        src: "{{ playbook_dir }}/scripts/toggle_hdr.sh"
-        dest: /usr/local/bin/toggle_hdr.sh
-        mode: u=rwx,g=rx,o=rx
-
-    - name: KDE | Keybinds | KWin Toggle HDR | Copy desktop file
-      copy:
-        src: "files/net.local.toggle_hdr.sh.desktop"
-        dest: "{{ dotlocalshare_path }}/applications/"
-
-    - name: KDE | Keybinds | KWin Toggle HDR | Setup Keybind
-      community.general.kdeconfig:
-        path: "{{ dotconfig_path }}/kglobalshortcutsrc"
-        values:
-          - groups: [services, net.local.toggle_hdr.sh.desktop]
-            key: _launch
-            value: Meta+Alt+H
+# KWin Toggle HDR: the script (~/.local/bin/toggle_hdr.sh), its launcher and
+# the Meta+Alt+H binding in kglobalshortcutsrc all come from chezmoi now.
 
 # --- Desktops ---------------------------------------------------------------
 
-- name: KDE | Desktops | Configure virtual desktops and desktop change OSD
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/kwinrc"
-    values:
-      - group: Desktops
-        key: Number
-        value: 9
-      - group: Desktops
-        key: Rows
-        value: 3
-      - group: Plugins
-        key: desktopchangeosdEnabled
-        value: true
-      - group: Script-desktopchangeosd
-        key: PopupHideDelay
-        value: 700
+# kwinrc (virtual desktops, desktop-change OSD, window decorations):
+# merged into the live file by chezmoi + chezmoi_modify_manager — see
+# home/dot_config/modify_private_kwinrc.
 
-# --- Plasmazones ------------------------------------------------------------
-- name: KDE | Plasmazones | Load Plasmazones config
-  copy:
-    src: "{{ playbook_dir }}/kde/plasmazones.json"
-    dest: "{{ dotconfig_path }}/plasmazones/config.json"
-
+# Plasmazones config (krohnkite's replacement): deployed by chezmoi from
+# home/ — see home/dot_config/plasmazones/.
 
 # --- Window rules -----------------------------------------------------------
 
-- name: KDE | Window Rules | Load custom window rules
-  copy:
-    src: "{{ playbook_dir }}/kde/kwinrulesrc"
-    dest: "{{ dotconfig_path }}/kwinrulesrc"
+# Window rules (kwinrulesrc): deployed by chezmoi from home/.
 
 # --- Applications -----------------------------------------------------------
 
-- name: KDE | Load .desktop files
-  copy:
-    src: "{{ playbook_dir }}/kde/applications/"
-    dest: "{{ dotlocalshare_path }}/applications/"
+# Application launchers (.desktop): deployed by chezmoi from home/.
 
 # --- Theme ------------------------------------------------------------------
 
-- name: KDE | Theme | Set Catppuccin color scheme
-  tags: KDE,theme,catppuccin
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/kdeglobals"
-    values:
-      - group: General
-        key: ColorScheme
-        value: "Catppuccin-{{ kde_catppuccin_flavor }}"
+# kdeglobals (colour scheme blocks, fonts, widget style, icon theme):
+# merged into the live file by chezmoi + chezmoi_modify_manager — see
+# home/dot_config/modify_private_kdeglobals.
+# Klassy config (klassy/klassyrc): deployed by chezmoi from home/.
 
-- name: KDE | Theme | Install Klassy config
-  tags: KDE,theme,klassy
-  copy:
-    src: "{{ playbook_dir }}/kde/klassyrc"
-    dest: "{{ dotconfig_path }}/klassy/klassyrc"
-    mode: "0644"
+# YAMIS icons and the Lavender Plasma theme are fetched from upstream by
+# chezmoi — see home/.chezmoiexternal.toml.tmpl.
 
-- name: KDE | Theme | Set application style and icon theme to Klassy
-  tags: KDE,theme,klassy
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/kdeglobals"
-    values:
-      - group: KDE
-        key: widgetStyle
-        value: "Klassy"
-      - group: Icons
-        key: Theme
-        value: klassy-dark
+# The Plasma desktop theme name (plasmarc) is enforced by chezmoi — see
+# home/dot_config/modify_private_plasmarc.
 
-- name: KDE | Theme | Set window decorations to Klassy
-  tags: KDE,theme,klassy
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/kwinrc"
-    values:
-      - group: org.kde.kdecoration2
-        key: library
-        value: org.kde.klassy
-      - group: org.kde.kdecoration2
-        key: theme
-        value: Klassy
-
-- name: KDE | Theme | Install YAMIS icon theme from vendored submodule
-  tags: KDE,theme,icons
-  copy:
-    src: "{{ playbook_dir }}/vendor/kde/icons-yam/YAMIS/"
-    dest: "{{ dotlocalshare_path }}/icons/YAMIS/"
-    mode: preserve
-
-- name: KDE | Theme | Install Lavender Plasma theme from vendored submodule
-  tags: KDE,theme,plasma
-  copy:
-    src: "{{ playbook_dir }}/vendor/kde/plasma-lavender/Lavender-solid-color/"
-    dest: "{{ dotlocalshare_path }}/plasma/desktoptheme/Lavender-solid-color/"
-    mode: preserve
-
-- name: KDE | Theme | Set Plasma desktop theme
-  tags: KDE,theme,plasma
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/plasmarc"
-    values:
-      - group: Theme
-        key: name
-        value: "Lavender-solid-color"
-
-- name: KDE | Theme | Set fonts
-  tags: KDE,theme,fonts
-  community.general.kdeconfig:
-    path: "{{ dotconfig_path }}/kdeglobals"
-    values:
-      - group: General
-        key: font
-        value: "{{ font_main }},10,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
-      - group: General
-        key: menuFont
-        value: "{{ font_main }},10,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
-      - group: General
-        key: toolBarFont
-        value: "{{ font_main }},10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
-      - group: General
-        key: smallestReadableFont
-        value: "{{ font_main }},8,-1,5,300,0,0,0,0,0,0,0,0,0,0,1,Light,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
-      - group: General
-        key: fixed
-        value: "{{ font_mono }},10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
-      - group: WM
-        key: activeFont
-        value: "{{ font_title }},10,-1,5,700,0,0,0,0,0,0,0,0,0,0,1,Bold,12,calt=1,liga=1,ss01=1,ss02=1,ss03=1,ss04=1,ss05=1,ss06=1,ss07=1,ss08=1,ss09=1,ss10=1,0"
