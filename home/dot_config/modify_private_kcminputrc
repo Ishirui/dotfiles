@@ -1,0 +1,17 @@
+#!/usr/bin/env chezmoi_modify_manager
+source auto
+
+# Pass-through style: everything Plasma has written for other devices or on
+# its own is kept as-is; only the entries below are enforced. (A blanket
+# ignore also disables the .src.ini, so the declared values are set here.)
+ignore regex ".*" ".*"
+
+set "Keyboard" "NumLock" "0" separator="="
+set "Keyboard" "RepeatDelay" "800" separator="="
+set "Keyboard" "RepeatRate" "40" separator="="
+
+set "Libinput][1133][16511][Logitech G502" "NaturalScroll" "true" separator="="
+set "Libinput][1133][16511][Logitech G502" "PointerAcceleration" "0.0" separator="="
+set "Libinput][1133][16511][Logitech G502" "PointerAccelerationProfile" "1" separator="="
+set "Libinput][1133][16511][Logitech G502" "ScrollFactor" "1" separator="="
+set "Libinput][1133][16511][Logitech G502" "ScrollMethod" "0" separator="="

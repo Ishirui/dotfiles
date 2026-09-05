@@ -1,0 +1,14 @@
+#!/usr/bin/env chezmoi_modify_manager
+source auto
+
+# Plasma-owned state, preserved as-is from the live file:
+#  - $Version bookkeeping
+#  - generated virtual-desktop ids and names ([Desktops] Id_* / Name_*)
+#  - per-desktop, per-output custom tiling ([Tiling][...]...])
+#  - Xwayland scaling state
+# Everything not listed here and not in kwinrc.src.ini is removed by apply.
+ignore section "$Version"
+ignore regex "Desktops" "Id_.*"
+ignore regex "Desktops" "Name_.*"
+ignore regex "Tiling.*" ".*"
+ignore section "Xwayland"

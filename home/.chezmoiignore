@@ -1,3 +1,6 @@
+{{- /* Source-state side files of the chezmoi_modify_manager pairs: never deployed. */ -}}
+**/*.src.ini
+
 {{- /* Linux-only targets: the mac role applies this same source tree. */ -}}
 {{ if ne .chezmoi.os "linux" }}
 .config/lutris
@@ -8,6 +11,10 @@
 .config/kglobalshortcutsrc
 .config/kwinrulesrc
 .config/klassy
+.config/kwinrc
+.config/kdeglobals
+.config/kcminputrc
+.config/plasmarc
 .local/bin
 .local/share/applications
 .local/share/konsole

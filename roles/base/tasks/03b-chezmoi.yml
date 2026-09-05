@@ -1,5 +1,6 @@
 # chezmoi: fast, incremental deployment of the user configs in home/ (fish +
-# starship, zed, obsidian, opencode) without re-running the full playbook.
+# starship, zed, obsidian, opencode, the KDE configs) without re-running the
+# full playbook.
 #
 # Ansible only installs chezmoi, points it at this repo's home/ source
 # directory, and applies once. Day-to-day config changes are then just
@@ -14,6 +15,14 @@
       - chezmoi
       - jq
     state: present
+
+- name: Chezmoi | Install chezmoi_modify_manager (used by the KDE modify scripts)
+  tags: software,core,cli,chezmoi
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - chezmoi_modify_manager
 
 - name: Chezmoi | Point chezmoi at this repo's home/ source directory
   tags: chezmoi
