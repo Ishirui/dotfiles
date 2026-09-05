@@ -16,6 +16,7 @@
 .config/kcminputrc
 .config/plasmarc
 .config/plasmazones
+.config/vicinae
 .config/navi
 .config/fish/conf.d/navi.fish
 .local/bin
