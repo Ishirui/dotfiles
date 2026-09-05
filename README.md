@@ -9,6 +9,23 @@ There are two layers to the setup:
 - **Ansible** (roles + `local.yml`) installs packages and does system-level setup (partitions, btrfs, etc.). It also installs chezmoi and applies the user configs once.
 - **chezmoi** (source state in `home/`) owns the day-to-day user configs: fish + starship, zed, obsidian, opencode, Konsole/Yakuake, the XDG user dirs and all of the KDE configs.
 
+## Desktop setup
+
+The provisioned Linux workstation is:
+
+| Component | Choice |
+|---|---|
+| Base | CachyOS (Arch Linux) |
+| Desktop | KDE Plasma 6 on Wayland |
+| Window management | PlasmaZones tiling |
+| Shell | Fish + Starship |
+| Terminals | Konsole + Yakuake |
+| Launcher | Vicinae (`Alt+Space`) |
+| Editor | Zed |
+| Appearance | Catppuccin themes, Klassy, Monaspace Nerd Font, YAMIS icons, Lavender Plasma theme |
+
+The full application catalogue and day-to-day usage examples (`pack`/`unpack`, `Ctrl+G`, `navi --tldr`, `Alt+Space`) live in [docs/tools.md](docs/tools.md).
+
 Hopefully this inspires you in creating your own stuff !
 
 ## Directories
@@ -52,9 +69,7 @@ fix: obsidian theme not applying heading color when bold or italic text inside h
 - betterbird-bin (AUR)
 - zapzap (whatsapp client, AUR)
 - freetube-bin (AUR)
-- Look into LocalSend (`localsend-bin` AUR)
 - yt-dlp
-- walker (launcher) (see https://github.com/abenz1267/walker) or vicinae
 - webapp-manager (for Monkeytype)
 
 # Hard to do
