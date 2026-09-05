@@ -1,0 +1,23 @@
+#!/bin/sh
+# KWin re-reads kwinrc on this call: effects and tiling scripts reload in
+# place, without restarting the session. Colour scheme and font changes in
+# kdeglobals reach applications on their own via KConfig watchers; the
+# plasmashell restart a plasmarc change wants stays manual.
+#
+# Re-run whenever any of the managed KDE config sources changes:
+# hash: {{ include "dot_config/modify_private_kwinrc" | sha256sum }}
+# hash: {{ include "dot_config/private_kwinrc.src.ini" | sha256sum }}
+# hash: {{ include "dot_config/modify_private_kdeglobals" | sha256sum }}
+# hash: {{ include "dot_config/private_kdeglobals.src.ini" | sha256sum }}
+# hash: {{ include "dot_config/modify_private_kcminputrc" | sha256sum }}
+# hash: {{ include "dot_config/private_kcminputrc.src.ini" | sha256sum }}
+# hash: {{ include "dot_config/modify_private_plasmarc" | sha256sum }}
+# hash: {{ include "dot_config/private_plasmarc.src.ini" | sha256sum }}
+
+set -eu
+
+# No-op outside a running Plasma session (macOS, SSH, before first login).
+command -v qdbus6 >/dev/null 2>&1 || exit 0
+[ -n "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ] || exit 0
+
+qdbus6 org.kde.KWin /KWin org.kde.KWin.reconfigure >/dev/null 2>&1 || true
