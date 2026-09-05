@@ -381,7 +381,7 @@ _launch=Meta+T
 
 [services][org.kde.krunner.desktop]
 RunClipboard=none
-_launch=Alt+Space
+_launch=none
 
 [services][org.kde.kscreen.desktop]
 ShowOSD=none
@@ -399,6 +399,10 @@ RecordWindow=none
 
 [services][systemsettings.desktop]
 _launch=\tTools
+
+[services][vicinae.desktop]
+_launch=none
+toggle=Alt+Space
 
 [yakuake]
 _k_friendly_name=Yakuake

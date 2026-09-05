@@ -1,9 +1,11 @@
 {{- /*
 Assets fetched straight from upstream instead of being vendored as git
 submodules: Plasma theme/icon assets (URLs pinned to the commits the old
-submodules referenced) and navi's default cheat-sheet collection (pinned to a
-verified upstream commit). Updates are deliberate edits here rather than
-silent bumps.
+submodules referenced), navi's default cheat-sheet collection (pinned to a
+verified upstream commit), and prebuilt Vicinae launcher extensions (store
+bundles, refreshed weekly rather than pinned). Updates are deliberate edits
+here rather than silent bumps, except for the extension bundles which follow
+the store.
 
 Templated rather than listed in .chezmoiignore: ignore rules do not stop
 chezmoi from fetching an external, so gating has to happen here or macOS runs
@@ -42,4 +44,44 @@ would download the archives.
         "*/security/ssh.cheat",
         "*/security/openssl.cheat",
     ]
+
+[".local/share/vicinae/extensions/store.vicinae.arch-packages"]
+    type = "archive"
+    format = "zip"
+    url = "https://api.vicinae.com/v1/store/rithvikvibhu/arch-packages/download"
+    stripComponents = 1
+    exact = true
+    refreshPeriod = "168h"
+
+[".local/share/vicinae/extensions/store.vicinae.systemd"]
+    type = "archive"
+    format = "zip"
+    url = "https://api.vicinae.com/v1/store/knoopx/systemd/download"
+    stripComponents = 1
+    exact = true
+    refreshPeriod = "168h"
+
+[".local/share/vicinae/extensions/store.vicinae.ssh"]
+    type = "archive"
+    format = "zip"
+    url = "https://api.vicinae.com/v1/store/leiserfg/ssh/download"
+    stripComponents = 1
+    exact = true
+    refreshPeriod = "168h"
+
+[".local/share/vicinae/extensions/store.vicinae.bluetooth"]
+    type = "archive"
+    format = "zip"
+    url = "https://api.vicinae.com/v1/store/gelei/bluetooth/download"
+    stripComponents = 1
+    exact = true
+    refreshPeriod = "168h"
+
+[".local/share/vicinae/extensions/store.vicinae.process-manager"]
+    type = "archive"
+    format = "zip"
+    url = "https://api.vicinae.com/v1/store/leonkohli/process-manager/download"
+    stripComponents = 1
+    exact = true
+    refreshPeriod = "168h"
 {{- end }}

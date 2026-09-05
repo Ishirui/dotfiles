@@ -1,0 +1,11 @@
+{
+  "providers": {
+    "@leonkohli/store.vicinae.process-manager": {
+      "entrypoints": {
+        "kill": {
+          "enabled": false
+        }
+      }
+    }
+  }
+}

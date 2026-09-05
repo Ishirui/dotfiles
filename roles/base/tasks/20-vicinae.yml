@@ -1,0 +1,17 @@
+- name: KDE | Enable Bluetooth support
+  tags: software,customization,KDE
+  become: true
+  ansible.builtin.systemd_service:
+    name: bluetooth.service
+    enabled: true
+    state: started
+
+- name: KDE | Enable and start Vicinae
+  tags: software,customization,KDE
+  become: false
+  ansible.builtin.systemd_service:
+    name: vicinae.service
+    scope: user
+    enabled: true
+    state: "{{ 'restarted' if chezmoi_apply.changed else 'started' }}"
+    daemon_reload: true
