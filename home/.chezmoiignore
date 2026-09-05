@@ -15,6 +15,7 @@
 .config/kdeglobals
 .config/kcminputrc
 .config/plasmarc
+.config/plasmazones
 .local/bin
 .local/share/applications
 .local/share/konsole

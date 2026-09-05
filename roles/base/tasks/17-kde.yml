@@ -48,11 +48,8 @@
 # merged into the live file by chezmoi + chezmoi_modify_manager — see
 # home/dot_config/modify_private_kwinrc.
 
-# --- Plasmazones ------------------------------------------------------------
-- name: KDE | Plasmazones | Load Plasmazones config
-  copy:
-    src: "{{ playbook_dir }}/kde/plasmazones.json"
-    dest: "{{ dotconfig_path }}/plasmazones/config.json"
+# Plasmazones config (krohnkite's replacement): deployed by chezmoi from
+# home/ — see home/dot_config/plasmazones/.
 
 # --- Window rules -----------------------------------------------------------
 
