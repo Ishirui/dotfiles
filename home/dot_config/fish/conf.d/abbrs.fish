@@ -8,6 +8,8 @@ abbr -a htop "btop"
 abbr -a fdg "fd --glob"
 abbr -a help "tldr" # Overwrites default fish help but eh
 abbr -a zed "zeditor"
+abbr -a pack 'ouch compress'
+abbr -a unpack 'ouch decompress'
 
 # Shortcuts
 abbr -a c "clear"

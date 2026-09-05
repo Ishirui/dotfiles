@@ -34,6 +34,11 @@
       - btrbk
       - superfile
       - tree
+      - navi
+      - ouch
+      - visidata
+      - jless
+      - trippy
 
 - name: Terminal | Install terminal emulators
   tags: software,tools,gui

@@ -19,6 +19,7 @@
       - plasma6-applets-eventcalendar
       - plasma6-applets-arch-update-notifier
       - plasma6-applets-panel-colorizer
+      - vicinae-bin # Launcher (replaces KRunner's Alt+Space)
 
 - name: KDE | Install catppuccin themes
   tags: software,customization,KDE,theme,cattpuccin

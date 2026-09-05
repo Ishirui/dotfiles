@@ -13,3 +13,6 @@
       - qbittorrent
       - wireshark-qt
       - virt-manager
+      - localsend-bin # Local network file transfers
+      - krokiet-bin # Bulk file cleanup tool
+      - krename

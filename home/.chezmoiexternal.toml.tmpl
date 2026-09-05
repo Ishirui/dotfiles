@@ -1,11 +1,13 @@
 {{- /*
-Theme assets fetched straight from upstream instead of being vendored as git
-submodules. Both URLs are pinned to the commits the submodules referenced, so
-an update is a deliberate edit here rather than a silent submodule bump.
+Assets fetched straight from upstream instead of being vendored as git
+submodules: Plasma theme/icon assets (URLs pinned to the commits the old
+submodules referenced) and navi's default cheat-sheet collection (pinned to a
+verified upstream commit). Updates are deliberate edits here rather than
+silent bumps.
 
 Templated rather than listed in .chezmoiignore: ignore rules do not stop
 chezmoi from fetching an external, so gating has to happen here or macOS runs
-would download both archives.
+would download the archives.
 */ -}}
 {{ if eq .chezmoi.os "linux" -}}
 [".local/share/plasma/desktoptheme/Lavender-Solid-Plasma"]
@@ -20,4 +22,24 @@ would download both archives.
     url = "https://bitbucket.org/dirn-typo/yet-another-monochrome-icon-set/get/97cd6e306fbf135349fa66d23e6f55384a435399.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
+
+[".local/share/navi/cheats/denisidoro"]
+    type = "archive"
+    url = "https://github.com/denisidoro/cheats/archive/1339965e9615ce00174cc308a41279d9c59aa75f.tar.gz"
+    stripComponents = 1
+    exact = true
+    include = [
+        "*/code/git.cheat",
+        "*/container/docker.cheat",
+        "*/misc/compression.cheat",
+        "*/misc/json.cheat",
+        "*/misc/shell.cheat",
+        "*/misc/systemctl.cheat",
+        "*/network/curl.cheat",
+        "*/network/network.cheat",
+        "*/pkg_mgr/pacman.cheat",
+        "*/pkg_mgr/flatpak.cheat",
+        "*/security/ssh.cheat",
+        "*/security/openssl.cheat",
+    ]
 {{- end }}
