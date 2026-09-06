@@ -1,0 +1,19 @@
+# The display layout: the eDP panel plus the desktop's two DP monitors, so
+# docking to the Cuboid monitor/kb/mouse combo works out of the box.
+#
+# The output entries are captured from the live EndeavourOS install — the
+# laptop's own EDID reads of those monitors differ from Cuboid's (different
+# connector paths), which is why this file exists instead of reusing the
+# desktop's. The HDR preferences on the Dell ultrawide are imported from the
+# desktop config. The captured modes (120Hz HP / 60Hz Dell) are what the
+# laptop actually drove them at; verify while docked and adjust if the
+# USB-C port can do better.
+- block:
+    - name: KDE | Display | Configure displays
+      tags: kde,display
+      copy:
+        src: "files/kwinoutputconfig.json"
+        dest: "{{ dotconfig_path }}/kwinoutputconfig.json"
+
+  rescue:
+    - set_fact: task_failed=true

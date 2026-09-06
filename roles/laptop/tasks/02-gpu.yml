@@ -1,0 +1,24 @@
+# The distro already provides the hard parts on CachyOS — this file
+# deliberately does not touch them:
+#   - PRIME render offload works with zero configuration (nvidia-utils +
+#     cachyos-settings): launch apps on the dGPU with `prime-run <app>` or via
+#     Plasma's "Run using dedicated graphics card" checkbox.
+#   - switcheroo-control is installed and its service enabled by chwd at
+#     install time.
+#   - The NVIDIA suspend services follow the distro defaults; only touch them
+#     post-install if suspend/resume is actually broken.
+# Verify after the first boot instead of preemptively overriding.
+#
+# Packages: machines/vertex.toml (nvidia-open-dkms, nvidia-prime,
+# switcheroo-control, ...).
+
+# Dynamic Boost on RTX laptops: shifts the power budget between CPU and dGPU
+# under load. Not part of the distro's default setup, hence owned here. Drop
+# this task if it ever misbehaves.
+- name: System | GPU | Enable the NVIDIA Dynamic Boost daemon
+  tags: system,gpu,service
+  become: yes
+  ansible.builtin.systemd_service:
+    name: nvidia-powerd.service
+    enabled: true
+    state: started

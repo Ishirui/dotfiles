@@ -1,0 +1,9 @@
+# Vertex-specific hardware: the Goodix fingerprint PAM integration, the NVIDIA
+# power daemon, TLP, the LLL support daemon and the eDP+dock display layout.
+# Everything shared between the physical machines is handled by base +
+# workstation; this role only runs for the [laptop] inventory group.
+- include_tasks: 01-fingerprint.yml
+- include_tasks: 02-gpu.yml
+- include_tasks: 03-power.yml
+- include_tasks: 04-legion.yml
+- include_tasks: 05-display.yml

@@ -1,6 +1,12 @@
 {{- /* Source-state side files of the chezmoi_modify_manager pairs: never deployed. */ -}}
 **/*.src.ini
 
+{{- /* Vertex-only targets: the TLP config belongs to the laptop (the laptop
+       role symlinks /etc/tlp.conf at it). */ -}}
+{{ if ne .chezmoi.hostname "Vertex" }}
+.config/tlp
+{{ end -}}
+
 {{- /* Linux-only targets: the mac role applies this same source tree. */ -}}
 {{ if ne .chezmoi.os "linux" }}
 .config/lutris

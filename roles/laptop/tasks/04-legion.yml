@@ -1,0 +1,37 @@
+# LenovoLegionLinux: the kernel module ships as lenovolegionlinux-dkms-git,
+# which pulls in the tooling package (legion_cli / legion_gui / legiond) — all
+# declared in machines/vertex.toml. DKMS rebuilds the module on every kernel
+# update, so kernel headers must be installed alongside the CachyOS kernels
+# (the installer's default when dkms is in use).
+#
+# legiond switches fan presets per power profile and AC/battery state. The
+# companion units follow upstream's enable line (extra/service/legiond in
+# https://github.com/johnfanv2/LenovoLegionLinux):
+#   systemctl enable --now legiond.service legiond-onresume.service legiond-cpuset.timer
+
+- name: System | Legion | Enable the LLL support daemon
+  tags: system,legion,service
+  become: yes
+  ansible.builtin.systemd_service:
+    name: legiond.service
+    enabled: true
+    state: started
+
+- name: System | Legion | Enable the LLL resume hook
+  tags: system,legion,service
+  become: yes
+  ansible.builtin.systemd_service:
+    name: legiond-onresume.service
+    enabled: true
+
+- name: System | Legion | Enable the LLL cpuset timer
+  tags: system,legion,service
+  become: yes
+  ansible.builtin.systemd_service:
+    name: legiond-cpuset.timer
+    enabled: true
+    state: started
+
+# Fan curves, the Y-logo LED, hybrid mode and the battery conservation mode
+# are personal firmware-level state — set them once with legion_gui /
+# legion_cli, not through Ansible.

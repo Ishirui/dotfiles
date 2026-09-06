@@ -1,0 +1,106 @@
+# Fingerprint authentication for the Goodix reader, replicating the working
+# PAM setup from the EndeavourOS install.
+#
+# pam-fprint-grosshack wraps pam_fprintd so a failed fingerprint scan falls
+# through to the password prompt (stock pam_fprintd as `sufficient` cannot);
+# where a plain pam_fprintd rule was enough, it is kept as-is.
+#
+# Every rule is `sufficient`, so the password path always remains — a
+# fingerprint failure can never lock you out. /etc/pam.d/system-auth is
+# deliberately left untouched.
+#
+# Implemented with lineinfile rather than community.general.pamd: the current
+# collection has no "insert at top" state (before_first does not exist, and
+# anchored `before` inserts would depend on the stock file contents), while
+# lineinfile's ensure-line-exists semantics do exactly what is needed and
+# survive pambase updates. insertbefore: BOF puts the rule at the very top of
+# the file (above the #%PAM-1.0 header — cosmetic only, PAM cares about rule
+# order, not comments), because a regexp-anchored insertbefore targets the
+# *last* match rather than the first.
+#
+# Packages (fprintd, libfprint-tod, libfprint-2-tod1-goodix,
+# pam-fprint-grosshack) are declared in machines/vertex.toml. If the grosshack
+# module ever disappears from the AUR, swap its lines below for plain
+# pam_fprintd.so — one line per file, at the cost of losing the automatic
+# password fallback.
+#
+# The lockscreen needs no task: since Plasma 6.4, kscreenlocker ships its own
+# fingerprint stack (/usr/lib/pam.d/kde-fingerprint) and prompts for the
+# finger natively — it works as soon as a print is enrolled. The old
+# /etc/pam.d/kde edit is obsolete.
+#
+# The one manual step after the first playbook run: `fprintd-enroll`.
+
+- name: Auth | Fingerprint | Sudo falls back from fingerprint to password
+  tags: auth,fingerprint
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/sudo
+    line: "auth sufficient pam_fprintd_grosshack.so"
+    insertbefore: BOF
+    state: present
+
+- name: Auth | Fingerprint | Su falls back from fingerprint to password
+  tags: auth,fingerprint
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/su
+    line: "auth sufficient pam_fprintd_grosshack.so"
+    insertbefore: BOF
+    state: present
+
+- name: Auth | Fingerprint | Passwd falls back from fingerprint to password
+  tags: auth,fingerprint
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/passwd
+    line: "auth sufficient pam_fprintd_grosshack.so"
+    insertbefore: BOF
+    state: present
+
+# Polkit, per the notes' pattern for graphical prompts: password first, then
+# fingerprint — pressing Enter on a blank field proceeds to the scan.
+- name: Auth | Fingerprint | Polkit prompts take the password first
+  tags: auth,fingerprint
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/polkit-1
+    line: "auth sufficient pam_unix.so try_first_pass likeauth nullok"
+    insertbefore: BOF
+    state: present
+
+- name: Auth | Fingerprint | Polkit prompts accept the fingerprint
+  tags: auth,fingerprint
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/polkit-1
+    line: "auth sufficient pam_fprintd.so"
+    insertafter: '^auth +sufficient +pam_unix\.so'
+    state: present
+
+# The greeter. plasma-login-manager is provisioned by the CachyOS installer
+# (the repo deliberately does not manage it), so guard on its PAM file rather
+# than fail when it is missing.
+- name: Auth | Fingerprint | Check the greeter PAM file exists
+  tags: auth,fingerprint
+  ansible.builtin.stat:
+    path: /etc/pam.d/plasmalogin
+  register: plasmalogin_pam
+
+- name: Auth | Fingerprint | Warn that the greeter PAM file is missing
+  tags: auth,fingerprint
+  ansible.builtin.debug:
+    msg: >-
+      /etc/pam.d/plasmalogin does not exist — plasma-login-manager is expected
+      to be provisioned by the CachyOS installer. Skipping the greeter rule.
+  when: not plasmalogin_pam.stat.exists
+
+- name: Auth | Fingerprint | Greeter falls back from fingerprint to password
+  tags: auth,fingerprint
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/plasmalogin
+    line: "auth sufficient pam_fprintd_grosshack.so"
+    insertbefore: BOF
+    state: present
+  when: plasmalogin_pam.stat.exists

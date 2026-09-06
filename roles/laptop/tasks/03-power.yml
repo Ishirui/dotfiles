@@ -1,0 +1,52 @@
+# TLP owns power management on the laptop (package: machines/vertex.toml).
+# The config file itself is chezmoi-managed — home/dot_config/tlp/tlp.conf,
+# deployed to ~/.config/tlp/tlp.conf and symlinked from /etc/tlp.conf below —
+# so edits go through the normal chezmoi workflow and TLP picks them up on its
+# next start. If a TLP package upgrade ever clobbers the symlink (pacman
+# .pacnew behavior), replace this with a copy task from the same source.
+#
+# NOTE: BAT0 on the Legion Slim 5 14APH8 exposes no charge_control_*_threshold
+# sysfs attribute, so TLP's charge thresholds are inert on this model. Battery
+# capping is the Lenovo conservation mode instead — a firmware-level toggle
+# (currently on), exposed by LLL as `legion_cli conservation-mode` and by an
+# Fn keyboard shortcut.
+#
+# Consequence of TLP: power-profiles-daemon must be deactivated, so KDE's
+# battery applet loses its profile switcher. Fn+Q still switches the Legion
+# platform profile at the firmware level, and legiond reacts to it.
+
+- name: System | Power | Check for power-profiles-daemon
+  tags: system,power
+  ansible.builtin.stat:
+    path: /usr/lib/systemd/system/power-profiles-daemon.service
+  register: ppd_unit
+
+# TLP requires power-profiles-daemon to be deactivated; a plain disable covers
+# it idempotently whether or not the tlp package already did it.
+- name: System | Power | Deactivate power-profiles-daemon
+  tags: system,power,service
+  become: yes
+  ansible.builtin.systemd_service:
+    name: power-profiles-daemon.service
+    state: stopped
+    enabled: false
+  when: ppd_unit.stat.exists
+
+- name: System | Power | Enable TLP
+  tags: system,power,service
+  become: yes
+  ansible.builtin.systemd_service:
+    name: tlp.service
+    enabled: true
+    state: started
+
+# The workstation role's chezmoi apply (05-chezmoi.yml) has already deployed
+# ~/.config/tlp/tlp.conf by the time this play runs.
+- name: System | Power | Point /etc/tlp.conf at the chezmoi-managed config
+  tags: system,power
+  become: yes
+  ansible.builtin.file:
+    src: "{{ dotconfig_path }}/tlp/tlp.conf"
+    dest: /etc/tlp.conf
+    state: link
+    force: yes
