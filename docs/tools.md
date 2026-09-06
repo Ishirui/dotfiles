@@ -2,14 +2,21 @@
 
 > **Arch workstation setup.** This catalogue describes the applications
 > provisioned by this repo on the Linux machines (CachyOS/Arch + KDE Plasma).
-> The mac role only deploys user configs and a couple of brew packages;
-> application installation on macOS remains manual and is not covered here.
+> The group files carry no `brew` sections yet, so application installation on
+> macOS remains manual and is not covered here.
 
-Dolphin and Konsole come with the CachyOS desktop baseline (KDE defaults)
-rather than being declared in the Ansible roles, and the entries marked
-"via CachyOS metapackage" are pulled in by `cachyos-gaming-meta` /
-`cachyos-gaming-applications`. Everything else is an explicit package
-declaration in the roles.
+Each section below is one metapac group, declared in
+`home/dot_config/metapac/groups/<name>.toml`. A group doubles as a role: it is
+both the category a package sits in and the capability a machine opts into.
+Which machine takes which group is in `home/dot_config/metapac/config.toml.tmpl`.
+
+A `-gui` suffix marks a group that needs a display, so the generic `vm` row is
+exactly the set of groups without one.
+
+Dolphin and Konsole come with the CachyOS desktop baseline (KDE defaults) rather
+than being declared, and the entries marked "via CachyOS metapackage" are pulled
+in by `cachyos-gaming-meta` / `cachyos-gaming-applications`. Everything else is
+an explicit declaration in a group file.
 
 ## Usage examples
 
@@ -19,16 +26,13 @@ declaration in the roles.
 - `navi --tldr tar --print` — TLDR lookups through navi's tealdeer integration.
 - `help tar` — unchanged: still the `tldr` abbreviation.
 
-## Desktop and terminals
+---
 
-| Tool | Purpose |
-|---|---|
-| Dolphin | File manager (KDE default via CachyOS, not explicitly declared) |
-| Konsole | Terminal emulator (KDE default via CachyOS) |
-| Yakuake | Drop-down terminal, toggled with F12 |
-| Vicinae | Launcher and command palette, toggled with `Alt+Space` |
+# Headless-safe groups
 
-## Shell and navigation
+These need no display, and make up the `vm` row.
+
+## shell
 
 | Tool | Purpose |
 |---|---|
@@ -40,7 +44,7 @@ declaration in the roles.
 | navi | Interactive cheat sheets, `Ctrl+G` widget |
 | tmux | Terminal multiplexer |
 
-## Files, search, archives
+## files
 
 | Tool | Purpose |
 |---|---|
@@ -51,35 +55,10 @@ declaration in the roles.
 | ripgrep (`rg`) | Fast content search |
 | tree | Directory trees |
 | Superfile (`spf`) | TUI file manager |
-| Filelight | Disk usage visualisation |
 | ouch | Compression/decompression via `pack`/`unpack` |
-| Krokiet | Bulk file cleanup and organization |
-| KRename | Batch file renaming |
+| unzip | Archive extraction |
 
-## Editors and developer tools
-
-| Tool | Purpose |
-|---|---|
-| Zed | Main editor; settings/keymap/theme deployed by chezmoi |
-| Neovim | Terminal editor |
-| Cursor | AI-oriented editor |
-| micro | Terminal editor, the `nano` replacement |
-| OpenCode | Terminal AI coding agent |
-| Git | Version control, installed early in the base role |
-| lazygit | TUI for Git |
-| Meld | Diff/merge tool |
-| Bruno | API client, Postman alternative |
-| DevToys | Offline developer utilities toolbox |
-
-## Containers and virtual machines
-
-| Tool | Purpose |
-|---|---|
-| Docker | Containers; group membership unchanged |
-| lazydocker | TUI for Docker |
-| virt-manager | libvirt VM management |
-
-## Data exploration
+## data
 
 | Tool | Purpose |
 |---|---|
@@ -87,7 +66,49 @@ declaration in the roles.
 | jless | Interactive JSON pager |
 | VisiData (`vd`) | TUI tabular data explorer |
 
-## Development environments
+## monitoring
+
+| Tool | Purpose |
+|---|---|
+| btop | System monitor, the `htop` replacement |
+| Fastfetch | System info in terminals |
+
+## network
+
+| Tool | Purpose |
+|---|---|
+| Nmap (`nmap`) | Network scanning |
+| Trippy (`trip`) | TUI traceroute/network diagnostics |
+| Wireshark | Packet capture/analysis; `tshark` is the half that matters on a VM |
+| WireGuard tools | VPN config (`wg`, `wg-quick`) |
+
+## credentials
+
+| Tool | Purpose |
+|---|---|
+| GnuPG | Encryption/signing |
+
+## editors-cli
+
+| Tool | Purpose |
+|---|---|
+| Neovim | Terminal editor |
+| micro | Terminal editor, the `nano` replacement |
+
+## dev-tools
+
+| Tool | Purpose |
+|---|---|
+| Git | Version control; also installed during bootstrap |
+| lazygit | TUI for Git |
+| OpenCode | Terminal AI coding agent |
+| chezmoi | Deploys the user configs; also installed during bootstrap |
+| metapac | Installs the packages in this catalogue; manages itself |
+
+Language servers for Zed, OpenCode and CLI use are still unpicked — the
+candidate list is a comment in the group file.
+
+## languages
 
 | Tool | Purpose |
 |---|---|
@@ -100,36 +121,91 @@ declaration in the roles.
 | Yarn | Node package manager |
 | uv | Python project/tool manager |
 
-## Browsers and communication
+## containers
+
+| Tool | Purpose |
+|---|---|
+| Docker | The container engine; group membership unchanged |
+
+## container-tools
+
+| Tool | Purpose |
+|---|---|
+| lazydocker | TUI for Docker; talks to the API, so it drives a remote `DOCKER_HOST` with no local engine |
+
+## transfers
+
+| Tool | Purpose |
+|---|---|
+| rsync | File transfer/sync |
+| curl | HTTP transfers; also installed during bootstrap |
+| wget | HTTP transfers |
+| aria2 | Multi-protocol downloader |
+
+---
+
+# Display-requiring groups
+
+## editors-gui
+
+| Tool | Purpose |
+|---|---|
+| Zed | Main editor; settings/keymap/theme deployed by chezmoi |
+| Cursor | AI-oriented editor |
+
+## dev-tools-gui
+
+| Tool | Purpose |
+|---|---|
+| Meld | Diff/merge tool |
+| Bruno | API client, Postman alternative |
+| DevToys | Offline developer utilities toolbox |
+
+## browsers
 
 | Tool | Purpose |
 |---|---|
 | Zen Browser | Main browser |
 | Chromium | Second browser |
+
+Firefox is actively uninstalled — see `roles/base/vars/packages.yml`.
+
+## virtualization
+
+| Tool | Purpose |
+|---|---|
+| virt-manager | libvirt VM management |
+
+## comms
+
+| Tool | Purpose |
+|---|---|
 | Vesktop | Discord client |
 | Telegram Desktop | Messaging |
 | Zoom | Video calls |
 
-## Notes and office
+## notes
 
 | Tool | Purpose |
 |---|---|
 | Obsidian | Notes; per-vault config and plugins via chezmoi |
+
+## office
+
+| Tool | Purpose |
+|---|---|
 | OnlyOffice | Office suite |
 
-## Sync, transfers, downloads
+## sync
 
 | Tool | Purpose |
 |---|---|
 | Syncthing | Continuous file sync; folders/devices declared in the playbook |
 | SyncthingTray | Tray integration, plus `syncthingctl` and `syncthing-resolve-conflicts` helpers |
 | LocalSend | Local network file transfers between devices |
-| rsync | File transfer/sync |
-| curl / wget | HTTP transfers |
-| aria2 | Multi-protocol downloader |
 | qBittorrent | Torrent client |
 
-## Media playback
+## media-playback
 
 | Tool | Purpose |
 |---|---|
@@ -139,21 +215,21 @@ declaration in the roles.
 | Feishin | Music streaming client (Jellyfin/Navidrome) |
 | Fladder | Audiobook player (Audiobookshelf) |
 
-## Audio, recording, creation
+## media-creation
 
 | Tool | Purpose |
 |---|---|
 | Audacity | Audio editing |
-| Helvum | PipeWire patchbay |
-| EasyEffects | PipeWire effects (EQ, filters) per-app |
-| OBS Studio | Screen recording/streaming |
 | Kdenlive | Video editing |
 | FFmpeg (`ffmpeg`) | Media conversion toolbox |
 | HandBrake | Video transcoding |
-| GIMP | Image editing |
 | KolourPaint | Quick image editing |
+| GIMP | Image editing |
+| OBS Studio | Screen recording/streaming |
+| EasyEffects | PipeWire effects (EQ, filters) per-app |
+| Helvum | PipeWire patch panel |
 
-## Gaming and compatibility
+## gaming
 
 | Tool | Purpose |
 |---|---|
@@ -170,9 +246,8 @@ declaration in the roles.
 | GOverlay | MangoHud/GameScope configurator |
 | MangoHud | In-game overlay (via CachyOS metapackage) |
 | Sunshine | Game streaming host (Moonlight) |
-| Ludusavi | Game save backup/restore |
 
-## Mods and gaming peripherals
+## gaming-mods
 
 | Tool | Purpose |
 |---|---|
@@ -181,23 +256,23 @@ declaration in the roles.
 | Vortex | Nexus mod manager |
 | CKAN | Kerbal Space Program mod manager |
 | PDX-Unlimiter | Paradox savegame editor |
+| Ludusavi | Game save backup/restore |
 | GX52 | Saitek X52 HOTAS driver/configurator |
 
-## Monitoring, networking, credentials
+## desktop
 
 | Tool | Purpose |
 |---|---|
-| btop | System monitor, the `htop` replacement |
-| Fastfetch | System info in terminals |
-| Wireshark | Packet capture/analysis |
-| Nmap (`nmap`) | Network scanning |
-| Trippy (`trip`) | TUI traceroute/network diagnostics |
-| WireGuard tools | VPN config (`wg`, `wg-quick`) |
+| Yakuake | Drop-down terminal, toggled with F12 |
+| Vicinae | Launcher and command palette, toggled with `Alt+Space` |
+| Filelight | Disk usage visualisation |
+| KDE Partition Manager | Partitioning |
+| KRename | Batch file renaming |
+| Krokiet | Bulk file cleanup and organization |
 | Bitwarden | Password manager |
-| GnuPG | Encryption/signing |
-| CoolerControl | Fan/pump control, deployed with its config |
+| Flatpak | Sandboxed app runtime |
 
-## KDE appearance and behavior
+## kde
 
 | Tool | Purpose |
 |---|---|
@@ -210,13 +285,39 @@ declaration in the roles.
 | Event Calendar | Calendar/plasmoid with agenda |
 | Arch Update Notifier | Update availability plasmoid |
 | Panel Colorizer | Panel theming plasmoid |
-| Catppuccin | Plasma color schemes (Macchiato/Mocha) + app themes |
+| Catppuccin | Plasma color schemes (Macchiato/Mocha) |
 | Monaspace Nerd Font | Terminal/UI font |
+| chezmoi_modify_manager | Merges the declared KDE INI settings into the live files |
 
-## Vicinae launcher extensions
+## backups
+
+| Tool | Purpose |
+|---|---|
+| btrbk | btrfs snapshotting; config and timer owned by the playbook |
+| Btrfs Assistant | Snapshot/subvolume management GUI |
+
+---
+
+# Per-machine groups
+
+`machines/<host>.toml` holds packages nobody else wants. A file exists only once
+a machine actually has some.
+
+## machines/cuboid
+
+| Tool | Purpose |
+|---|---|
+| CoolerControl | Fan/pump control, deployed with its config |
+| liquidctl | Liquid cooler driver |
+| it87-dkms | Out-of-tree module for this motherboard's IT87xx monitoring chip |
+
+---
+
+# Vicinae launcher extensions
 
 Prebuilt store bundles, deployed as chezmoi externals (weekly refresh via
-`chezmoi apply`) and loaded automatically at startup:
+`chezmoi apply`) and loaded automatically at startup. Not packages, so they are
+not part of any group.
 
 | Extension | Integration |
 |---|---|

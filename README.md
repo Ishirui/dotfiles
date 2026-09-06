@@ -5,9 +5,10 @@ This includes standard things like shell configs, editor configs etc. but also m
 
 This repo is also a valid Ansible configuration for easily setting up my new machines as I like them :)
 
-There are two layers to the setup:
-- **Ansible** (roles + `local.yml`) installs packages and does system-level setup (partitions, btrfs, etc.). It also installs chezmoi and applies the user configs once.
-- **chezmoi** (source state in `home/`) owns the day-to-day user configs: fish + starship, zed, obsidian, opencode, Konsole/Yakuake, the XDG user dirs and all of the KDE configs.
+There are three layers to the setup:
+- **Ansible** (roles + `local.yml`) does system-level setup (partitions, btrfs, services, display layout) and bootstraps the other two.
+- **metapac** (group files in `home/dot_config/metapac/`) owns the package set: what is installed, and which machines get it.
+- **chezmoi** (source state in `home/`) owns the day-to-day user configs: fish + starship, zed, obsidian, opencode, Konsole/Yakuake, the XDG user dirs and all of the KDE configs. It also deploys metapac's own group files.
 
 ## Desktop setup
 
@@ -30,10 +31,33 @@ Hopefully this inspires you in creating your own stuff !
 
 ## Directories
 - `roles`: Ansible roles for setting up new machines. Also contains some support files that I don´t consider to be "configs" but are still part of the setup, like configurations referencing machine-specific things, desktop files etc.
+- `home/dot_config/metapac`: the package set — `groups/*.toml` declare packages by group, `config.toml.tmpl` maps machines to groups. Deployed by chezmoi like any other config.
 - `home`: chezmoi source state — the user configs it manages: fish (shell completions, functions, starship), zed, obsidian (per-vault `.obsidian/`: app settings, the custom `Catppunite Encore` theme and all plugin settings), opencode (config + shared `AGENTS.md`), Konsole/Yakuake, the XDG user dirs, and the KDE configs (keybinds, window rules, Klassy theming, launchers, plus `kwinrc`/`kdeglobals`/`kcminputrc`/`plasmarc` via `chezmoi_modify_manager`). The YAMIS icons and the Lavender Plasma theme are fetched from upstream as externals (`home/.chezmoiexternal.toml.tmpl`), host-specific values (starship themes per machine) come from `home/.chezmoidata.toml`, and `home/.chezmoiignore` keeps the Linux-only entries off macOS.
 - `scripts`: Various scripts that I use for util purposes.
 
 > *NOTE:* `kwinrc`, `kdeglobals`, `kcminputrc` and `plasmarc` mix my settings with state that Plasma rewrites on its own, so they are not stored whole: a `modify_` script (`chezmoi_modify_manager`) merges the declared settings into the live file and passes the volatile parts through — see the `home/dot_config/modify_*` scripts. The one genuinely machine-specific file is the display layout, `roles/desktop/files/kwinoutputconfig.json`, which is why it lives in the desktop role rather than in `home/`.
+
+## Packages (metapac)
+
+Packages are declared in `home/dot_config/metapac/groups/`, one TOML file per group, and installed by [metapac](https://github.com/ripytide/metapac). Ansible only installs metapac and runs `metapac sync`.
+
+A group doubles as a role: `gaming`, `dev-tools` and `browsers` are both the category a package sits in and the capability a machine opts into. `home/dot_config/metapac/config.toml.tmpl` then maps each machine to the groups it wants:
+
+| Row | Machine |
+|---|---|
+| `Cuboid` | Desktop — every group, plus `machines/cuboid` for the fan-control hardware |
+| `Vertex` | Laptop — every group |
+| `COMP-…` | Work Mac — the terminal toolkit and editors only |
+| `vm` | Any headless throwaway box (AWS, Proxmox) |
+| `gui-vm` | The same, plus browsers and the GUI editors |
+
+A `-gui` suffix marks a group that needs a display, so `vm` is exactly the set of groups without one. `vm` and `gui-vm` are OS-agnostic: the backend (`arch`/`apt`/`dnf`/`brew`) is derived from the OS, so `metapac --hostname vm sync` provisions a new VM whatever distro it runs. Give it its own row if it turns out to be permanent — an undeclared hostname is a hard error rather than a guess.
+
+- Add or remove a package: edit the group file, then `chezmoi apply ~/.config/metapac && metapac sync`
+- See what is installed but not declared: `metapac unmanaged`
+- Install just one group set ad hoc: `metapac --hostname vm sync`
+
+> *NOTE:* `metapac clean` (uninstall everything undeclared) is deliberately **not** run by the playbook. It is a system-wide sweep that also recursively removes orphans, which is risky next to CachyOS's metapackages. Packages that must be actively uninstalled are declared in `roles/base/vars/packages.yml` instead, since metapac has no "ensure absent".
 
 ## Day-to-day config workflow (chezmoi)
 
@@ -66,11 +90,12 @@ fix: obsidian theme not applying heading color when bold or italic text inside h
 - Some kind of sandbox or VM for cracked games (esp. lenny)
 
 ### Extra packages
-- betterbird-bin (AUR)
-- zapzap (whatsapp client, AUR)
-- freetube-bin (AUR)
-- yt-dlp
-- webapp-manager (for Monkeytype)
+Add these to the relevant group file under `home/dot_config/metapac/groups/`:
+- betterbird-bin (AUR) — `comms`
+- zapzap (whatsapp client, AUR) — `comms`
+- freetube-bin (AUR) — `media-playback`
+- yt-dlp — `transfers`
+- webapp-manager (for Monkeytype) — `desktop`
 
 # Hard to do
 - Automate the add of second drive to btrfs array - seems dangerous, not hard to do manually. Also need to hide the shortcut from Dolphin which is a lot of annoying XML parsing.
@@ -128,4 +153,13 @@ Changing stuff within a screen/desktop, i.e. within the krohnkite layout: Meta+I
 | Grow window up/down/left/right | | ✓ | | ✓ | IKJL |
 | Toggle docks | | ✓ | | | Return |
 
+#### Other
+
+| Action | Ctrl | Meta | Alt | Shift | Key |
+|--------|------|------|-----|-------|-----|
+| Open/close Vicinae | | | ✓ | | Space |
+| Toggle HDR | | ✓ | ✓ | | H |
+
 > **Note:** Meta+L usually locks the screen - we therefore change it to Meta+Shift+L
+
+> **Note:** Toggle HDR runs `~/.local/bin/toggle_hdr.sh`, deployed by chezmoi along with its launcher and the binding in `kglobalshortcutsrc`.
