@@ -3,7 +3,7 @@
 # and runs the sync.
 #
 # Only the metapac config is applied here. The rest of the user config is
-# applied at the end of the run (19-chezmoi.yml), because much of it configures
+# applied at the end of the run (05-chezmoi.yml), because much of it configures
 # applications these packages provide.
 
 - name: Packages | Point chezmoi at this repo's home/ source directory
@@ -32,3 +32,24 @@
   ansible.builtin.command: metapac sync --no-confirm
   register: metapac_sync
   changed_when: "'nothing to install' not in metapac_sync.stderr"
+
+# Removals are the one piece of package state metapac cannot express, so they
+# stay declared here. See roles/base/vars/packages.yml.
+- name: Packages | Uninstall unwanted packages
+  tags: software,packages
+  become: yes
+  community.general.pacman:
+    name: "{{ removed_packages }}"
+    state: absent
+    remove_nosave: true
+
+- name: Packages | Clean up leftover firefox profile data
+  tags: software,packages
+  become: yes
+  become_user: "{{ username }}"
+  ansible.builtin.file:
+    state: absent
+    path: "{{ item }}"
+  loop:
+    - "{{ dotconfig_path }}/mozilla/firefox"
+    - "{{ dotcache_path }}/mozilla/firefox"

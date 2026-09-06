@@ -81,7 +81,7 @@ fix: obsidian theme not applying heading color when bold or italic text inside h
 > In the meantime, just setup a syncthing folder to get sync working, maybe
 - Same for all apps that are not really configurable via config file: vesktop, telegram, 
 - For steam, there might be a couple things configurable in ~/.local/share/Steam/config - libraryfolders.vdf in particular, but then again you also have to drop files in the created library so eh.
-- Syncthing is configured by XML surgery: `roles/base/tasks/05-syncthing.yml` stops the daemon, deletes and re-adds the `<folder>`/`<device>` nodes with the `xml` module, then restarts it - every playbook run, whether anything changed or not. `syncthingctl` (already installed) and the REST API can declare folders and devices directly, which would be more robust and wouldn't need the daemon stopped. Would work the same whether ansible or something else drives it.
+- Syncthing is configured by XML surgery: `roles/base/tasks/04-syncthing.yml` stops the daemon, deletes and re-adds the `<folder>`/`<device>` nodes with the `xml` module, then restarts it - every playbook run, whether anything changed or not. `syncthingctl` (already installed) and the REST API can declare folders and devices directly, which would be more robust and wouldn't need the daemon stopped. Would work the same whether ansible or something else drives it.
 
 # Laptop stuff to do
 - VPN
