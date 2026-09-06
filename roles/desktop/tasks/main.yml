@@ -2,7 +2,10 @@
 - include_role:
     name: base
 
+# Fan control drives the desktop's IT87xx chip and its watercooling loop. The
+# laptop has neither, so it must not get the out-of-tree module or the daemon.
 - include_tasks: fancontrol.yml
+  when: "'desktop' in group_names"
 
 # User configs (fish/starship/zed/obsidian/opencode/KDE) via chezmoi, then the
 # services that depend on them, then the aur_builder teardown — all after the
