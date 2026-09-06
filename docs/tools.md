@@ -296,6 +296,17 @@ Firefox is actively uninstalled — see `roles/base/vars/packages.yml`.
 | btrbk | btrfs snapshotting; config and timer owned by the playbook |
 | Btrfs Assistant | Snapshot/subvolume management GUI |
 
+## workstation
+
+Not in the `vm` rows: packages every physical machine wants, mirroring the
+workstation Ansible role.
+
+| Tool | Purpose |
+|---|---|
+| Kamoso | Webcam app — both machines have webcams |
+| CUPS | Driverless printing (IPP), for the day a printer exists |
+| Print Manager | KDE print queue/settings UI |
+
 ---
 
 # Per-machine groups
@@ -310,6 +321,31 @@ a machine actually has some.
 | CoolerControl | Fan/pump control, deployed with its config |
 | liquidctl | Liquid cooler driver |
 | it87-dkms | Out-of-tree module for this motherboard's IT87xx monitoring chip |
+
+## machines/vertex
+
+The Legion laptop's hardware stack; the system-level half (PAM, services) is
+owned by the laptop Ansible role.
+
+| Tool | Purpose |
+|---|---|
+| nvidia-open-dkms | RTX 4060 Max-Q driver — the flavor chwd autoconfigures |
+| nvidia-utils / lib32 | Driver userspace |
+| nvidia-settings | Driver settings GUI |
+| nvidia-prime | `prime-run` wrapper for PRIME render offload |
+| switcheroo-control | D-Bus API behind Plasma's "run on dGPU" checkbox |
+| nvidia-powerd | Dynamic Boost between CPU and dGPU; service enabled by the laptop role |
+| mesa-utils | `glxinfo`/`eglinfo` to verify offload |
+| nvtop | TUI GPU monitor (both GPUs) |
+| amdgpu_top | iGPU monitor |
+| LenovoLegionLinux (dkms) | EC driver: fan curves, power modes, conservation mode, hybrid mode; ships legion_cli/legion_gui/legiond |
+| lm_sensors | Sensor readings (the LLL module exposes fans/temps through it) |
+| TLP | Power management; config chezmoi-managed, symlinked from `/etc/tlp.conf` |
+| powertop | Power diagnostics |
+| fprintd + Goodix TOD | Fingerprint reader driver (PAM integration owned by the laptop role) |
+| pam-fprint-grosshack | PAM wrapper so a failed scan falls back to the password prompt |
+| fwupd | Lenovo BIOS/firmware updates via LVFS |
+| bluez-obex | Bluetooth file receive (receiving is still buggy — TODO) |
 
 ---
 
