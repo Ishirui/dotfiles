@@ -34,14 +34,15 @@
   changed_when: "'nothing to install' not in metapac_sync.stderr"
 
 # Removals are the one piece of package state metapac cannot express, so they
-# stay declared here. See roles/base/vars/packages.yml.
+# stay declared here. See roles/base/vars/packages.yml. The generic package
+# module keeps this distro-agnostic; the pacman-specific `remove_nosave` option
+# was dropped in the process (it only affected pacman's backup-file bookkeeping).
 - name: Packages | Uninstall unwanted packages
   tags: software,packages
   become: yes
-  community.general.pacman:
+  ansible.builtin.package:
     name: "{{ removed_packages }}"
     state: absent
-    remove_nosave: true
 
 - name: Packages | Clean up leftover firefox profile data
   tags: software,packages

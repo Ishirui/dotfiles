@@ -1,0 +1,13 @@
+# Packages that must exist before metapac can take over. The generic core is
+# distro-agnostic; the Arch-only extras (base-devel for AUR builds) live in
+# 00-bootstrap-arch.yml, since package groups are a pacman concept.
+#
+# All of these are re-declared in the group files so they are not reported as
+# unmanaged. Per-distro name differences (build-essential, ...) get resolved
+# here against a real machine when one joins the inventory — nothing is guessed
+# ahead of time.
+bootstrap_packages:
+  - git
+  - curl
+  - jq # Needed by the Obsidian plugin installer chezmoi runs
+  - chezmoi

@@ -1,0 +1,14 @@
+# The physical-machine layer: filesystem scheme, syncthing, the full user
+# configs and the desktop services. VM hosts (the `vm`/`gui-vm` metapac rows)
+# stop at the base role — they need neither custom subvolumes nor even btrfs.
+#
+# Everything in here is already distro-agnostic: the btrfs/mount/systemd/
+# snapper/syncthing/chezmoi tooling is cross-distro, and the packages arrive
+# through metapac's OS-derived backend.
+#
+# Shared site-wide vars (username, paths, subvolume map) live in group_vars/all/.
+- include_tasks: 02-btrfs.yml
+- include_tasks: 03-fs.yml
+- include_tasks: 04-syncthing.yml
+- include_tasks: 05-chezmoi.yml
+- include_tasks: 06-vicinae.yml

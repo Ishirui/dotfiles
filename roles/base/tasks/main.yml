@@ -1,15 +1,13 @@
-- include_vars: user.yml
-- include_vars: fs.yml
+# The distro-agnostic core: bootstrap the declarative tooling, then let metapac
+# own the package set. Physical machines continue into the workstation role;
+# VM hosts stop here.
+#
+# Shared site-wide vars (username, filesystem paths, the subvolume map) live in
+# group_vars/all/, so every role and play sees them.
+- include_vars: bootstrap.yml
 - include_vars: packages.yml
 
-# Packages first: everything below assumes the software it configures exists.
-# The package set itself is declared in home/dot_config/metapac/groups/.
+# Packages first: everything downstream assumes the software it configures
+# exists. The package set itself is declared in home/dot_config/metapac/groups/.
 - include_tasks: 00-bootstrap.yml
 - include_tasks: 01-packages.yml
-
-# System-level setup
-- include_tasks: 02-btrfs.yml
-- include_tasks: 03-fs.yml
-
-# Applications that carry configuration Ansible still owns
-- include_tasks: 04-syncthing.yml

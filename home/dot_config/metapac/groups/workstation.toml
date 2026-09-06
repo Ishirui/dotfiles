@@ -1,0 +1,9 @@
+# Packages every physical machine wants; the vm rows skip this group. Mirrors
+# the workstation Ansible role — physical hardware and its peripherals.
+arch = { packages = [
+    "kamoso",       # webcam app — both machines have webcams
+    # Driverless printing (IPP Everywhere), for the day a printer exists —
+    # no printer is owned today, this is for printing at shops / other people's
+    "cups",
+    "print-manager",
+] }

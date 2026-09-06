@@ -4,5 +4,11 @@ Cuboid.veyrenc.com
 [laptop]
 Vertex
 
+# The physical machines: base + workstation apply to these. VM hosts are not
+# inventoried (provisioned ad hoc with `metapac --hostname vm sync`).
+[workstation]
+Cuboid.veyrenc.com
+Vertex
+
 [mac]
 localhost ansible_connection=local

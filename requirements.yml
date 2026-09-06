@@ -1,2 +1,9 @@
 collections:
+  # The AUR helper module, used by the Arch bootstrap corner.
   - name: kewlfft.aur
+  # The generic `package` module delegates to pacman through this collection on
+  # Arch, and pacman is still used directly for the base-devel package group.
+  # Also provides the pamd module (laptop fingerprint PAM).
+  - name: community.general
+  # mount module, used by the workstation btrfs subvolume setup.
+  - name: ansible.posix

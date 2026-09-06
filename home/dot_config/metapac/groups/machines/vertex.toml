@@ -1,0 +1,37 @@
+# Packages only the laptop wants.
+#
+# The NVIDIA entries mirror what chwd autoconfigures at install time, so
+# metapac manages the distro's own choice rather than fighting it; reconcile
+# the names against `chwd --list-installed` after the first install.
+# The fan-control/daemon side is handled by roles/laptop (legiond, PAM, TLP).
+arch = { packages = [
+    # NVIDIA Optimus / PRIME offload. Offload itself needs zero configuration
+    # on CachyOS; prime-run and the switcheroo D-Bus API are the entry points.
+    "nvidia-open-dkms",
+    "nvidia-utils",
+    "lib32-nvidia-utils",
+    "nvidia-settings",
+    "nvidia-prime",            # prime-run wrapper — CachyOS wiki recommendation
+    "switcheroo-control",      # Plasma "run on dGPU" checkbox; chwd enables it
+    "nvidia-powerd",           # Dynamic Boost; service enabled by roles/laptop
+    "mesa-utils",              # glxinfo/eglinfo to verify PRIME offload
+    "nvtop",                   # TUI monitor for both GPUs
+    "amdgpu_top",              # iGPU monitor
+    # Lenovo Legion — LLL driver + tooling. The DKMS package pulls in
+    # lenovolegionlinux-git (legion_cli / legion_gui / legiond) and rebuilds
+    # the kernel module on every kernel update, so kernel headers must be
+    # installed alongside the CachyOS kernels.
+    "lenovolegionlinux-dkms-git",
+    "lm_sensors",
+    # Power
+    "tlp",
+    "powertop",
+    # Fingerprint (Goodix TOD driver + the PAM fallback module)
+    "fprintd",
+    "libfprint-tod",
+    "libfprint-2-tod1-goodix",
+    "pam-fprint-grosshack",
+    # Laptop extras
+    "fwupd",                   # Lenovo BIOS/firmware via LVFS
+    "bluez-obex",              # BT file receive (receiving is still buggy; TODO)
+] }

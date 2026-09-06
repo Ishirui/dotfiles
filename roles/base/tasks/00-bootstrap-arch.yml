@@ -1,0 +1,34 @@
+# The only Arch-specific corner of the playbook: AUR builds and the sudo
+# plumbing paru needs. On apt/dnf/brew hosts metapac would come from cargo or
+# the system's own repos instead — no such machine exists yet, so nothing is
+# guessed here; add the branch when one joins the inventory.
+
+# base-devel is an Arch package group rather than a real package, so metapac
+# cannot express it; paru needs it to build anything from the AUR.
+- name: Bootstrap | Arch | Install the AUR build toolset
+  tags: software,core,bootstrap
+  become: yes
+  community.general.pacman:
+    name: base-devel
+    state: present
+
+# paru shells out to `sudo pacman` as the invoking user. Under Ansible there is
+# no TTY to answer a password prompt, so the user needs the grant outright.
+- name: Bootstrap | Arch | Allow the user to run `sudo pacman` without a password
+  tags: software,core,bootstrap
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/11-install-packages
+    line: "{{ username }} ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    create: yes
+    mode: "0644"
+    validate: "visudo -cf %s"
+
+# paru itself ships with CachyOS; on plain Arch it has to be built by hand once.
+- name: Bootstrap | Arch | Install metapac
+  tags: software,core,bootstrap
+  become: no
+  kewlfft.aur.aur:
+    use: paru
+    name:
+      - metapac

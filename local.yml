@@ -4,19 +4,41 @@
 - hosts: all
   tags: always
   pre_tasks:
-    - name: pre-run | update pacman package cache
+    - name: pre-run | update the package cache
       tags: always
-      pacman: update_cache=yes
+      # Generic package module: delegates to whichever manager the distro uses
+      # (pacman on Arch via community.general, apt/dnf elsewhere).
+      ansible.builtin.package:
+        update_cache: yes
       changed_when: False
-      when: ansible_facts['distribution'] == "Archlinux"
+      when: ansible_facts['os_family'] != "Darwin"
       become: yes
 
-# Arch machines (desktop/laptop) get the full desktop role.
+# Base layer (bootstrap + metapac/chezmoi wiring) for every non-macOS host.
+# VM hosts stop here; the physical machines continue into workstation.
 - hosts: all
+  tags: base
+  roles:
+    - role: base
+      when: ansible_facts['os_family'] != "Darwin"
+
+# The physical machines: filesystem scheme, syncthing, user configs, services.
+- hosts: workstation
+  tags: workstation
+  roles:
+    - role: workstation
+
+# Per-machine hardware layers: fan control and the display layout on Cuboid,
+# the Legion stack (fingerprint PAM, TLP, LLL, NVIDIA power) on Vertex.
+- hosts: desktop
   tags: desktop
   roles:
     - role: desktop
-      when: ansible_facts['os_family'] != "Darwin"
+
+- hosts: laptop
+  tags: laptop
+  roles:
+    - role: laptop
 
 # macOS machines get the barebones mac role (dev tool configs + brew installs).
 - hosts: all

@@ -1,0 +1,3 @@
+# Site-wide user, shared by every role. (The mac role overrides this with its
+# own role vars — role vars win over group_vars.)
+username: ishirui

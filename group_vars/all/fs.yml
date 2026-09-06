@@ -1,3 +1,6 @@
+# Filesystem paths and the btrfs subvolume map, shared by every role. Applied
+# by the workstation role (02-btrfs.yml / 03-fs.yml); a VM needs none of it.
+
 dotconfig_path: "/home/{{ username }}/.config"
 dotlocalshare_path: "/home/{{ username }}/.local/share"
 dotcache_path: "/home/{{ username }}/.cache"
