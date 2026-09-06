@@ -1,0 +1,12 @@
+# Network diagnostics and VPN tooling.
+#
+# wireshark-qt is the one place the -gui suffix convention is knowingly bent:
+# it is a GUI package in a headless-safe group, kept here because tshark is the
+# half that matters on a VM and a one-package network-gui group is not worth it.
+
+arch = { packages = [
+    "nmap",
+    "trippy",       # TUI traceroute (trip)
+    "wireshark-qt",
+    "wireguard-tools",
+] }

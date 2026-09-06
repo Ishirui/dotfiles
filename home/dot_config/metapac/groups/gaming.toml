@@ -1,0 +1,21 @@
+# Launchers, Proton/Wine compatibility, overlays and the streaming host.
+#
+# The two CachyOS metapackages pull in most of this. Their members are
+# re-declared below on purpose: metapac installs with --asexplicit, so listing
+# them marks them as manually installed and stops them being swept as orphans.
+
+arch = { packages = [
+    "cachyos-gaming-meta",          # Libs, proton, protontricks, wine-cachyos-opt
+    "cachyos-gaming-applications",  # gamescope, lutris, heroic, steam, mangohud
+    "protonup-qt",                  # GUI for managing proton versions
+    "prismlauncher",                # Minecraft launcher
+    # Re-declared from the metapackages above to mark them explicit
+    "wine-cachyos-opt",
+    "winetricks",
+    "proton-ge-custom-bin",
+    "gamescope",
+    "lutris",
+    "steam",
+    "goverlay",                     # MangoHud/Gamescope configurator
+    "sunshine",                     # Moonlight host
+] }

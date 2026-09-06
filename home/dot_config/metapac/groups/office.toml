@@ -1,0 +1,5 @@
+# Interactive office suite.
+
+arch = { packages = [
+    "onlyoffice-bin",
+] }

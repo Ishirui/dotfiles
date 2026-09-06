@@ -1,0 +1,9 @@
+# Structured-data exploration on the terminal.
+# jq is also installed during bootstrap, since the Obsidian plugin installer
+# needs it before metapac runs. Declared here so it is not reported unmanaged.
+
+arch = { packages = [
+    "jq",
+    "jless",        # Interactive JSON pager
+    "visidata",     # TUI tabular data explorer (vd)
+] }

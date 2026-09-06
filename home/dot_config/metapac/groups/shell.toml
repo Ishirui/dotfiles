@@ -1,0 +1,12 @@
+# Interactive shell, prompt, navigation and cheat sheets.
+# Configuration for all of these is deployed by chezmoi from home/.
+
+arch = { packages = [
+    "fish",
+    "starship",     # Prompt, rendered per-machine from .chezmoidata.toml
+    "fzf",
+    "zoxide",
+    "tealdeer",     # Rust tldr implementation, the `help` abbreviation
+    "navi",         # Cheat sheets, Ctrl+G widget
+    "tmux",
+] }

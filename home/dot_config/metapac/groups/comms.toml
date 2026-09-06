@@ -1,0 +1,7 @@
+# Chat and video call clients.
+
+arch = { packages = [
+    "vesktop-bin",      # Discord client
+    "telegram-desktop",
+    "zoom",
+] }

@@ -1,0 +1,7 @@
+# Terminal editors. These belong on every machine, including headless ones.
+# micro's configuration and theme are deployed by chezmoi from home/.
+
+arch = { packages = [
+    "neovim",
+    "micro",        # Modern nano
+] }

@@ -1,0 +1,7 @@
+# Developer tooling that needs a display.
+
+arch = { packages = [
+    "meld",         # Diff/merge
+    "bruno-bin",    # API client, Postman alternative
+    "devtoys-bin",  # Offline developer utilities toolbox
+] }

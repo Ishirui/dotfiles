@@ -1,0 +1,6 @@
+# The container engine itself. Kept apart from container-tools so a machine can
+# manage containers it does not host.
+
+arch = { packages = [
+    "docker",
+] }

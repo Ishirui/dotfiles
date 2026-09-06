@@ -1,0 +1,159 @@
+{{- /*
+metapac configuration. Only `enabled_backends` is templated: which package
+manager a machine has is a fact about its OS, not a preference, so it is
+derived rather than declared. Everything else below is literal.
+*/ -}}
+{{- $backends := list -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $backends = list "brew" -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{-   $id := .chezmoi.osRelease.id -}}
+{{-   $like := "" -}}
+{{-   if hasKey .chezmoi.osRelease "idLike" -}}
+{{-     $like = .chezmoi.osRelease.idLike -}}
+{{-   end -}}
+{{-   if or (eq $id "arch") (contains "arch" $like) -}}
+{{-     $backends = list "arch" -}}
+{{-   else if or (eq $id "debian") (eq $id "ubuntu") (contains "debian" $like) -}}
+{{-     $backends = list "apt" -}}
+{{-   else if or (eq $id "fedora") (eq $id "rhel") (contains "fedora" $like) (contains "rhel" $like) -}}
+{{-     $backends = list "dnf" -}}
+{{-   end -}}
+{{- end -}}
+{{- /*
+Every top-level key has to precede the first table header, or TOML nests it
+inside that table instead.
+*/ -}}
+# CachyOS reports ID=cachyos ID_LIKE=arch, so the arch branch matches on idLike.
+enabled_backends = {{ $backends | toJson }}
+
+# Groups are selected by name per machine. Rows are literal and exhaustive: an
+# undeclared hostname is a hard error, which is deliberate — a new machine gets
+# a row here rather than silently installing someone else's package set.
+#
+# `vm` and `gui-vm` are generic rows for throwaway machines (AWS, Proxmox).
+# They are OS-agnostic on purpose, which is why the backend above is derived
+# from the OS instead of keyed to the row via `hostname_enabled_backends`.
+# Provision one with `metapac --hostname vm sync`; give it its own row if it
+# turns out to be permanent.
+#
+# A `-gui` suffix marks a group that needs a display, so `vm` is exactly the
+# set of groups without one.
+hostname_groups_enabled = true
+
+[arch]
+package_manager = "paru"
+
+[hostname_groups]
+Cuboid = [
+    "shell",
+    "files",
+    "data",
+    "monitoring",
+    "network",
+    "credentials",
+    "editors-cli",
+    "dev-tools",
+    "languages",
+    "containers",
+    "container-tools",
+    "transfers",
+    "editors-gui",
+    "dev-tools-gui",
+    "browsers",
+    "virtualization",
+    "comms",
+    "notes",
+    "office",
+    "sync",
+    "media-playback",
+    "media-creation",
+    "gaming",
+    "gaming-mods",
+    "desktop",
+    "kde",
+    "backups",
+    "machines/cuboid",
+]
+
+Vertex = [
+    "shell",
+    "files",
+    "data",
+    "monitoring",
+    "network",
+    "credentials",
+    "editors-cli",
+    "dev-tools",
+    "languages",
+    "containers",
+    "container-tools",
+    "transfers",
+    "editors-gui",
+    "dev-tools-gui",
+    "browsers",
+    "virtualization",
+    "comms",
+    "notes",
+    "office",
+    "sync",
+    "media-playback",
+    "media-creation",
+    "gaming",
+    "gaming-mods",
+    "desktop",
+    "kde",
+    "backups",
+]
+
+# Work laptop. The company image owns browsers, containers and networking, so
+# this row stays to the terminal toolkit plus the editors actually used daily.
+# No `brew` sections exist in the group files yet, so this currently resolves
+# but installs nothing.
+COMP-DL7Q42TMVM = [
+    "shell",
+    "files",
+    "data",
+    "monitoring",
+    "credentials",
+    "editors-cli",
+    "dev-tools",
+    "languages",
+    "container-tools",
+    "transfers",
+    "editors-gui",
+    "dev-tools-gui",
+]
+
+vm = [
+    "shell",
+    "files",
+    "data",
+    "monitoring",
+    "network",
+    "credentials",
+    "editors-cli",
+    "dev-tools",
+    "languages",
+    "containers",
+    "container-tools",
+    "transfers",
+]
+
+gui-vm = [
+    "shell",
+    "files",
+    "data",
+    "monitoring",
+    "network",
+    "credentials",
+    "editors-cli",
+    "dev-tools",
+    "languages",
+    "containers",
+    "container-tools",
+    "transfers",
+    "editors-gui",
+    "dev-tools-gui",
+    "browsers",
+]

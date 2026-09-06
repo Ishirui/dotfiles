@@ -1,0 +1,7 @@
+# Web browsers. Firefox is explicitly removed by Ansible rather than merely
+# left undeclared, since metapac only uninstalls via the manual `clean`.
+
+arch = { packages = [
+    "zen-browser-bin",
+    "chromium",
+] }
