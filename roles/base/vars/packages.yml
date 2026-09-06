@@ -1,0 +1,7 @@
+# Packages that must be absent.
+#
+# metapac has no "ensure absent" concept: it installs what the group files
+# declare and only ever removes through `metapac clean`, which is a manual,
+# system-wide sweep. Anything that has to be actively uninstalled belongs here.
+removed_packages:
+  - firefox # Shipped by CachyOS; zen and chromium cover the need

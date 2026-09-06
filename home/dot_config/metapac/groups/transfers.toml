@@ -1,0 +1,10 @@
+# File transfer and download CLIs.
+# curl is also installed during bootstrap. Declared here so it is not reported
+# unmanaged.
+
+arch = { packages = [
+    "rsync",
+    "curl",
+    "wget",
+    "aria2",
+] }

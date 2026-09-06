@@ -1,0 +1,18 @@
+# Developer tooling that works without a display, plus the two tools that
+# manage this machine's own configuration.
+#
+# git, chezmoi and metapac are also installed during bootstrap, since they have
+# to exist before metapac can run at all. Declared here so they are not
+# reported unmanaged.
+#
+# Language servers for Zed, OpenCode and CLI use are still unpicked. Candidates:
+#   gopls, ruff, pyright, yaml-language-server, ansible-language-server,
+#   ansible-lint, dockerfile-language-server, taplo-cli, bash-language-server
+
+arch = { packages = [
+    "git",
+    "lazygit",      # TUI for git
+    "opencode-bin", # Terminal AI coding agent
+    "chezmoi",
+    "metapac",
+] }

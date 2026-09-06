@@ -1,0 +1,40 @@
+# The few packages that have to exist before the declarative tooling can run.
+#
+# base-devel is an Arch package group rather than a real package, so metapac
+# cannot express it; paru needs it to build anything from the AUR. chezmoi has
+# to be installed before it can deploy metapac's own group files, and metapac
+# before it can install everything else. All of them are re-declared in the
+# group files so they are not reported as unmanaged.
+
+- name: Bootstrap | Install the packages needed to reach metapac
+  tags: software,core,bootstrap
+  become: yes
+  community.general.pacman:
+    name:
+      - base-devel
+      - git
+      - curl
+      - chezmoi
+      - jq # Needed by the Obsidian plugin installer chezmoi runs
+    state: present
+
+# paru shells out to `sudo pacman` as the invoking user. Under Ansible there is
+# no TTY to answer a password prompt, so the user needs the grant outright.
+- name: Bootstrap | Allow the user to run `sudo pacman` without a password
+  tags: software,core,bootstrap
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/11-install-packages
+    line: "{{ username }} ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    create: yes
+    mode: "0644"
+    validate: "visudo -cf %s"
+
+# paru itself ships with CachyOS; on plain Arch it has to be built by hand once.
+- name: Bootstrap | Install metapac
+  tags: software,core,bootstrap
+  become: no
+  kewlfft.aur.aur:
+    use: paru
+    name:
+      - metapac

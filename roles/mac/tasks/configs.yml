@@ -1,7 +1,8 @@
 # Deploy the user configs via chezmoi, from the repo's home/ source directory
 # (fish + starship, zed, obsidian, opencode). This mirrors the Arch roles'
-# 19-chezmoi task: Ansible only installs chezmoi, points it at home/, and
-# applies.
+# bootstrap + 05-chezmoi tasks: Ansible only installs chezmoi, points it at
+# home/, and applies. Packages are not managed here yet — the group files carry
+# no `brew` sections, so metapac has nothing to do on macOS.
 
 - name: Install chezmoi via Homebrew
   community.general.homebrew:

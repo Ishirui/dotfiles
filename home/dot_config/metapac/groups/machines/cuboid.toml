@@ -1,0 +1,11 @@
+# Packages only the desktop wants.
+# Ansible still loads the it87 module, writes /etc/coolercontrol and enables
+# coolercontrold, since all three need root.
+
+arch = { packages = [
+    "coolercontrol",
+    "liquidctl",
+    # Out-of-tree module for the IT87xx monitoring chip this motherboard uses.
+    # coolercontrol cannot see the fans without it.
+    "it87-dkms-git",
+] }

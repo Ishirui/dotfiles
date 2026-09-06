@@ -8,19 +8,14 @@
   when: "'desktop' in group_names"
 
 # User configs (fish/starship/zed/obsidian/opencode/KDE) via chezmoi, then the
-# services that depend on them, then the aur_builder teardown — all after the
-# package phases above.
+# services that depend on them — both after the package phase above.
 - include_role:
     name: base
-    tasks_from: 19-chezmoi.yml
+    tasks_from: 05-chezmoi.yml
 
 - include_role:
     name: base
-    tasks_from: 20-vicinae.yml
-
-- include_role:
-    name: base
-    tasks_from: 99-aur-builder.yml
+    tasks_from: 06-vicinae.yml
 
 - block:
     - name: KDE | Display | Configure displays

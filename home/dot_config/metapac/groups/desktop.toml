@@ -1,0 +1,16 @@
+# Launcher, drop-down terminal and the GUI file, disk and partition utilities.
+# Konsole and Dolphin arrive with the CachyOS KDE baseline and are not declared.
+#
+# Vicinae's config and its store extensions come from chezmoi (the extensions
+# as externals); Ansible enables the user service.
+
+arch = { packages = [
+    "yakuake",          # Drop-down terminal, F12
+    "vicinae-bin",      # Launcher, Alt+Space
+    "filelight",        # Disk usage
+    "partitionmanager",
+    "krename",          # Batch rename
+    "krokiet-bin",      # Bulk file cleanup
+    "bitwarden",        # Password manager
+    "flatpak",
+] }

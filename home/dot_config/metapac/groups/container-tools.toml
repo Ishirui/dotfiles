@@ -1,0 +1,6 @@
+# Container management clients. lazydocker talks to the Docker API, so it works
+# against a remote DOCKER_HOST with no local engine installed.
+
+arch = { packages = [
+    "lazydocker",
+] }

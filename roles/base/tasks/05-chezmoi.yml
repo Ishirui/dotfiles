@@ -1,0 +1,15 @@
+# chezmoi: fast, incremental deployment of the user configs in home/ (fish +
+# starship, zed, obsidian, opencode, the KDE configs) without re-running the
+# full playbook.
+#
+# chezmoi is installed and pointed at home/ during bootstrap, because it has to
+# deploy metapac's group files before anything can be installed (01-packages.yml).
+# This runs the full apply, at the end of the run, so that every config lands
+# after the application it configures. Day-to-day changes are then just
+# `chezmoi apply` (or `chezmoi apply <file>`).
+
+- name: Chezmoi | Apply user configs (fish, starship, zed, obsidian, opencode)
+  tags: chezmoi
+  ansible.builtin.command: chezmoi apply --force --verbose
+  register: chezmoi_apply
+  changed_when: (chezmoi_apply.stdout | length) > 0

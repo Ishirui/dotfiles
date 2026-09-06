@@ -1,0 +1,12 @@
+# Language runtimes and toolchains.
+
+arch = { packages = [
+    "python",
+    "nodejs",
+    "go",
+    "rustup",
+    "jdk-openjdk",
+    "deno",
+    "yarn",
+    "uv",
+] }

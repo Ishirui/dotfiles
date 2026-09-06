@@ -1,0 +1,6 @@
+# System monitors and info tools.
+
+arch = { packages = [
+    "btop",         # Modern htop
+    "fastfetch",    # For style
+] }

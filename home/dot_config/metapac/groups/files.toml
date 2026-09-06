@@ -1,0 +1,13 @@
+# Listing, viewing, searching and unpacking files from the terminal.
+
+arch = { packages = [
+    "eza",          # Modern ls
+    "bat",          # Modern cat
+    "moor",         # Modern less
+    "fd",           # Modern find
+    "ripgrep",
+    "tree",
+    "superfile",    # TUI file manager (spf)
+    "ouch",         # Compression, behind the pack/unpack abbreviations
+    "unzip",
+] }

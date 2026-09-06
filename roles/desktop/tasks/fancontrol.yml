@@ -1,12 +1,6 @@
-- name: System | Fans | Software | Install coolercontrol and drivers
-  become: yes
-  become_user: aur_builder
-  tags: software,coolercontrol,liquidctl
-  kewlfft.aur.aur:
-    name:
-      - coolercontrol
-      - liquidctl
-      - it87-dkms-git # Out-of-tree kernel module for IT87xx series hardware monitoring chips, which are used in some mobos for fan control. This is needed for coolercontrol to work on my mobo.
+# coolercontrol, liquidctl and the it87 module: declared in
+# home/dot_config/metapac/groups/machines/cuboid.toml, since they are specific
+# to this motherboard.
 
 - name: System | Fans | Load it87 kernel module
   tags: software,coolercontrol,liquidctl

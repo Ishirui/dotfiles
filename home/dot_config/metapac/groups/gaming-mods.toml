@@ -1,0 +1,15 @@
+# Mod managers, save tooling and gaming peripherals.
+
+arch = { packages = [
+    "r2modman-bin",     # Thunderstore
+    "modrinth-app-bin", # Minecraft
+    # FIXME: `vortex` is ambiguous — the Ansible task needed paru --noprovides
+    # to install it unattended, and metapac's arch backend has no per-package
+    # flags. Resolve the concrete provider with `pacman -Ss vortex` on the Arch
+    # box and declare that name instead, or paru will prompt and hang.
+    "vortex",           # Nexus
+    "ckan-bin",         # Kerbal Space Program
+    "pdx-unlimiter",    # Paradox savegame editor
+    "ludusavi-bin",     # Game save backup
+    "gx52",             # Saitek X52 HOTAS configuration
+] }

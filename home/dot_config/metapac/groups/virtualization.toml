@@ -1,0 +1,6 @@
+# Full-VM management. Unrelated to containers.toml despite having shared a task
+# file historically.
+
+arch = { packages = [
+    "virt-manager",
+] }

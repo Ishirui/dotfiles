@@ -1,0 +1,23 @@
+# Plasma widgets, decorations, colour schemes and fonts.
+# Every KDE config file is deployed or merged by chezmoi from home/, several of
+# them through chezmoi_modify_manager — which is why it is declared here rather
+# than with the other dotfile tooling in dev-tools.toml.
+#
+# The YAMIS icon set and the Lavender Plasma theme are fetched from upstream as
+# chezmoi externals, not as packages.
+
+arch = { packages = [
+    "plasmazones-bin",                          # Tiling
+    "klassy-bin",                               # Window decorations
+    "kwin-effects-glass-git",
+    "plasma6-applets-thermal-monitor",
+    "plasma6-wallpapers-blurredwallpaper-git",
+    "wallpaper-engine-kde-plugin-git",
+    "plasma6-applets-eventcalendar",
+    "plasma6-applets-arch-update-notifier",
+    "plasma6-applets-panel-colorizer",
+    "catppuccin-plasma-colorscheme-macchiato",
+    "catppuccin-plasma-colorscheme-mocha",
+    "otf-monaspace-nerd",                       # Terminal/UI font
+    "chezmoi_modify_manager",
+] }

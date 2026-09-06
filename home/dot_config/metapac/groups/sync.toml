@@ -1,0 +1,12 @@
+# Continuous sync, local transfers and torrents.
+# Syncthing's folders, devices and options are still applied by Ansible from
+# system/syncthing_config.yaml.
+
+arch = { packages = [
+    "syncthing",
+    "syncthingtray-qt6",
+    "syncthingctl-bin",             # CLI controller
+    "syncthing-resolve-conflicts",
+    "localsend-bin",                # Local network file transfers
+    "qbittorrent",
+] }

@@ -1,0 +1,13 @@
+# Audio, video and image editing, recording, and PipeWire routing.
+
+arch = { packages = [
+    "audacity",
+    "kdenlive",
+    "ffmpeg",
+    "handbrake",
+    "kolourpaint",
+    "gimp",
+    "obs-studio",
+    "easyeffects",  # Per-app PipeWire effects
+    "helvum",       # PipeWire patch panel
+] }

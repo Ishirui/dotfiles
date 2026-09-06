@@ -1,0 +1,8 @@
+# btrfs snapshotting and management.
+# The btrbk config, its timer override and the subvolume layout are still owned
+# by Ansible, which needs root.
+
+arch = { packages = [
+    "btrbk",
+    "btrfs-assistant",
+] }

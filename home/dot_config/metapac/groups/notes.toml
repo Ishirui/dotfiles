@@ -1,0 +1,9 @@
+# Note-taking. Split from office.toml because this is a daily driver and the
+# office suite is not.
+#
+# The per-vault config, the Catppunite Encore theme and the community plugin
+# downloads are all handled by chezmoi from home/.
+
+arch = { packages = [
+    "obsidian",
+] }

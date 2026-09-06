@@ -1,0 +1,9 @@
+# Video, audio and streaming players.
+
+arch = { packages = [
+    "vlc",
+    "mpv",
+    "haruna",       # mpv front-end for Plasma
+    "feishin-bin",  # Jellyfin/Navidrome music client
+    "fladder-bin",  # Audiobookshelf client
+] }

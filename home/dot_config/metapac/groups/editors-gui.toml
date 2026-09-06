@@ -1,0 +1,8 @@
+# Graphical editors.
+# Zed's settings, keymap and theme are deployed by chezmoi from home/;
+# its extensions come from auto_install_extensions in settings.json.
+
+arch = { packages = [
+    "zed",
+    "cursor-bin",   # AI-oriented editor
+] }

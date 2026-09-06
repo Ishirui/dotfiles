@@ -52,14 +52,8 @@
         filesystem_uuid: "{{ get_uuid.stdout }}"
         state: present
 
-    - name: System | BTRFS | Backup | Install btrbk and btrfs-assistant
-      tags: system,btrfs,backup,software
-      community.general.pacman:
-        name:
-          - btrbk
-          - btrfs-assistant
-        state: present
-
+    # btrbk and btrfs-assistant: declared in
+    # home/dot_config/metapac/groups/backups.toml.
     - name: System | BTRFS | Backup | Write btrbk config
       tags: system,btrfs,backup
       copy:
