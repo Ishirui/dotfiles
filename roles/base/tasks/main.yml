@@ -1,13 +1,17 @@
 - include_vars: user.yml
 - include_vars: fs.yml
 
+# Packages first: everything below assumes the software it configures exists.
+- include_tasks: 00-bootstrap.yml
+- include_tasks: 01-packages.yml
+
 # aur_builder is created once here; the desktop role deletes it at the very end,
 # after its package phase.
 - include_tasks: 00-aur-builder.yml
 
 # system (no installs)
-- include_tasks: 01-btrfs.yml
-- include_tasks: 02-fs.yml
+- include_tasks: 02-btrfs.yml
+- include_tasks: 03-fs.yml
 
 # early common deps
 - include_tasks: 03-core-utils.yml
