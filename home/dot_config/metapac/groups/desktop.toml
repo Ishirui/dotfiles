@@ -9,6 +9,7 @@ arch = { packages = [
     "vicinae-bin",      # Launcher, Alt+Space
     "filelight",        # Disk usage
     "partitionmanager",
+    "isoimagewriter",
     "krename",          # Batch rename
     "krokiet-bin",      # Bulk file cleanup
     "bitwarden",        # Password manager
