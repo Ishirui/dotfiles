@@ -10,6 +10,10 @@ abbr -a help "tldr" # Overwrites default fish help but eh
 abbr -a zed "zeditor"
 abbr -a pack 'ouch compress'
 abbr -a unpack 'ouch decompress'
+abbr -a oc "opencode"
+abbr -a oca "opencode --auto"
+abbr -a occ "opencode --continue"
+abbr -a ocac "opencode --auto --continue"
 
 # Shortcuts
 abbr -a c "clear"
