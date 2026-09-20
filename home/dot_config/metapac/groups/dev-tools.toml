@@ -15,4 +15,8 @@ arch = { packages = [
     "opencode-bin", # Terminal AI coding agent
     "chezmoi",
     "metapac",
+    "terraform",
+    "ansible",
+    "sops",
+    "age",
 ] }
