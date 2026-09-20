@@ -9,4 +9,5 @@ arch = { packages = [
     "tealdeer",     # Rust tldr implementation, the `help` abbreviation
     "navi",         # Cheat sheets, Ctrl+G widget
     "tmux",
+    "direnv",
 ] }
