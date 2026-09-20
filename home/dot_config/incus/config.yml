@@ -1,0 +1,26 @@
+default-remote: matrix
+remotes:
+  images:
+    protocol: simplestreams
+    public: true
+    addr: https://images.linuxcontainers.org
+  local:
+    protocol: incus
+    public: false
+    addr: unix://
+  matrix:
+    auth_type: oidc
+    protocol: incus
+    public: false
+    addr: https://192.168.1.2:8443
+  matrix-tls:
+    auth_type: tls
+    protocol: incus
+    public: false
+    addr: https://192.168.1.2:8443
+aliases: {}
+defaults:
+  list_format: ""
+  console_type: ""
+  console_spice_command: ""
+  no_color: false
