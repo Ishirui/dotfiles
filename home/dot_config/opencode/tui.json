@@ -1,7 +1,0 @@
-{
-    "plugin": ["~/dd/opencode-datadog/"],
-    "theme": "catppuccin-macchiato",
-    "keybinds": {
-      "command_list": "ctrl+o"
-    }
-}
