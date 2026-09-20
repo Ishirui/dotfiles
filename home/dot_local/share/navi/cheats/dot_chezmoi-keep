@@ -1,0 +1,1 @@
+# Ensures the parent directory exists before chezmoi applies the navi external.
