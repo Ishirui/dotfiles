@@ -32,3 +32,4 @@
     use: paru
     name:
       - metapac
+      - chezmoi_modify_manager
