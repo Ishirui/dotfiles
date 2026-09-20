@@ -9,7 +9,7 @@
 set -euo pipefail
 
 OBSIDIAN_DIR="$HOME/Documents/Notes/.obsidian"
-INSTALLER="{{ .chezmoi.sourceDir }}/../../scripts/install-obsidian-plugins.sh"
+INSTALLER="{{ .chezmoi.sourceDir }}/../scripts/install-obsidian-plugins.sh"
 
 if [ ! -f "$INSTALLER" ]; then
   echo "installer not found: $INSTALLER" >&2
