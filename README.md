@@ -74,7 +74,7 @@ Ansible writes a chezmoi config pointing at this repo's `home/` directory, so al
 
 fix: obsidian theme not applying properly inside blockquotes while in preview edits mode. Works fine in Reading mode
 fix: obsidian theme not applying heading color when bold or italic text inside heading (the italics take priority, which is not what I want)
-
+feat: more transparency and less flatness for KDE, Zed, opencode, terminal themes
 
 
 - OpenRGB configuration (desktop)
