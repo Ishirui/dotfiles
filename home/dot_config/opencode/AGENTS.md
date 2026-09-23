@@ -117,12 +117,16 @@ Focus first on general patterns, interfaces, structure and architecture of the f
 
 # Preferred code and implementation styles
 
-## Docstrings and comments
+## Docs, docstrings and comments
 
-**A docstring says what the thing does and how to call it — never why it was
-designed that way.** Rationale, rejected alternatives, and how the code came to
-look like this belong in the commit message; the reader has the commit log.
+**A docstring says what the thing does and how to call it — never why it was designed that way.**
+Rationale, rejected alternatives, and how the code came to look like this belong in the commit message; the reader has the commit log.
 
-**Never reference the plan, phase/commit numbers, our conversation, or code that
-doesn't exist yet.** If a docstring would need editing when an unrelated commit
-lands, it's describing the wrong thing.
+**Never reference the plan, phase/commit numbers, our conversation, or code that doesn't exist yet.**
+If a docstring would need editing when an unrelated commit lands, it's describing the wrong thing.
+
+**Conciseness first.**
+A comment should never be more than one or two lines. Don't pepper your code with useless comments. If something truly complex needs to be described, either ask before writing a big comment or put it in a proper doc file.
+
+**Don't word-wrap documentation.**
+Don't artificially introduce newlines at the 80 or 100-char mark in Markdown files. MD editors and renderers handle word-wrap by themselves based on screen size.
