@@ -27,15 +27,6 @@
   "plugins": [
     "~/dd/opencode-datadog/",
     "@plannotator/opencode",
-    "@datadog/opencode-plugin",
-    "@gotgenes/opencode-agent-identity",
-    {
-      "package": "@knikolov/opencode-plugin-simple-memory",
-      "options": {
-        "autoLoad": false,
-        "autoSave": false,
-      },
-    },
     "opencode-handoff",
     "superpowers@git+https://github.com/obra/superpowers.git",
     // Take some stuff from https://github.com/smartfrog/opencode-froggy/ but without using it wholesale
