@@ -85,7 +85,7 @@
     },
     "Tiling": {
         "Algorithm": {
-            "Default": "wide",
+            "Default": "dwindle-memory",
             "PerAlgorithmSettings": {
                 "bsp": {
                     "masterCount": 1,
@@ -127,26 +127,18 @@
                     "maxWindows": 4,
                     "splitRatio": 0.6000000000000001
                 }
-            }
+            },
+            "SplitRatioStep": 0.06
         },
         "Behavior": {
             "DragBehavior": 1,
             "InsertPosition": 1,
             "KeepFloatingAbove": true,
-            "Triggers": [
-                {
-                    "modifier": 8,
-                    "mouseButton": 0
-                },
-                {
-                    "modifier": 3,
-                    "mouseButton": 0
-                }
-            ]
+            "RestoreFloatedOnLogin": false
         }
     },
     "Windows": {
         "TintStrength": 0.83
     },
-    "_version": 6
+    "_version": 7
 }

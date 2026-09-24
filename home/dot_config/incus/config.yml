@@ -9,11 +9,14 @@ remotes:
     public: false
     addr: unix://
   matrix:
+    last_working_address: https://192.168.1.2:8443
     auth_type: oidc
+    project: k3s
     protocol: incus
     public: false
     addr: https://192.168.1.2:8443
   matrix-tls:
+    last_working_address: https://192.168.1.2:8443
     auth_type: tls
     protocol: incus
     public: false
