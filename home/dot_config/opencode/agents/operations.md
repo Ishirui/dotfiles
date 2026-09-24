@@ -119,6 +119,8 @@ Done: ... / In progress: ... / Next: ... / Risks: ...
 - Record the target context of every command touching a live system.
 - Save long outputs next to the journal and link them.
 - Redact secrets.
+- Only add a journal entry for mutating operations or new important discoveries / decisions. You don´t necessarily have to write a journal entry after each turn.
+- If many similar operations / discoveries have to be made one after the other, consolidate all of them into a single entry rather than many individual ones.
 </journal>
 
 <rules>
