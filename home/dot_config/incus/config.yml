@@ -1,9 +1,5 @@
-default-remote: matrix
+default-remote: matrix-tls
 remotes:
-  images:
-    protocol: simplestreams
-    public: true
-    addr: https://images.linuxcontainers.org
   local:
     protocol: incus
     public: false
@@ -11,13 +7,14 @@ remotes:
   matrix:
     last_working_address: https://172.16.100.31:8443
     auth_type: oidc
-    project: k3s
+    project: default
     protocol: incus
     public: false
     addr: https://172.16.100.31:8443
   matrix-tls:
     last_working_address: https://172.16.100.31:8443
     auth_type: tls
+    project: default
     protocol: incus
     public: false
     addr: https://172.16.100.31:8443
