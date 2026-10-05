@@ -7,13 +7,18 @@ abbr -a htop "btop"
 # Custom convenience
 abbr -a fdg "fd --glob"
 abbr -a help "tldr" # Overwrites default fish help but eh
-abbr -a zed "zeditor"
+
 abbr -a pack 'ouch compress'
 abbr -a unpack 'ouch decompress'
 abbr -a oc "opencode"
 abbr -a oca "opencode --auto"
 abbr -a occ "opencode --continue"
 abbr -a ocac "opencode --auto --continue"
+
+# Only do this alias if zeditor exists and is defined (ex: not on macOS)
+if type -q zeditor; and not type -q zed
+    abbr -a zed "zeditor"
+end
 
 # Shortcuts
 abbr -a c "clear"
