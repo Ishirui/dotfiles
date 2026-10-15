@@ -93,7 +93,7 @@
     "dock": "left",
   },
   "git_panel": {
-    "folder_icons": false,
+    "folder_indicator": "chevron",
     "file_icons": false,
     "collapse_untracked_diff": false,
     "sort_by_path": false,
@@ -167,9 +167,11 @@
     },
   },
   "agent": {
+    "threads_sidebar": {
+      "position": "right"
+    },
     "show_turn_stats": true,
     "single_file_review": true,
-    "sidebar_side": "right",
     "use_modifier_to_send": true,
     "dock": "right",
     "favorite_models": [],
