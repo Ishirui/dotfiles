@@ -56,7 +56,8 @@ ${custom.ssh_chip}\
 ${custom.ssh_trail_to_container}\
 ${custom.ssh_trail_to_dir}\
 ${custom.container_chip}\
-$directory\
+${custom.dir}\
+${custom.dir_ro}\
 ${custom.dir_to_flair}\
 ${custom.flair_intercap}\
 ${custom.flair_to_git}\
@@ -272,29 +273,67 @@ shell = ['bash', '--noprofile', '--norc']
 disabled = false
 
 # =============================================================================
-# directory chip — peach. Native `directory` module.
+# directory chip — custom.dir renders the full logical path:
+#   - prefix icons replace whole leading paths (~/go/src/github.com/DataDog)
+#   - every segment is abbreviated except the git repo root and the last one
+#     (CamelCase -> capitals, otherwise first char; leading `.` kept)
+#   - folder icons: icon + label as last segment, icon alone as a parent
+# custom.dir_ro appends a lock when the directory is not writable.
 # =============================================================================
 
-[directory]
-style = 'bg:c_dir fg:crust'
-format = "[ $path]($style)[$read_only](fg:c_alert bg:c_dir)[ ]($style)"
-truncation_length = 3
-truncation_symbol = '…/'
-fish_style_pwd_dir_length = 1
-read_only = " \U000F033E"
-read_only_style = 'bg:c_dir fg:c_alert'
-home_symbol = ' ~'
+[custom.dir]
+when = 'true'
+command = """
+p=$PWD
+root=$(git rev-parse --show-toplevel 2>/dev/null)
+[ "$root" = "$HOME" ] && root=
+case "$p/" in
+  "$HOME/go/src/github.com/DataDog/"*) lead='\U000F0A43'; rest=${p#"$HOME/go/src/github.com/DataDog"} ;;
+  "$HOME/"*)                           lead='~';           rest=${p#"$HOME"} ;;
+  *)                                   lead='';            rest=$p ;;
+esac
+abs=${p%"$rest"}
+out=$lead
+IFS=/ read -ra segs <<< "${rest#/}"
+n=${#segs[@]}
+for ((i = 0; i < n; i++)); do
+  s=${segs[i]}
+  abs=$abs/$s
+  icon=''
+  case $s in
+    Documents) icon='\U000F0219'; label=docs ;;
+    Downloads) icon='\U000F01DA'; label=dl ;;
+    Music)     icon='\U000F075A'; label=music ;;
+    Pictures)  icon='\U000F021F'; label=pics ;;
+    Developer) icon='\U000F0CB2'; label=dev ;;
+    Projects)  icon='\U000F0CB2'; label=projects ;;
+    dotfiles)  icon='\U000F0493'; label=dotfiles ;;
+    Desktop)   icon='\U000F01C4'; label=desktop ;;
+  esac
+  if [ $i -eq $((n - 1)) ] || [ "$abs" = "$root" ]; then
+    [ -n "$icon" ] && s="$icon $label"
+  elif [ -n "$icon" ]; then
+    s=$icon
+  else
+    dot=''
+    [ "${s:0:1}" = . ] && { dot=.; s=${s:1}; }
+    caps=${s//[^[:upper:]]/}
+    if [ ${#caps} -ge 2 ] && [[ $s == *[[:lower:]]* ]]; then s=$dot$caps; else s=$dot${s:0:1}; fi
+  fi
+  out=$out/$s
+done
+printf '%s' "${out:-/}"
+"""
+format = "[ $output](bg:c_dir fg:crust)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
 
-[directory.substitutions]
-# Placeholder substitutions — user will refine.
-"Documents" = "\U000F0219 docs"
-"Downloads" = "\U000F01DA dl"
-"Music"     = "\U000F075A music"
-"Pictures"  = "\U000F021F pics"
-"Developer" = "\U000F0CB2 dev"
-"Projects"  = "\U000F0CB2 projects"
-"dotfiles"  = "\U000F0493 dotfiles"
-"Desktop"   = "\U000F01C4 desktop"
+[custom.dir_ro]
+when = '! test -w .'
+command = "printf ''"
+format = "[ \U000F033E](bg:c_dir fg:c_alert)"
+shell = ['bash', '--noprofile', '--norc']
+disabled = false
 
 # =============================================================================
 # dir → flair → git transitions
@@ -308,7 +347,7 @@ home_symbol = ' ~'
 [custom.dir_to_flair]
 when = 'true'
 command = "printf ''"
-format = "[](fg:c_dir bg:c_f1)"
+format = "[ ](bg:c_dir)[](fg:c_dir bg:c_f1)"
 shell = ['bash', '--noprofile', '--norc']
 disabled = false
 
@@ -353,7 +392,15 @@ br=$(git branch --show-current 2>/dev/null)
 if [ -z "$br" ]; then
   br=$(git rev-parse --short HEAD 2>/dev/null)
 fi
-printf ' %s' "${br#*/}"
+wt=''
+{ read -r gd; read -r cd; read -r top; } < <(git rev-parse --path-format=absolute --git-dir --git-common-dir --show-toplevel 2>/dev/null)
+if [ "$gd" != "$cd" ]; then
+  name=${top##*/}
+  main=${cd%/.git}
+  [ "$name" = "${main##*/}" ] && { name=${top%/*}; name=${name##*/}; }
+  wt="$name:"
+fi
+printf '  %s%s' "$wt" "${br#*/}"
 """
 format = '[ $output](bg:c_git fg:crust)'
 shell = ['bash', '--noprofile', '--norc']
@@ -621,6 +668,9 @@ vimcmd_visual_symbol      = '[❮](yellow)'
 # =============================================================================
 # explicitly disabled — replaced by custom modules or unused.
 # =============================================================================
+
+[directory]
+disabled = true
 
 [git_branch]
 disabled = true
